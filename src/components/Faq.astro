@@ -1,0 +1,28 @@
+---
+import { faq } from '../data/faq.js';
+import { site } from '../data/site.js';
+---
+<section class="faq" id="sss">
+  <div class="wrap faq-grid">
+    <div class="faq-side">
+      <p class="mono">SSS</p>
+      <h2>Sık sorulanlar</h2>
+      <p class="faq-lede">Aradığın cevap burada yoksa Instagram'dan <b>@{site.instagram}</b> hesabına yaz, kısa sürede dönelim.</p>
+    </div>
+    <div class="faq-list">
+      {faq.map((item, i) => (
+        <div class="faq-item">
+          <h3>
+            <button type="button" class="faq-q" id={`faq-q-${i}`} aria-expanded="false" aria-controls={`faq-a-${i}`}>
+              <span>{item.q}</span>
+              <i aria-hidden="true"></i>
+            </button>
+          </h3>
+          <div class="faq-a" id={`faq-a-${i}`} role="region" aria-labelledby={`faq-q-${i}`}>
+            <div><p>{item.a}</p></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

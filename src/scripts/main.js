@@ -14,7 +14,7 @@ setTimeout(hideLoader, 4500); // güvenlik: ne olursa olsun kapanır
 let lenis = null;
 
 /* ---------- yer tutucu çizimler ---------- */
-const eager = $$('.float canvas, .panel canvas, #pcCanvas');
+const eager = $$('.float canvas, .panel canvas, .about-photo canvas, #pcCanvas');
 const drawn = new Set();
 const paint = (c) => { drawArt(c); drawn.add(c); };
 eager.forEach(paint);
@@ -144,6 +144,39 @@ $$('.pc-list li').forEach((li, i) => li.addEventListener('pointerenter', () => {
   if (!reduce) gsap.fromTo(pc, { scale: 0.94, rotate: -8 }, { scale: 1, rotate: 0, duration: 0.7, ease: 'expo.out' });
 }));
 
+/* ---------- mobil menü ---------- */
+const root = document.documentElement;
+const burger = $('.burger'), menu = $('#menu');
+const menuLinks = $$('.menu-links a');
+function openMenu() {
+  menu.hidden = false; root.classList.add('menu-open');
+  burger.setAttribute('aria-expanded', 'true'); burger.setAttribute('aria-label', 'Menüyü kapat');
+  lenis?.stop(); document.body.style.overflow = 'hidden';
+  if (!reduce) {
+    gsap.fromTo(menu, { clipPath: 'circle(0% at calc(100% - 40px) 40px)' }, { clipPath: 'circle(150% at calc(100% - 40px) 40px)', duration: 0.7, ease: 'power3.inOut' });
+    gsap.fromTo(menuLinks, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.05, delay: 0.25, ease: 'power3.out' });
+  }
+}
+function closeMenu() {
+  if (menu.hidden) return;
+  root.classList.remove('menu-open'); menu.hidden = true;
+  burger.setAttribute('aria-expanded', 'false'); burger.setAttribute('aria-label', 'Menüyü aç');
+  lenis?.start(); document.body.style.overflow = '';
+}
+burger.addEventListener('click', () => (menu.hidden ? openMenu() : closeMenu()));
+menuLinks.forEach((a) => a.addEventListener('click', closeMenu));
+addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+matchMedia('(min-width:901px)').addEventListener('change', (e) => { if (e.matches) closeMenu(); });
+
+/* ---------- SSS ---------- */
+let faqT;
+$$('.faq-q').forEach((q) => q.addEventListener('click', () => {
+  const item = q.closest('.faq-item'); const open = !item.classList.contains('open');
+  $$('.faq-item.open').forEach((x) => { x.classList.remove('open'); $('.faq-q', x).setAttribute('aria-expanded', 'false'); });
+  if (open) { item.classList.add('open'); q.setAttribute('aria-expanded', 'true'); }
+  clearTimeout(faqT); faqT = setTimeout(() => ScrollTrigger.refresh(), 500);
+}));
+
 /* ---------- manifesto ---------- */
 const words = $$('#manifesto .w');
 
@@ -156,6 +189,7 @@ if (reduce) {
 
 function initMotion() {
   gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.config({ ignoreMobileResize: true });
 
   /* yumuşak kaydırma */
   lenis = new Lenis({ lerp: 0.09, smoothWheel: true });
@@ -206,6 +240,11 @@ function initMotion() {
   gsap.to(track, { x: () => -dist(), ease: 'none', scrollTrigger: { trigger: '.styles', start: 'top top', end: () => '+=' + dist(), scrub: true, pin: true, invalidateOnRefresh: true, anticipatePin: 1 } });
   gsap.to('.progress i', { scaleX: 1, ease: 'none', scrollTrigger: { trigger: '.styles', start: 'top top', end: () => '+=' + dist(), scrub: true } });
   $$('.panel .art canvas').forEach((c) => gsap.fromTo(c, { rotate: -25 }, { rotate: 25, ease: 'none', scrollTrigger: { trigger: '.styles', start: 'top top', end: () => '+=' + dist(), scrub: true } }));
+
+  /* hakkımda */
+  gsap.fromTo('.about-photo', { y: 50 }, { y: -50, ease: 'none', scrollTrigger: { trigger: '.about', start: 'top bottom', end: 'bottom top', scrub: true } });
+  gsap.fromTo('.about-ring', { rotate: -30 }, { rotate: 40, ease: 'none', scrollTrigger: { trigger: '.about', start: 'top bottom', end: 'bottom top', scrub: true } });
+  gsap.from('.about-text > *', { y: 30, opacity: 0, stagger: 0.07, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: '.about-text', start: 'top 80%' } });
 
   /* portfolyo ve piercing */
   $$('.pf-row').forEach((r) => gsap.from($$('.pf-item', r), { y: 60, opacity: 0.2, stagger: 0.06, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: r, start: 'top 85%' } }));

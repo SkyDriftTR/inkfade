@@ -1,0 +1,32 @@
+---
+import { about } from '../data/about.js';
+const [first, ...rest] = about.name.split(' ');
+const last = rest.pop();
+const middle = rest.join(' ');
+---
+<section class="about" id="hakkimda">
+  <div class="wrap about-grid">
+    <div class="about-media">
+      <svg class="about-ring" viewBox="0 0 200 200" aria-hidden="true">
+        <circle cx="100" cy="100" r="94" stroke-width="1.4"></circle>
+        <circle cx="101" cy="99" r="88" stroke-width=".7" stroke-dasharray="320 230"></circle>
+        <circle cx="99" cy="101" r="82" stroke-width="2.2" stroke-dasharray="260 280"></circle>
+      </svg>
+      <figure class="about-photo">
+        {about.photo
+          ? <img src={about.photo.src} alt={about.name} loading="lazy" />
+          : <><canvas data-mode="smoke" data-seed="1984"></canvas><figcaption>Fotoğraf eklenecek</figcaption></>}
+      </figure>
+    </div>
+    <div class="about-text">
+      <p class="mono">Hakkımda</p>
+      <h2 class="about-name">{first} {middle}<span>{last}</span></h2>
+      <p class="about-role">{about.role}</p>
+      <p class="about-intro">{about.intro}</p>
+      {about.paragraphs.map((p) => <p class="about-p">{p}</p>)}
+      <dl class="about-facts">
+        {about.facts.map((f) => <div><dt>{f.label}</dt><dd>{f.value}</dd></div>)}
+      </dl>
+    </div>
+  </div>
+</section>

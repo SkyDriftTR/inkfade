@@ -1,17 +1,39 @@
 ---
+import { site } from '../data/site.js';
+// Masaüstü menüsünde kısa liste, mobil tam ekran menüde hepsi.
 const links = [
-  ['#isler', 'İşler'],
-  ['#portfolyo', 'Portfolyo'],
-  ['#piercing', 'Piercing'],
-  ['#surec', 'Süreç'],
-  ['#randevu', 'Randevu'],
+  { href: '#hakkimda', label: 'Hakkımda', desk: true },
+  { href: '#isler', label: 'İşler', desk: false },
+  { href: '#portfolyo', label: 'Portfolyo', desk: true },
+  { href: '#piercing', label: 'Piercing', desk: true },
+  { href: '#surec', label: 'Süreç', desk: false },
+  { href: '#sss', label: 'SSS', desk: true },
+  { href: '#randevu', label: 'Randevu', desk: true },
 ];
 ---
 <nav class="nav">
   <div class="wrap">
     <a class="brand" href="#top">INK FADE</a>
     <ul>
-      {links.map(([href, label]) => <li><a href={href}>{label}</a></li>)}
+      {links.filter((l) => l.desk).map((l) => <li><a href={l.href}>{l.label}</a></li>)}
     </ul>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Menüyü aç">
+      <span></span><span></span>
+    </button>
   </div>
 </nav>
+
+<div class="menu" id="menu" hidden>
+  <svg class="menu-ring" viewBox="0 0 200 200" aria-hidden="true">
+    <circle cx="100" cy="100" r="92" stroke-width="1.6"></circle>
+    <circle cx="101" cy="99" r="86" stroke-width=".8"></circle>
+    <circle cx="99" cy="101" r="80" stroke-width="2.4"></circle>
+  </svg>
+  <ol class="menu-links">
+    {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+  </ol>
+  <div class="menu-foot">
+    <span>Instagram <b>@{site.instagram}</b></span>
+    <span>{site.phone}</span>
+  </div>
+</div>
