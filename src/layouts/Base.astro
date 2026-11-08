@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import FontPicker from '../components/FontPicker.astro';
 const { title = 'Ink Fade', description = 'Ink Fade dövme ve piercing stüdyosu. Özel tasarım dövme, cover-up ve piercing.' } = Astro.props;
 ---
 <!doctype html>
@@ -14,14 +15,18 @@ const { title = 'Ink Fade', description = 'Ink Fade dövme ve piercing stüdyosu
     <meta property="og:description" content={description} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" />
-    <script is:inline>document.documentElement.classList.add('js')</script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Grenze:ital,wght@0,400;0,500;0,600;1,400&family=Grenze+Gotisch:wght@400..800&family=Pirata+One&family=UnifrakturCook:wght@700&family=UnifrakturMaguntia&family=Instrument+Sans:wght@400;500;600&display=swap" />
+    <script is:inline>
+      document.documentElement.classList.add('js');
+      try { var f = localStorage.getItem('inkfade-font'); if (f) document.documentElement.dataset.font = f; } catch (e) {}
+    </script>
   </head>
   <body>
     <div class="grain" aria-hidden="true"></div>
     <div class="cursor" aria-hidden="true"></div>
     <slot />
     <a class="fab" href="#randevu"><i></i>Randevu</a>
+    <FontPicker />
     <script>
       import '../scripts/main.js';
     </script>
