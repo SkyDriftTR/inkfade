@@ -1,0 +1,223 @@
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Lenis from 'lenis';
+import { rng, drawArt } from './art.js';
+
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+
+const loader = $('.loader');
+const hideLoader = () => { if (loader) loader.style.display = 'none'; };
+setTimeout(hideLoader, 4500); // güvenlik: ne olursa olsun kapanır
+
+let lenis = null;
+
+/* ---------- yer tutucu çizimler ---------- */
+const eager = $$('.float canvas, .panel canvas, #pcCanvas');
+const drawn = new Set();
+const paint = (c) => { drawArt(c); drawn.add(c); };
+eager.forEach(paint);
+const lazyIO = new IntersectionObserver((es) => es.forEach((e) => {
+  if (e.isIntersecting) { paint(e.target); lazyIO.unobserve(e.target); }
+}), { rootMargin: '300px' });
+$$('canvas[data-lazy]').forEach((c) => lazyIO.observe(c));
+let rt;
+addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => drawn.forEach(drawArt), 220); });
+
+/* ---------- hero: duman + mürekkep damlaları ---------- */
+const cv = $('#smoke'), ctx = cv.getContext('2d');
+let W = 0, H = 0, mx = 0, my = 0, tmx = 0, tmy = 0, heroProgress = 0, heroVisible = true;
+function size() {
+  const D = Math.min(devicePixelRatio || 1, 1.5);
+  W = cv.clientWidth; H = cv.clientHeight; cv.width = W * D; cv.height = H * D; ctx.setTransform(D, 0, 0, D, 0, 0);
+}
+size(); addEventListener('resize', size);
+const R0 = rng(7);
+const puffs = Array.from({ length: 22 }, () => ({ x: R0(), y: R0(), r: 0.18 + R0() * 0.32, a: 0.035 + R0() * 0.06, s: (R0() - 0.5) * 0.00012, ph: R0() * 6 }));
+const drops = Array.from({ length: matchMedia('(max-width:720px)').matches ? 45 : 90 }, () => ({ x: R0(), y: R0(), z: R0(), r: 1 + R0() * R0() * 7, v: 0.00008 + R0() * 0.00025 }));
+function frame(t) {
+  if (heroVisible) {
+    mx += (tmx - mx) * 0.05; my += (tmy - my) * 0.05;
+    ctx.clearRect(0, 0, W, H);
+    ctx.globalCompositeOperation = 'lighter';
+    for (const p of puffs) {
+      const px = (p.x + Math.sin(t * 0.00007 + p.ph) * 0.05 + ((p.s * t) % 1)) * W - mx * 20;
+      const py = (p.y + Math.cos(t * 0.00006 + p.ph) * 0.04) * H - my * 14 - heroProgress * H * 0.15;
+      const r = p.r * Math.max(W, H); const g = ctx.createRadialGradient(px, py, 0, px, py, r);
+      g.addColorStop(0, `rgba(200,204,216,${p.a})`); g.addColorStop(0.6, `rgba(120,126,150,${p.a * 0.4})`); g.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(px, py, r, 0, 7); ctx.fill();
+    }
+    ctx.globalCompositeOperation = 'source-over';
+    for (const d of drops) {
+      const depth = 0.3 + d.z * 1.7;
+      const y = (((d.y - t * d.v * (reduce ? 0 : 1)) % 1) + 1) % 1;
+      const px = d.x * W - mx * 40 * depth;
+      const py = (((y * H - my * 30 * depth - heroProgress * H * 0.6 * depth) % H) + H) % H;
+      const r = d.r * depth * 0.7, blur = Math.abs(d.z - 0.55) * 1.4;
+      ctx.fillStyle = `rgba(58,99,255,${0.25 + 0.5 * (1 - blur * 0.6)})`;
+      ctx.beginPath(); ctx.arc(px, py, r, 0, 7); ctx.fill();
+      if (r > 3) { ctx.fillStyle = 'rgba(140,165,255,.35)'; ctx.beginPath(); ctx.arc(px - r * 0.3, py - r * 0.3, r * 0.3, 0, 7); ctx.fill(); }
+    }
+  }
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+addEventListener('pointermove', (e) => { tmx = e.clientX / innerWidth - 0.5; tmy = e.clientY / innerHeight - 0.5; }, { passive: true });
+new IntersectionObserver((es) => { heroVisible = es[0].isIntersecting; }).observe($('.hero'));
+
+/* ---------- imleç ---------- */
+const cur = $('.cursor');
+if (matchMedia('(pointer:fine)').matches && !reduce) {
+  document.body.classList.add('has-cursor');
+  let cx = -100, cy = -100, px = -100, py = -100;
+  addEventListener('pointermove', (e) => { px = e.clientX; py = e.clientY; }, { passive: true });
+  (function loop() {
+    cx += (px - cx) * 0.22; cy += (py - cy) * 0.22;
+    cur.style.transform = `translate(${cx}px,${cy}px)` + (cur.classList.contains('big') ? '' : ' rotate(-45deg)');
+    requestAnimationFrame(loop);
+  })();
+  $$('a,button,[data-cursor],.float').forEach((el) => {
+    el.addEventListener('pointerenter', () => cur.classList.add('big'));
+    el.addEventListener('pointerleave', () => cur.classList.remove('big'));
+  });
+}
+
+/* ---------- sabit randevu butonu ---------- */
+const fab = $('.fab'); let inBook = false;
+new IntersectionObserver((es) => { inBook = es[0].isIntersecting; }, { threshold: 0.3 }).observe($('#randevu'));
+addEventListener('scroll', () => { fab.classList.toggle('show', scrollY > innerHeight * 0.8 && !inBook); }, { passive: true });
+
+/* ---------- portfolyo şeritleri ---------- */
+$$('.pf-row').forEach((row) => {
+  const tr = $('.pf-track', row);
+  $$('.pf-ctrl button', row).forEach((b) => b.addEventListener('click', () => {
+    const w = $('.pf-item', tr).offsetWidth + 14;
+    tr.scrollBy({ left: +b.dataset.dir * w * 2, behavior: 'smooth' });
+  }));
+  let down = false, sx = 0, sl = 0, moved = false;
+  tr.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse') return; down = true; moved = false; sx = e.clientX; sl = tr.scrollLeft; });
+  addEventListener('pointermove', (e) => {
+    if (!down) return; const dx = e.clientX - sx;
+    if (Math.abs(dx) > 5) { moved = true; tr.classList.add('dragging'); }
+    tr.scrollLeft = sl - dx;
+  });
+  addEventListener('pointerup', () => { if (!down) return; down = false; setTimeout(() => tr.classList.remove('dragging'), 0); });
+  tr.addEventListener('click', (e) => { if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; } }, true);
+});
+const scrollToEl = (el, offset = 0) => { if (lenis) lenis.scrollTo(el, { offset }); else el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' }); };
+$$('.chip').forEach((b) => b.addEventListener('click', () => scrollToEl(document.getElementById(b.dataset.go), -80)));
+
+/* ---------- lightbox ---------- */
+const lb = $('#lb'), lbC = $('#lbCanvas'), lbImg = $('#lbImg');
+let lbItems = [], lbI = 0, lbName = '', lastFocus = null;
+function lbShow() {
+  const it = lbItems[lbI]; const img = $('img', it), c = $('canvas', it);
+  $('#lbTitle').textContent = `${lbName} · ${it.dataset.tag}`;
+  $('#lbCount').textContent = `${String(lbI + 1).padStart(2, '0')} / ${String(lbItems.length).padStart(2, '0')}`;
+  if (img) { lbImg.src = img.currentSrc || img.src; lbImg.alt = img.alt; lbImg.hidden = false; lbC.hidden = true; }
+  else { lbImg.hidden = true; lbC.hidden = false; lbC.dataset.mode = c.dataset.mode; lbC.dataset.seed = c.dataset.seed; requestAnimationFrame(() => drawArt(lbC)); }
+}
+function lbOpen(row, i) {
+  lbItems = $$('.pf-item', row); lbName = row.dataset.name; lbI = i; lastFocus = document.activeElement;
+  lb.hidden = false; lenis?.stop(); document.body.style.overflow = 'hidden'; lbShow(); $('#lbClose').focus();
+}
+function lbClose() { lb.hidden = true; lenis?.start(); document.body.style.overflow = ''; lastFocus?.focus(); }
+function lbStep(d) { lbI = (lbI + d + lbItems.length) % lbItems.length; lbShow(); }
+$$('.pf-item').forEach((b) => b.addEventListener('click', () => lbOpen(b.closest('.pf-row'), +b.dataset.i)));
+$('#lbClose').addEventListener('click', lbClose);
+$('#lbPrev').addEventListener('click', () => lbStep(-1));
+$('#lbNext').addEventListener('click', () => lbStep(1));
+lb.addEventListener('click', (e) => { if (e.target === lb || e.target.classList.contains('lb-stage')) lbClose(); });
+addEventListener('keydown', (e) => {
+  if (lb.hidden) return;
+  if (e.key === 'Escape') lbClose();
+  if (e.key === 'ArrowRight') lbStep(1);
+  if (e.key === 'ArrowLeft') lbStep(-1);
+});
+
+/* ---------- piercing takı önizlemesi ---------- */
+const pc = $('#pcCanvas'), pcLabel = $('#pcLabel');
+$$('.pc-list li').forEach((li, i) => li.addEventListener('pointerenter', () => {
+  $$('.pc-list li.on').forEach((x) => x.classList.remove('on')); li.classList.add('on');
+  pc.dataset.mode = li.dataset.jewel; pc.dataset.seed = 900 + i * 13; drawArt(pc); pcLabel.textContent = li.dataset.label;
+  if (!reduce) gsap.fromTo(pc, { scale: 0.94, rotate: -8 }, { scale: 1, rotate: 0, duration: 0.7, ease: 'expo.out' });
+}));
+
+/* ---------- manifesto ---------- */
+const words = $$('#manifesto .w');
+
+if (reduce) {
+  hideLoader(); words.forEach((w) => w.classList.add('on'));
+  document.documentElement.classList.add('no-pin');
+} else {
+  initMotion();
+}
+
+function initMotion() {
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* yumuşak kaydırma */
+  lenis = new Lenis({ lerp: 0.09, smoothWheel: true });
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add((t) => lenis.raf(t * 1000)); gsap.ticker.lagSmoothing(0);
+  $$('a[href^="#"]').forEach((a) => a.addEventListener('click', (e) => {
+    const id = a.getAttribute('href'); const el = id.length > 1 && document.querySelector(id);
+    if (el) { e.preventDefault(); lenis.scrollTo(el, { offset: 0 }); }
+  }));
+
+  /* açılış */
+  const paths = $$('circle,path', loader);
+  paths.forEach((p) => { const L = p.getTotalLength(); p.style.strokeDasharray = L; p.style.strokeDashoffset = L; });
+  const count = $('.loader-count', loader); const cobj = { v: 0 };
+  gsap.set(loader, { clipPath: 'circle(75% at 50% 50%)' });
+  gsap.timeline({ onComplete: hideLoader })
+    .to(paths, { strokeDashoffset: 0, duration: 1.2, ease: 'power2.inOut', stagger: 0.1 }, 0)
+    .to(cobj, { v: 100, duration: 1.5, ease: 'power1.inOut', onUpdate: () => { count.textContent = String(Math.round(cobj.v)).padStart(3, '0'); } }, 0)
+    .to('.loader-word', { opacity: 1, letterSpacing: '.32em', duration: 0.6, ease: 'power2.out' }, 0.9)
+    .to(loader, { clipPath: 'circle(0% at 50% 50%)', duration: 0.9, ease: 'power3.inOut' }, 1.7)
+    .from('.logo img', { scale: 0.6, filter: 'blur(18px)', opacity: 0, duration: 1.4, ease: 'expo.out' }, 1.9)
+    .from('.hero-copy', { y: 24, opacity: 0, duration: 0.9, ease: 'power3.out' }, 2.2);
+
+  /* hero: logo kaydırınca solar */
+  gsap.timeline({ scrollTrigger: { trigger: '.hero', start: 'top top', end: '+=100%', scrub: true, pin: true, onUpdate: (s) => { heroProgress = s.progress; } } })
+    .to('.logo', { scale: 1.9, opacity: 0, filter: 'blur(14px)', ease: 'none' }, 0)
+    .to('.hero-tag', { y: -80, opacity: 0, ease: 'none' }, 0)
+    .to('.hero-copy p', { y: -120, opacity: 0, ease: 'none' }, 0)
+    .to('.scroll-hint', { opacity: 0, ease: 'none', duration: 0.2 }, 0);
+
+  /* manifesto kelime kelime */
+  ScrollTrigger.create({
+    trigger: '#manifesto', start: 'top 80%', end: 'bottom 45%', scrub: true,
+    onUpdate: (s) => { const n = Math.round(s.progress * words.length); words.forEach((w, i) => w.classList.toggle('on', i < n)); },
+  });
+
+  /* uçan kartlar */
+  $$('.float').forEach((f, i) => {
+    const sp = +f.dataset.speed || 1;
+    gsap.fromTo(f, { y: innerHeight * 0.5 * sp, rotate: (i % 2 ? -1 : 1) * (3 + sp * 2) },
+      { y: -innerHeight * 0.9 * sp, rotate: (i % 2 ? 1 : -1) * 2, ease: 'none', scrollTrigger: { trigger: '.work', start: 'top bottom', end: 'bottom top', scrub: true } });
+  });
+  gsap.fromTo('.work-title h2', { scale: 0.86 }, { scale: 1.08, ease: 'none', scrollTrigger: { trigger: '.work', start: 'top bottom', end: 'bottom top', scrub: true } });
+
+  /* yatay stiller */
+  const track = $('.track');
+  const dist = () => Math.max(0, track.scrollWidth - innerWidth);
+  gsap.to(track, { x: () => -dist(), ease: 'none', scrollTrigger: { trigger: '.styles', start: 'top top', end: () => '+=' + dist(), scrub: true, pin: true, invalidateOnRefresh: true, anticipatePin: 1 } });
+  gsap.to('.progress i', { scaleX: 1, ease: 'none', scrollTrigger: { trigger: '.styles', start: 'top top', end: () => '+=' + dist(), scrub: true } });
+  $$('.panel .art canvas').forEach((c) => gsap.fromTo(c, { rotate: -25 }, { rotate: 25, ease: 'none', scrollTrigger: { trigger: '.styles', start: 'top top', end: () => '+=' + dist(), scrub: true } }));
+
+  /* portfolyo ve piercing */
+  $$('.pf-row').forEach((r) => gsap.from($$('.pf-item', r), { y: 60, opacity: 0.2, stagger: 0.06, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: r, start: 'top 85%' } }));
+  gsap.fromTo('.pc-art', { rotate: -20 }, { rotate: 20, ease: 'none', scrollTrigger: { trigger: '.piercing', start: 'top bottom', end: 'bottom top', scrub: true } });
+
+  /* süreç çizgisi */
+  gsap.to('.steps .rail i', { scaleY: 1, ease: 'none', scrollTrigger: { trigger: '.steps', start: 'top 70%', end: 'bottom 60%', scrub: true } });
+  $$('.step').forEach((s) => gsap.from(s, { opacity: 0.25, x: 30, duration: 0.8, ease: 'power3.out', scrollTrigger: { trigger: s, start: 'top 82%' } }));
+
+  /* randevu: mürekkep yayılır */
+  gsap.fromTo('.book', { clipPath: 'circle(18% at 50% 50%)' }, { clipPath: 'circle(150% at 50% 50%)', ease: 'none', scrollTrigger: { trigger: '.book', start: 'top bottom', end: 'top 20%', scrub: true } });
+  gsap.from('.ring-btn svg circle', { strokeDashoffset: 600, duration: 1.6, ease: 'power2.out', stagger: 0.15, scrollTrigger: { trigger: '.ring-btn', start: 'top 85%' } });
+
+  addEventListener('load', () => ScrollTrigger.refresh());
+}

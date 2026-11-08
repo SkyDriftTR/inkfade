@@ -1,0 +1,20 @@
+---
+const steps = [
+  { n: '01', title: 'Fikir', text: 'Anlatırsın, referanslarını getirirsin. Yerleşim, boyut ve stil üzerine konuşuruz.' },
+  { n: '02', title: 'Eskiz', text: 'Sana özel çizim hazırlanır. Tam istediğin gibi olana kadar revize ederiz.' },
+  { n: '03', title: 'Seans', text: 'Steril ortam, tek kullanımlık ekipman. Büyük parçalar birden fazla seansa bölünür.' },
+  { n: '04', title: 'İyileşme', text: 'Bakım rehberiyle eve gidersin. İlk haftalarda sorun olursa kontrol için uğrarsın.' },
+];
+---
+<section class="process" id="surec">
+  <div class="wrap">
+    <p class="mono">Süreç</p>
+    <h2>Fikirden deriye dört adım</h2>
+    <div class="steps">
+      <div class="rail" aria-hidden="true"><i></i></div>
+      {steps.map((s) => (
+        <div class="step"><div><span class="n">{s.n}</span><h3>{s.title}</h3></div><p>{s.text}</p></div>
+      ))}
+    </div>
+  </div>
+</section>

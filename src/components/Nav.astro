@@ -1,0 +1,17 @@
+---
+const links = [
+  ['#isler', 'İşler'],
+  ['#portfolyo', 'Portfolyo'],
+  ['#piercing', 'Piercing'],
+  ['#surec', 'Süreç'],
+  ['#randevu', 'Randevu'],
+];
+---
+<nav class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top">INK FADE</a>
+    <ul>
+      {links.map(([href, label]) => <li><a href={href}>{label}</a></li>)}
+    </ul>
+  </div>
+</nav>

@@ -1,0 +1,23 @@
+---
+import { site } from '../data/site.js';
+---
+<section class="book" id="randevu">
+  <div class="book-inner">
+    <p class="mono">Randevu</p>
+    <h2>Sıra sende.</h2>
+    <p>Fikrini ve yerleşimi kısaca yaz, referans görsellerini ekle. Uygun tarihlerle dönüş yapalım.</p>
+    <a class="ring-btn" href={site.instagramUrl} target="_blank" rel="noopener" data-cursor>
+      <svg viewBox="0 0 200 200" aria-hidden="true">
+        <circle cx="100" cy="100" r="92" stroke-width="2"></circle>
+        <circle cx="101" cy="99" r="87" stroke-width="1" stroke-dasharray="380 200"></circle>
+        <circle cx="99" cy="101" r="82" stroke-width="3" stroke-dasharray="300 260"></circle>
+      </svg>
+      <span>Randevu al</span>
+    </a>
+    <div class="contact">
+      <span>Instagram <b>@{site.instagram}</b></span>
+      <span>Telefon <b>{site.phone}</b></span>
+    </div>
+    {site.isPlaceholder && <p class="note">Prototip · iletişim bilgileri yer tutucu</p>}
+  </div>
+</section>

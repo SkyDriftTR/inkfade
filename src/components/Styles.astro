@@ -1,0 +1,25 @@
+---
+const styles = [
+  { name: 'Blackwork', tag: 'Dolgu · kontrast', mode: 'bold', seed: 101, text: 'Geniş siyah alanlar ve net sınırlar. Yıllar geçse de okunurluğunu kaybetmez.' },
+  { name: 'Fine line', tag: 'Tek iğne', mode: 'lines', seed: 202, text: 'İnce, zarif çizgiler. Küçük ve minimal parçalar için ideal.' },
+  { name: 'Dotwork', tag: 'Nokta nokta', mode: 'dots', seed: 303, text: 'Gölge ve dokuyu binlerce noktayla kurar. Mandala ve geometrik desenlerde öne çıkar.' },
+  { name: 'Realism', tag: 'Black & grey', mode: 'smoke', seed: 404, text: 'Portre, hayvan, heykel. Yumuşak gölge geçişleriyle fotoğraf gerçekliği.' },
+  { name: 'Cover-up', tag: 'Yeniden doğuş', mode: 'cover', seed: 505, text: 'Eski ya da pişman olunan dövmeyi yeni bir tasarımın içinde eritir.' },
+];
+---
+<section class="styles" id="stiller">
+  <div class="wrap styles-head">
+    <div><p class="mono">Uzmanlık</p><h2>Stiller</h2></div>
+    <p>Her stil farklı bir el ister. Hangisinin sana uyduğunu ilk görüşmede birlikte seçeriz.</p>
+  </div>
+  <div class="track">
+    {styles.map((s) => (
+      <article class="panel">
+        <div class="art"><canvas data-mode={s.mode} data-seed={s.seed}></canvas></div>
+        <h3>{s.name} <span class="mono">{s.tag}</span></h3>
+        <p>{s.text}</p>
+      </article>
+    ))}
+  </div>
+  <div class="progress" aria-hidden="true"><i></i></div>
+</section>
