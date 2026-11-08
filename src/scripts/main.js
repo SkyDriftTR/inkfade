@@ -85,8 +85,9 @@ if (matchMedia('(pointer:fine)').matches && !reduce) {
 
 /* ---------- sabit randevu butonu ---------- */
 const fab = $('.fab'); let inBook = false;
-new IntersectionObserver((es) => { inBook = es[0].isIntersecting; }, { threshold: 0.3 }).observe($('#randevu'));
-addEventListener('scroll', () => { fab.classList.toggle('show', scrollY > innerHeight * 0.8 && !inBook); }, { passive: true });
+const syncFab = () => fab.classList.toggle('show', scrollY > innerHeight * 0.8 && !inBook);
+new IntersectionObserver((es) => { inBook = es[0].isIntersecting; syncFab(); }, { threshold: 0.15 }).observe($('#randevu'));
+addEventListener('scroll', syncFab, { passive: true });
 
 /* ---------- portfolyo şeritleri ---------- */
 $$('.pf-row').forEach((row) => {

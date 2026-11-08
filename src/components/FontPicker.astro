@@ -9,7 +9,7 @@ const fonts = [
 ];
 ---
 <div class="fontpick" id="fontpick" role="group" aria-label="Başlık fontu seç">
-  <p><span>Başlık fontu · karşılaştırma</span><button type="button" id="fpToggle" aria-label="Paneli küçült">–</button></p>
+  <p><b class="aa">Aa</b><span>Başlık fontu · karşılaştırma</span><button type="button" id="fpToggle" aria-label="Paneli küçült">–</button></p>
   <div class="opts">
     {fonts.map((f) => (
       <button type="button" data-font={f.id} aria-pressed="false" style={`font-family:${f.family},serif;font-weight:${f.weight}`}>{f.name}</button>
