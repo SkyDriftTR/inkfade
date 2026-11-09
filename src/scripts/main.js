@@ -189,8 +189,8 @@ const brandSmoke = (() => {
       parts.push({
         x: mark.x + mark.w * (0.08 + Math.random() * 0.84),
         y: mark.y + mark.h * (0.45 + Math.random() * 0.4),
-        vx: 0.1 + Math.random() * 0.45, vy: -(0.2 + Math.random() * 0.35),
-        r: 2 + Math.random() * 3, g: 0.1 + Math.random() * 0.14,
+        vx: (0.1 + Math.random() * 0.45) * (mark.h / 34), vy: -(0.2 + Math.random() * 0.35) * (mark.h / 34),
+        r: (2 + Math.random() * 3) * (mark.h / 34), g: (0.1 + Math.random() * 0.14) * (mark.h / 34),
         life: 0, max: 120 + Math.random() * 100, a: 0.1 + Math.random() * 0.12,
         c: Math.random() < 0.3 ? '90,125,255' : '205,208,220', ph: Math.random() * 6.28, sw: 0.6 + Math.random() * 0.9,
       });
