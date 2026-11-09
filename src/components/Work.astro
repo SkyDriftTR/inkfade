@@ -11,6 +11,9 @@ const floats = [
   { id: 'ozgurluk', left: 4, top: 64, speed: 1.7 },
   { id: 'anubis', left: 60, top: 70, speed: 1.2 },
 ].map((f) => ({ ...f, w: works[f.id] }));
+// telefonda görünen kartlar sırayla sol / sağ dizilir
+let n = 0;
+floats.forEach((f) => { if (!f.hideSm) f.side = n++ % 2 ? 'sm-r' : 'sm-l'; });
 ---
 <section class="work" id="isler" aria-label="Seçili işler">
   <div class="work-title">
@@ -20,7 +23,7 @@ const floats = [
     </div>
   </div>
   {floats.map((f) => (
-    <figure class:list={['float', { 'hide-sm': f.hideSm }]} style={`left:${f.left}%;top:${f.top}%`} data-speed={f.speed}>
+    <figure class:list={['float', { 'hide-sm': f.hideSm }, f.side]} style={`left:${f.left}%;top:${f.top}%`} data-speed={f.speed}>
       <img src={f.w.sm} alt={`${f.w.title} dövmesi, ${f.w.place}`} loading="lazy" decoding="async" style={`object-position:${f.w.pos}`} />
       <figcaption><span>{f.w.title}</span><span>{f.w.place}</span></figcaption>
     </figure>
