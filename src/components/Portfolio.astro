@@ -1,7 +1,7 @@
 ---
 import { categories, itemsOf } from '../data/portfolio.js';
 const rows = categories.map((cat, ci) => ({ cat, ci, items: itemsOf(cat, ci) }));
-const isPlaceholder = (row) => !row.cat.images.length;
+const isPlaceholder = (row) => !row.cat.works.length;
 ---
 <section class="portfolio" id="portfolyo">
   <div class="wrap pf-head">
@@ -31,11 +31,11 @@ const isPlaceholder = (row) => !row.cat.images.length;
       </div>
       <div class="pf-track">
         {row.items.map((it, i) => (
-          <button class="pf-item" type="button" data-i={i} data-tag={it.tag} aria-label={`${row.cat.name} ${i + 1}, ${it.tag}`}>
+          <button class="pf-item" type="button" data-i={i} data-title={it.title} data-tag={it.tag} aria-label={`${it.title}, ${it.tag}. Büyüt`}>
             {it.src
-              ? <img src={it.src} alt={`${row.cat.name}, ${it.tag}`} loading="lazy" />
+              ? <img src={it.src} data-full={it.full} alt={`${it.title} dövmesi, ${it.tag}`} loading="lazy" decoding="async" style={`object-position:${it.pos}`} />
               : <canvas data-mode={it.mode} data-seed={it.seed} data-lazy></canvas>}
-            <span><b style="font-weight:400">{String(i + 1).padStart(2, '0')}</b><em style="font-style:normal">{it.tag}</em></span>
+            <span><b>{it.title}</b><em>{it.tag}</em></span>
           </button>
         ))}
       </div>

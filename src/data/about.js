@@ -1,20 +1,22 @@
-// Hakkımda bölümü. Metinleri ve bilgileri kendi içeriğinle değiştir.
+// Hakkımda bölümü. **çift yıldız** arasındaki ifadeler sayfa kaydırıldıkça maviye döner.
 // Fotoğraf eklemek için: görseli src/assets/ulas.jpg olarak koy, aşağıdaki satırın yorumunu kaldır
 // ve photo: ulas yap.
 // import ulas from '../assets/ulas.jpg';
 
 export const about = {
-  name: 'Ulaş Hakan Uysal',
-  role: 'Dövme sanatçısı · Kurucu',
+  name: 'Ulaş Hakan',
+  role: 'Dövme sanatçısı · Inkfade kurucusu',
   photo: null,
-  intro: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante venenatis dapibus.',
+  intro: 'Ben **Ulaş Hakan Uysal**. Yaklaşık **6 yıldır** dövme sanatının içindeyim.',
   paragraphs: [
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+    'Hibrit bir sanatçı olarak farklı stillerle çalışmayı sevsem de kendimi özellikle **Black & Grey Realism** alanında geliştirmeye ve üretmeye odaklıyorum.',
+    'Benim için dövme, yaşadığımız dönemde yalnızca bir beden süslemesi değil; **başlı başına bir sanat** ve aynı zamanda **güçlü bir estetik ifade biçimi**. Çalışmalarımda **detaylara, kompozisyona ve bütünlüğe** önem veriyorum. Özellikle **büyük ölçekli**, kendini alan içerisinde güçlü bir şekilde ifade eden işler üretmekten keyif alıyorum.',
+    '**2024** yılında kendi stüdyom olan **Inkfade Tattoo & Piercing**’i kurdum. Şu anda **Sinop Merkez**’de dövme ve piercing uygulamalarıma burada devam ediyorum. Her çalışmada kendi sanatsal bakış açımı yansıtmayı ve ortaya sadece bir dövme değil, **estetik açıdan güçlü bir iş** çıkarmayı hedefliyorum.',
   ],
   facts: [
-    { label: 'Deneyim', value: '00 yıl' },
-    { label: 'Stiller', value: 'Blackwork · Fine line · Dotwork' },
-    { label: 'Yer', value: 'Şehir, semt' },
+    { label: 'Deneyim', value: '6 yıl' },
+    { label: 'Uzmanlık', value: 'Black & Grey Realism' },
+    { label: 'Stüdyo', value: 'Inkfade · 2024' },
+    { label: 'Yer', value: 'Sinop Merkez' },
   ],
 };

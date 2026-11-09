@@ -1,6 +1,10 @@
 // Sık sorulan sorular. Cevapları stüdyonun kendi kurallarına göre düzenle.
 export const faq = [
   {
+    q: 'Stüdyo nerede?',
+    a: 'Inkfade Tattoo & Piercing, Sinop Merkez’de. Açık adres ve yol tarifi için Instagram’dan yazabilirsin.',
+  },
+  {
     q: 'Randevu nasıl alırım?',
     a: 'Instagram üzerinden mesaj atman yeterli. Fikrini, yerleşimi, yaklaşık boyutu ve varsa referans görsellerini gönder; uygun tarihlerle dönüş yapalım.',
   },

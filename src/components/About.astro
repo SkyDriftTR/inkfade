@@ -3,6 +3,9 @@ import { about } from '../data/about.js';
 const [first, ...rest] = about.name.split(' ');
 const last = rest.pop();
 const middle = rest.join(' ');
+// **vurgu** işaretlerini kaydırınca maviye dönen <mark> etiketlerine çevirir.
+const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const rich = (s) => esc(s).replace(/\*\*(.+?)\*\*/g, '<mark class="hl">$1</mark>');
 ---
 <section class="about" id="hakkimda">
   <div class="wrap about-grid">
@@ -20,10 +23,10 @@ const middle = rest.join(' ');
     </div>
     <div class="about-text">
       <p class="mono">Hakkımda</p>
-      <h2 class="about-name">{first} {middle}<span>{last}</span></h2>
+      <h2 class="about-name">{first}{middle && ` ${middle}`} <span>{last}</span></h2>
       <p class="about-role">{about.role}</p>
-      <p class="about-intro">{about.intro}</p>
-      {about.paragraphs.map((p) => <p class="about-p">{p}</p>)}
+      <p class="about-intro" set:html={rich(about.intro)} />
+      {about.paragraphs.map((p) => <p class="about-p" set:html={rich(p)} />)}
       <dl class="about-facts">
         {about.facts.map((f) => <div><dt>{f.label}</dt><dd>{f.value}</dd></div>)}
       </dl>

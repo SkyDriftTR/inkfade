@@ -1,29 +1,28 @@
 ---
-// Uçan "Seçili İşler" kartları. Gerçek fotoğraf için "img" alanına import edilmiş görsel ver.
+import { works } from '../data/works.js';
+// Uçan "Seçili İşler" kartları: works.js'teki adlarla seçilir.
 const floats = [
-  { left: 6, top: 4, speed: 1.4, mode: 'dots', seed: 11, style: 'Dotwork', place: 'Ön kol' },
-  { left: 66, top: 8, speed: 0.8, mode: 'bold', seed: 23, style: 'Blackwork', place: 'Omuz' },
-  { left: 38, top: 20, speed: 1.9, mode: 'lines', seed: 5, style: 'Fine line', place: 'Bilek', hideSm: true },
-  { left: 14, top: 34, speed: 1.1, mode: 'smoke', seed: 41, style: 'Realism', place: 'Baldır' },
-  { left: 72, top: 38, speed: 1.6, mode: 'dots', seed: 77, style: 'Mandala', place: 'Sırt' },
-  { left: 44, top: 52, speed: 0.7, mode: 'bold', seed: 9, style: 'Cover-up', place: 'Ön kol', hideSm: true },
-  { left: 4, top: 64, speed: 1.7, mode: 'lines', seed: 61, style: 'Geometrik', place: 'Kaburga' },
-  { left: 60, top: 70, speed: 1.2, mode: 'smoke', seed: 3, style: 'Black & grey', place: 'Kol' },
-];
+  { id: 'zeus', left: 6, top: 4, speed: 1.4 },
+  { id: 'basmelek', left: 66, top: 8, speed: 0.8 },
+  { id: 'hannya', left: 38, top: 20, speed: 1.9, hideSm: true },
+  { id: 'vampir', left: 14, top: 34, speed: 1.1 },
+  { id: 'misir', left: 72, top: 38, speed: 1.6 },
+  { id: 'catrina', left: 44, top: 52, speed: 0.7, hideSm: true },
+  { id: 'ozgurluk', left: 4, top: 64, speed: 1.7 },
+  { id: 'anubis', left: 60, top: 70, speed: 1.2 },
+].map((f) => ({ ...f, w: works[f.id] }));
 ---
 <section class="work" id="isler" aria-label="Seçili işler">
   <div class="work-title">
     <div>
       <h2>Seçili<span>İşler</span></h2>
-      <p class="mono">Örnek görseller · gerçek fotoğraflar eklenecek</p>
+      <p class="mono">Ulaş Hakan'ın son çalışmalarından</p>
     </div>
   </div>
   {floats.map((f) => (
     <figure class:list={['float', { 'hide-sm': f.hideSm }]} style={`left:${f.left}%;top:${f.top}%`} data-speed={f.speed}>
-      {f.img
-        ? <img src={f.img.src} alt={`${f.style}, ${f.place}`} loading="lazy" />
-        : <canvas data-mode={f.mode} data-seed={f.seed}></canvas>}
-      <figcaption><span>{f.style}</span><span>{f.place}</span></figcaption>
+      <img src={f.w.sm} alt={`${f.w.title} dövmesi, ${f.w.place}`} loading="lazy" decoding="async" style={`object-position:${f.w.pos}`} />
+      <figcaption><span>{f.w.title}</span><span>{f.w.place}</span></figcaption>
     </figure>
   ))}
 </section>

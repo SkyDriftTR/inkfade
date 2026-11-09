@@ -114,9 +114,9 @@ const lb = $('#lb'), lbC = $('#lbCanvas'), lbImg = $('#lbImg');
 let lbItems = [], lbI = 0, lbName = '', lastFocus = null;
 function lbShow() {
   const it = lbItems[lbI]; const img = $('img', it), c = $('canvas', it);
-  $('#lbTitle').textContent = `${lbName} · ${it.dataset.tag}`;
+  $('#lbTitle').textContent = `${it.dataset.title} · ${it.dataset.tag}`;
   $('#lbCount').textContent = `${String(lbI + 1).padStart(2, '0')} / ${String(lbItems.length).padStart(2, '0')}`;
-  if (img) { lbImg.src = img.currentSrc || img.src; lbImg.alt = img.alt; lbImg.hidden = false; lbC.hidden = true; }
+  if (img) { lbImg.src = img.dataset.full || img.currentSrc || img.src; lbImg.alt = img.alt; lbImg.hidden = false; lbC.hidden = true; }
   else { lbImg.hidden = true; lbC.hidden = false; lbC.dataset.mode = c.dataset.mode; lbC.dataset.seed = c.dataset.seed; requestAnimationFrame(() => drawArt(lbC)); }
 }
 function lbOpen(row, i) {
@@ -182,7 +182,7 @@ $$('.faq-q').forEach((q) => q.addEventListener('click', () => {
 const words = $$('#manifesto .w');
 
 if (reduce) {
-  hideLoader(); words.forEach((w) => w.classList.add('on'));
+  hideLoader(); words.forEach((w) => w.classList.add('on')); $$('mark.hl').forEach((h) => h.classList.add('on'));
   document.documentElement.classList.add('no-pin');
 } else {
   initMotion();
@@ -240,12 +240,17 @@ function initMotion() {
   const dist = () => Math.max(0, track.scrollWidth - innerWidth);
   gsap.to(track, { x: () => -dist(), ease: 'none', scrollTrigger: { trigger: '.styles', start: 'top top', end: () => '+=' + dist(), scrub: true, pin: true, invalidateOnRefresh: true, anticipatePin: 1 } });
   gsap.to('.progress i', { scaleX: 1, ease: 'none', scrollTrigger: { trigger: '.styles', start: 'top top', end: () => '+=' + dist(), scrub: true } });
-  $$('.panel .art canvas').forEach((c) => gsap.fromTo(c, { rotate: -25 }, { rotate: 25, ease: 'none', scrollTrigger: { trigger: '.styles', start: 'top top', end: () => '+=' + dist(), scrub: true } }));
+  $$('.panel .art img').forEach((c) => gsap.fromTo(c, { scale: 1.25 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '.styles', start: 'top top', end: () => '+=' + dist(), scrub: true } }));
 
   /* hakkımda */
   gsap.fromTo('.about-photo', { y: 50 }, { y: -50, ease: 'none', scrollTrigger: { trigger: '.about', start: 'top bottom', end: 'bottom top', scrub: true } });
   gsap.fromTo('.about-ring', { rotate: -30 }, { rotate: 40, ease: 'none', scrollTrigger: { trigger: '.about', start: 'top bottom', end: 'bottom top', scrub: true } });
   gsap.from('.about-text > *', { y: 30, opacity: 0, stagger: 0.07, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: '.about-text', start: 'top 80%' } });
+
+  $$('mark.hl').forEach((h) => ScrollTrigger.create({
+    trigger: h, start: 'top 78%',
+    onEnter: () => h.classList.add('on'), onLeaveBack: () => h.classList.remove('on'),
+  }));
 
   /* portfolyo ve piercing */
   $$('.pf-row').forEach((r) => gsap.from($$('.pf-item', r), { y: 60, opacity: 0.2, stagger: 0.06, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: r, start: 'top 85%' } }));

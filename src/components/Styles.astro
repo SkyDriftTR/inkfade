@@ -1,21 +1,22 @@
 ---
+import { works } from '../data/works.js';
 const styles = [
-  { name: 'Blackwork', tag: 'Dolgu · kontrast', mode: 'bold', seed: 101, text: 'Geniş siyah alanlar ve net sınırlar. Yıllar geçse de okunurluğunu kaybetmez.' },
-  { name: 'Fine line', tag: 'Tek iğne', mode: 'lines', seed: 202, text: 'İnce, zarif çizgiler. Küçük ve minimal parçalar için ideal.' },
-  { name: 'Dotwork', tag: 'Nokta nokta', mode: 'dots', seed: 303, text: 'Gölge ve dokuyu binlerce noktayla kurar. Mandala ve geometrik desenlerde öne çıkar.' },
-  { name: 'Realism', tag: 'Black & grey', mode: 'smoke', seed: 404, text: 'Portre, hayvan, heykel. Yumuşak gölge geçişleriyle fotoğraf gerçekliği.' },
-  { name: 'Cover-up', tag: 'Yeniden doğuş', mode: 'cover', seed: 505, text: 'Eski ya da pişman olunan dövmeyi yeni bir tasarımın içinde eritir.' },
-];
+  { name: 'Black & Grey Realism', tag: 'Uzmanlık alanı', id: 'zeus', text: 'Portre, heykel ve hayvan figürleri. Yumuşak gölge geçişleri ve derinlikle fotoğraf gerçekliği.' },
+  { name: 'Sleeve', tag: 'Tam kol · tam bacak', id: 'basmelek', text: 'Kol ya da bacak boyunca tek bir hikâye anlatan, alanı bütün olarak kullanan büyük kompozisyonlar.' },
+  { name: 'Oriental', tag: 'Hannya · koi', id: 'hannya', text: 'Uzak Doğu motiflerinin güçlü konturlar ve black & grey gölgeyle yorumu.' },
+  { name: 'Sketch & Dotwork', tag: 'Çizgi · nokta', id: 'balance', text: 'Eskiz çizgileri, nokta gölgeleme ve grafik kırılmalarla daha deneysel işler.' },
+  { name: 'Fine line', tag: 'İnce çizgi · renk', id: 'lale', text: 'Küçük, zarif parçalar. Tek çizgiler, yumuşak renk geçişleri ve minimal detay.' },
+].map((s) => ({ ...s, w: works[s.id] }));
 ---
 <section class="styles" id="stiller">
   <div class="wrap styles-head">
     <div><p class="mono">Uzmanlık</p><h2>Stiller</h2></div>
-    <p>Her stil farklı bir el ister. Hangisinin sana uyduğunu ilk görüşmede birlikte seçeriz.</p>
+    <p>Farklı stillerde çalışıyoruz; odak noktamız Black & Grey Realism. Hangisinin sana uyduğunu ilk görüşmede birlikte seçeriz.</p>
   </div>
   <div class="track">
     {styles.map((s) => (
       <article class="panel">
-        <div class="art"><canvas data-mode={s.mode} data-seed={s.seed}></canvas></div>
+        <div class="art"><img src={s.w.sm} alt={`${s.name} örneği: ${s.w.title}`} loading="lazy" decoding="async" style={`object-position:${s.w.pos}`} /></div>
         <h3>{s.name} <span class="mono">{s.tag}</span></h3>
         <p>{s.text}</p>
       </article>
