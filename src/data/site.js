@@ -9,6 +9,7 @@ export const site = {
   phoneUrl: `tel:+${phoneDigits}`,
   whatsappUrl: `https://wa.me/${phoneDigits}?text=${encodeURIComponent('Merhaba, randevu almak istiyorum.')}`,
   location: 'Sinop Merkez',
+  address: 'Camikebir, Sakarya Cd. Göçgünoğlu Pasajı D:50/10P, 57000 Sinop Merkez/Sinop',
   // Google Haritalar'daki "INKFADE TATTOO&PIERCING" kaydının konumu
   lat: 42.0261229,
   lng: 35.1463521,

@@ -11,12 +11,12 @@ import pin from '../assets/logo-hero.webp';
     </div>
     <p>{site.name} · {site.location}. Yol tarifi için haritadaki butonu kullanabilir ya da gelmeden önce WhatsApp'tan yazabilirsin.</p>
   </div>
-  <div class="wrap">
+  <div class="map-full">
     <div class="map-frame">
       <div class="map" id="map" data-lat={site.lat} data-lng={site.lng} data-pin={pin.src} aria-label="Inkfade stüdyosunun haritadaki konumu"></div>
       <div class="map-card">
-        <p class="map-card-title">INKFADE <span>Tattoo &amp; Piercing</span></p>
-        <p class="map-card-sub">{site.location}</p>
+        <p class="map-card-title"><svg class="map-card-mark" viewBox="0 0 682 230" role="img" aria-label="Inkfade"><use href="#inkfade-wordmark" width="682" height="230"></use></svg><span>Tattoo &amp; Piercing</span></p>
+        <address class="map-card-sub">{site.address}</address>
         <div class="map-card-actions">
           <a href={site.directionsUrl} target="_blank" rel="noopener">Yol tarifi al →</a>
           <a href={site.mapsUrl} target="_blank" rel="noopener">Google Maps'te aç</a>
