@@ -1,0 +1,28 @@
+---
+import { site } from '../data/site.js';
+import pin from '../assets/logo-hero.webp';
+// Harita, bölüm ekrana yaklaşınca yüklenir (src/scripts/map.js). Renkler sitenin paletine göre baştan boyanır.
+---
+<section class="location" id="konum">
+  <div class="wrap loc-head">
+    <div>
+      <p class="mono">Konum</p>
+      <h2>Bizi bul</h2>
+    </div>
+    <p>{site.name} · {site.location}. Yol tarifi için haritadaki butonu kullanabilir ya da gelmeden önce WhatsApp'tan yazabilirsin.</p>
+  </div>
+  <div class="wrap">
+    <div class="map-frame">
+      <div class="map" id="map" data-lat={site.lat} data-lng={site.lng} data-pin={pin.src} aria-label="Inkfade stüdyosunun haritadaki konumu"></div>
+      <div class="map-card">
+        <p class="map-card-title">INKFADE <span>Tattoo &amp; Piercing</span></p>
+        <p class="map-card-sub">{site.location}</p>
+        <div class="map-card-actions">
+          <a href={site.directionsUrl} target="_blank" rel="noopener">Yol tarifi al →</a>
+          <a href={site.mapsUrl} target="_blank" rel="noopener">Google Maps'te aç</a>
+        </div>
+      </div>
+      <p class="map-fallback">Harita yüklenemedi. <a href={site.mapsUrl} target="_blank" rel="noopener">Konumu Google Maps'te aç</a></p>
+    </div>
+  </div>
+</section>
