@@ -354,19 +354,28 @@ function initMotion() {
   });
 
   /* uçan kartlar */
+  const small = matchMedia('(max-width:720px)').matches; // telefonda kartlar daha az eğik, ekrandan taşmasın
   $$('.float').forEach((f, i) => {
-    const sp = +f.dataset.speed || 1;
-    gsap.fromTo(f, { y: innerHeight * 0.5 * sp, rotate: (i % 2 ? -1 : 1) * (3 + sp * 2) },
-      { y: -innerHeight * 0.9 * sp, rotate: (i % 2 ? 1 : -1) * 2, ease: 'none', scrollTrigger: { trigger: '.work', start: 'top bottom', end: 'bottom top', scrub: true } });
+    const sp = +f.dataset.speed || 1, tilt = small ? 0.35 : 1;
+    gsap.fromTo(f, { y: innerHeight * 0.5 * sp, rotate: (i % 2 ? -1 : 1) * (3 + sp * 2) * tilt },
+      { y: -innerHeight * 0.9 * sp, rotate: (i % 2 ? 1 : -1) * 2 * tilt, ease: 'none', scrollTrigger: { trigger: '.work', start: 'top bottom', end: 'bottom top', scrub: true } });
   });
   gsap.fromTo('.work-title h2', { scale: 0.86 }, { scale: 1.08, ease: 'none', scrollTrigger: { trigger: '.work', start: 'top bottom', end: 'bottom top', scrub: true } });
 
   /* yatay stiller */
-  const track = $('.track');
+  // masaüstü: dikey kaydırma yatay şeride dönüşür. telefon: ekran yüksekliği yetmediği için parmakla kaydırılan şerit
+  const track = $('.track'), stylesSec = $('.styles');
   const dist = () => Math.max(0, track.scrollWidth - innerWidth);
-  gsap.to(track, { x: () => -dist(), ease: 'none', scrollTrigger: { trigger: '.styles', start: 'top top', end: () => '+=' + dist(), scrub: true, pin: true, invalidateOnRefresh: true, anticipatePin: 1 } });
-  gsap.to('.progress i', { scaleX: 1, ease: 'none', scrollTrigger: { trigger: '.styles', start: 'top top', end: () => '+=' + dist(), scrub: true } });
-  $$('.panel .art img').forEach((c) => gsap.fromTo(c, { scale: 1.25 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '.styles', start: 'top top', end: () => '+=' + dist(), scrub: true } }));
+  const mm = gsap.matchMedia();
+  mm.add('(min-width: 721px)', () => {
+    gsap.to(track, { x: () => -dist(), ease: 'none', scrollTrigger: { trigger: '.styles', start: 'top top', end: () => '+=' + dist(), scrub: true, pin: true, invalidateOnRefresh: true, anticipatePin: 1 } });
+    gsap.to('.progress i', { scaleX: 1, ease: 'none', scrollTrigger: { trigger: '.styles', start: 'top top', end: () => '+=' + dist(), scrub: true } });
+    $$('.panel .art img').forEach((c) => gsap.fromTo(c, { scale: 1.25 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '.styles', start: 'top top', end: () => '+=' + dist(), scrub: true } }));
+  });
+  mm.add('(max-width: 720px)', () => {
+    stylesSec.classList.add('swipe');
+    return () => stylesSec.classList.remove('swipe');
+  });
 
   /* hakkımda: fotoğraf görünür olunca renklenir */
   ScrollTrigger.create({ trigger: '.about-photo', start: 'top 65%', end: 'bottom 20%', toggleClass: 'lit' });
