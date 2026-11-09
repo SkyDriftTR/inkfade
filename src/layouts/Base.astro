@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import FontPicker from '../components/FontPicker.astro';
+import Wordmark from '../components/Wordmark.astro';
 const { title = 'Ink Fade', description = 'Inkfade Tattoo & Piercing, Sinop Merkez. Ulaş Hakan Uysal ile Black & Grey Realism, sleeve, fine line dövme ve piercing.' } = Astro.props;
 ---
 <!doctype html>
@@ -22,6 +23,7 @@ const { title = 'Ink Fade', description = 'Inkfade Tattoo & Piercing, Sinop Merk
     </script>
   </head>
   <body>
+    <Wordmark />
     <div class="grain" aria-hidden="true"></div>
     <div class="cursor" aria-hidden="true"></div>
     <slot />

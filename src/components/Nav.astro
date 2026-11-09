@@ -13,7 +13,10 @@ const links = [
 ---
 <nav class="nav">
   <div class="wrap">
-    <a class="brand" href="#top">INK FADE</a>
+    <a class="brand" href="#top" aria-label="Inkfade, sayfanın başına dön">
+      <canvas class="brand-smoke" aria-hidden="true"></canvas>
+      <svg class="brand-mark" viewBox="0 0 682 230" aria-hidden="true"><use href="#inkfade-wordmark" width="682" height="230"></use></svg>
+    </a>
     <ul>
       {links.filter((l) => l.desk).map((l) => <li><a href={l.href}>{l.label}</a></li>)}
     </ul>

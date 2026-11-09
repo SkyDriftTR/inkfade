@@ -171,6 +171,61 @@ $$('.faq-q').forEach((q) => q.addEventListener('click', () => {
   clearTimeout(faqT); faqT = setTimeout(() => ScrollTrigger.refresh(), 500);
 }));
 
+/* ---------- logo: üzerine gelince arkasından duman ---------- */
+const brand = $('.brand'), smokeCv = $('.brand-smoke');
+const brandSmoke = (() => {
+  if (!brand || !smokeCv || reduce) return { burst() {} };
+  const sx = smokeCv.getContext('2d');
+  let parts = [], emitting = false, running = false, W = 0, H = 0, mark = null, last = 0, acc = 0;
+  const fit = () => {
+    const r = smokeCv.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2);
+    W = r.width; H = r.height; smokeCv.width = W * d; smokeCv.height = H * d; sx.setTransform(d, 0, 0, d, 0, 0);
+    const m = $('.brand-mark', brand).getBoundingClientRect();
+    mark = { x: m.left - r.left, y: m.top - r.top, w: m.width, h: m.height };
+  };
+  // ince, uzayan duman şeritleri: her parçacık hız yönünde esneyen yumuşak bir elips
+  const spawn = (n) => {
+    for (let i = 0; i < n && parts.length < 70; i++) {
+      parts.push({
+        x: mark.x + mark.w * (0.08 + Math.random() * 0.84),
+        y: mark.y + mark.h * (0.45 + Math.random() * 0.4),
+        vx: 0.1 + Math.random() * 0.45, vy: -(0.2 + Math.random() * 0.35),
+        r: 2 + Math.random() * 3, g: 0.1 + Math.random() * 0.14,
+        life: 0, max: 120 + Math.random() * 100, a: 0.1 + Math.random() * 0.12,
+        c: Math.random() < 0.3 ? '90,125,255' : '205,208,220', ph: Math.random() * 6.28, sw: 0.6 + Math.random() * 0.9,
+      });
+    }
+  };
+  const tick = (t) => {
+    const dt = Math.min(2.5, last ? (t - last) / 16.7 : 1); last = t;
+    if (emitting && (acc += dt * 0.45) >= 1) { spawn(Math.floor(acc)); acc %= 1; }
+    sx.clearRect(0, 0, W, H);
+    parts = parts.filter((p) => (p.life += dt) < p.max);
+    for (const p of parts) {
+      const k = p.life / p.max;
+      const curl = Math.sin(p.life * 0.045 + p.ph) * p.sw;
+      p.x += (p.vx + curl * 0.35) * dt; p.y += p.vy * dt; p.r += p.g * dt; p.vy *= 0.997;
+      const alpha = p.a * Math.sin(Math.PI * Math.min(1, k * 1.2)) * (1 - k * 0.4);
+      const ang = Math.atan2(p.vy, p.vx + curl * 0.35);
+      sx.save(); sx.translate(p.x, p.y); sx.rotate(ang); sx.scale(1.9, 0.75);
+      const g = sx.createRadialGradient(0, 0, 0, 0, 0, p.r);
+      g.addColorStop(0, `rgba(${p.c},${alpha})`); g.addColorStop(0.5, `rgba(${p.c},${alpha * 0.4})`); g.addColorStop(1, `rgba(${p.c},0)`);
+      sx.fillStyle = g; sx.beginPath(); sx.arc(0, 0, p.r, 0, 7); sx.fill(); sx.restore();
+    }
+    if (emitting || parts.length) requestAnimationFrame(tick);
+    else { running = false; last = 0; brand.classList.remove('smoking'); }
+  };
+  const start = () => { if (!running) { running = true; requestAnimationFrame(tick); } };
+  brand.addEventListener('pointerenter', (e) => { if (e.pointerType !== 'mouse') return; fit(); emitting = true; brand.classList.add('smoking'); start(); });
+  brand.addEventListener('pointerleave', () => { emitting = false; });
+  brand.addEventListener('focus', () => { fit(); spawn(14); brand.classList.add('smoking'); start(); });
+  return {
+    burst(n = 18) { fit(); spawn(n); brand.classList.add('smoking'); start(); },
+  };
+})();
+// dokunmatik ekranda: dokununca kısa bir duman
+brand?.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse') brandSmoke.burst(20); });
+
 /* ---------- manifesto ---------- */
 const words = $$('#manifesto .w');
 
@@ -199,7 +254,7 @@ function initMotion() {
   paths.forEach((p) => { const L = p.getTotalLength(); p.style.strokeDasharray = L; p.style.strokeDashoffset = L; });
   const count = $('.loader-count', loader); const cobj = { v: 0 };
   gsap.set(loader, { clipPath: 'circle(75% at 50% 50%)' });
-  gsap.timeline({ onComplete: hideLoader })
+  gsap.timeline({ onComplete: () => { hideLoader(); setTimeout(() => brandSmoke.burst(20), 400); } })
     .to(paths, { strokeDashoffset: 0, duration: 1.2, ease: 'power2.inOut', stagger: 0.1 }, 0)
     .to(cobj, { v: 100, duration: 1.5, ease: 'power1.inOut', onUpdate: () => { count.textContent = String(Math.round(cobj.v)).padStart(3, '0'); } }, 0)
     .to('.loader-word', { opacity: 1, letterSpacing: '.32em', duration: 0.6, ease: 'power2.out' }, 0.9)

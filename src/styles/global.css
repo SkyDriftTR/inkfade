@@ -327,3 +327,12 @@ mark.hl.on{color:var(--blue-glow);background-size:100% 1.5px;text-shadow:0 0 22p
 .ring-btn small{font-size:.78rem;color:var(--blue-glow);letter-spacing:.04em}
 .contact a,.menu-foot a,.faq-lede a{text-decoration:none;color:inherit}
 .contact a:hover b,.menu-foot a:hover b,.faq-lede a:hover b{color:var(--blue-glow)}
+
+/* ---------- wordmark (nav + loader) ---------- */
+.brand{position:relative;isolation:isolate;display:block;line-height:0;padding:6px 4px;margin:-6px -4px;letter-spacing:0}
+.brand-mark{position:relative;z-index:1;display:block;height:34px;width:auto;aspect-ratio:682/230;overflow:visible;transition:filter .6s ease,transform .6s cubic-bezier(.2,.7,.2,1)}
+.brand-smoke{position:absolute;z-index:-1;left:-30%;top:-110%;width:300%;height:360%;pointer-events:none}
+.brand:hover .brand-mark,.brand:focus-visible .brand-mark,.brand.smoking .brand-mark{filter:drop-shadow(0 0 10px rgba(58,99,255,.55)) drop-shadow(0 0 2px rgba(111,141,255,.6));transform:translateY(-1px)}
+.brand:focus-visible{border-radius:8px}
+@media (max-width:720px){.brand-mark{height:28px}}
+svg.loader-word{width:min(42vw,220px);height:auto;aspect-ratio:682/230;padding-left:0;letter-spacing:0}
