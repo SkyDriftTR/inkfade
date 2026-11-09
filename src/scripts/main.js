@@ -28,15 +28,24 @@ addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => drawn
 /* ---------- hero: duman + mürekkep damlaları ---------- */
 const cv = $('#smoke'), ctx = cv.getContext('2d');
 let W = 0, H = 0, mx = 0, my = 0, tmx = 0, tmy = 0, heroProgress = 0, heroVisible = true;
+// Tuvalin boyutunu değiştirmek onu siler. Boyut değişimi bu yüzden sadece işaretlenir ve bir sonraki
+// karede, çizimden hemen önce uygulanır; aksi halde ekrana tek karelik boş (koyu) bir tuval gidiyordu.
+let needSize = true;
 function size() {
+  needSize = false;
   const D = Math.min(devicePixelRatio || 1, 1.5);
-  W = cv.clientWidth; H = cv.clientHeight; cv.width = W * D; cv.height = H * D; ctx.setTransform(D, 0, 0, D, 0, 0);
+  const w = Math.round(cv.clientWidth), h = Math.round(cv.clientHeight);
+  if (w === W && h === H && cv.width === Math.round(w * D)) return;
+  W = w; H = h; cv.width = Math.round(W * D); cv.height = Math.round(H * D); ctx.setTransform(D, 0, 0, D, 0, 0);
 }
-size(); new ResizeObserver(size).observe(cv); addEventListener('resize', size);
+size();
+const markSize = () => { needSize = true; };
+new ResizeObserver(markSize).observe(cv); addEventListener('resize', markSize);
 const R0 = rng(7);
 const puffs = Array.from({ length: 22 }, () => ({ x: R0(), y: R0(), r: 0.18 + R0() * 0.32, a: 0.035 + R0() * 0.06, s: (R0() - 0.5) * 0.00012, ph: R0() * 6 }));
 const drops = Array.from({ length: matchMedia('(max-width:720px)').matches ? 45 : 90 }, () => ({ x: R0(), y: R0(), z: R0(), r: 1 + R0() * R0() * 7, v: 0.00008 + R0() * 0.00025 }));
 function frame(t) {
+  if (needSize) size();
   if (heroVisible) {
     mx += (tmx - mx) * 0.05; my += (tmy - my) * 0.05;
     ctx.clearRect(0, 0, W, H);
@@ -233,8 +242,9 @@ const fx = (() => {
   if (!c || reduce) return { along() {} };
   const x = c.getContext('2d');
   let parts = [], running = false, last = 0, W = 0, H = 0;
-  const fit = () => { const d = Math.min(devicePixelRatio || 1, 2); W = innerWidth; H = innerHeight; c.width = W * d; c.height = H * d; x.setTransform(d, 0, 0, d, 0, 0); };
-  fit(); addEventListener('resize', fit);
+  let needFit = true;
+  const fit = () => { needFit = false; const d = Math.min(devicePixelRatio || 1, 2); W = innerWidth; H = innerHeight; c.width = W * d; c.height = H * d; x.setTransform(d, 0, 0, d, 0, 0); };
+  fit(); addEventListener('resize', () => { needFit = true; });
   const spawnOn = (el, r, n, from = 0, to = 1) => {
     const k = Math.max(0.6, Math.min(2.4, r.height / 48));
     for (let i = 0; i < n && parts.length < 180; i++) {
@@ -249,6 +259,7 @@ const fx = (() => {
   };
   const tick = (t) => {
     const dt = Math.min(2.5, last ? (t - last) / 16.7 : 1); last = t;
+    if (needFit) fit();
     x.clearRect(0, 0, W, H);
     parts = parts.filter((p) => (p.life += dt) < p.max);
     const rects = new Map();
@@ -264,7 +275,7 @@ const fx = (() => {
       g.addColorStop(0, `rgba(${p.c},${alpha})`); g.addColorStop(0.5, `rgba(${p.c},${alpha * 0.4})`); g.addColorStop(1, `rgba(${p.c},0)`);
       x.fillStyle = g; x.beginPath(); x.arc(0, 0, p.r, 0, 7); x.fill(); x.restore();
     }
-    if (parts.length) requestAnimationFrame(tick); else { running = false; last = 0; x.clearRect(0, 0, W, H); }
+    if (parts.length) requestAnimationFrame(tick); else { running = false; last = 0; x.clearRect(0, 0, W, H); c.classList.remove('on'); }
   };
   return {
     // öğe boyunca soldan sağa süpürerek duman bırakır
@@ -274,7 +285,7 @@ const fx = (() => {
         setTimeout(() => {
           const r = el.getBoundingClientRect(); if (!r.width) return;
           spawnOn(el, r, per, i / steps, (i + 1.6) / steps);
-          if (!running) { running = true; requestAnimationFrame(tick); }
+          if (!running) { running = true; c.classList.add('on'); requestAnimationFrame(tick); }
         }, (duration * 1000 * i) / steps);
       }
     },
