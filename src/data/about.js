@@ -4,7 +4,7 @@ import ulas from '../assets/ulas.webp';
 
 export const about = {
   name: 'Ulaş Hakan',
-  role: 'Dövme sanatçısı · Inkfade kurucusu',
+  role: 'Tattoo Artist & Kurucu',
   photo: ulas,
   intro: 'Ben **Ulaş Hakan Uysal**. Yaklaşık **6 yıldır** dövme sanatının içindeyim.',
   paragraphs: [

@@ -292,6 +292,17 @@ const fx = (() => {
   };
 })();
 
+/* ---------- harita: bölüme yaklaşınca yüklenir ---------- */
+const mapEl = $('#map');
+if (mapEl) {
+  const mapIO = new IntersectionObserver((es) => {
+    if (!es[0].isIntersecting) return;
+    mapIO.disconnect();
+    import('./map.js').then((mod) => mod.initMap(mapEl)).catch(() => mapEl.closest('.map-frame').classList.add('failed'));
+  }, { rootMargin: '600px' });
+  mapIO.observe(mapEl);
+}
+
 /* ---------- manifesto ---------- */
 const words = $$('#manifesto .w');
 
@@ -334,7 +345,6 @@ function initMotion() {
     .to('.logo', { scale: 1.9, opacity: 0, ease: 'none', force3D: true }, 0)
     .to('.logo-soft', { opacity: 1, ease: 'none', duration: 0.3 }, 0)
     .to('.hero-tag', { y: -80, opacity: 0, ease: 'none' }, 0)
-    .to('.hero-copy p', { y: -120, opacity: 0, ease: 'none' }, 0)
     .to('.scroll-hint', { opacity: 0, ease: 'none', duration: 0.2 }, 0);
 
   /* manifesto kelime kelime */
@@ -382,7 +392,7 @@ function initMotion() {
   gsap.from('.ring-btn svg circle', { strokeDashoffset: 600, duration: 1.6, ease: 'power2.out', stagger: 0.15, scrollTrigger: { trigger: '.ring-btn', start: 'top 85%' } });
 
   /* büyük başlıklar dumanla belirir */
-  $$('.about-name, .styles-head h2, .pf-head h2, .piercing h2, .process h2, .faq-side h2, .book h2').forEach((h) => {
+  $$('.about-name, .styles-head h2, .pf-head h2, .piercing h2, .process h2, .faq-side h2, .book h2, .loc-head h2, .pillars h3').forEach((h) => {
     gsap.set(h, { opacity: 0, filter: 'blur(14px)', y: 26 });
     ScrollTrigger.create({
       trigger: h, start: 'top 85%', once: true,
