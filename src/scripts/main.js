@@ -9,7 +9,7 @@ const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
 const loader = $('.loader');
 const hideLoader = () => { if (loader) loader.style.display = 'none'; document.documentElement.classList.remove('loading'); };
-setTimeout(hideLoader, 6500); // güvenlik: ne olursa olsun kapanır
+setTimeout(hideLoader, 4500); // güvenlik: ne olursa olsun kapanır
 
 let lenis = null;
 
@@ -281,45 +281,6 @@ const fx = (() => {
   };
 })();
 
-/* ---------- logonun içindeki duman ---------- */
-const fogCv = $('.logo-fog');
-const logoFog = (() => {
-  if (!fogCv) return;
-  const x = fogCv.getContext('2d'); let S = 0;
-  const fit = () => { const d = Math.min(devicePixelRatio || 1, 2); S = fogCv.clientWidth; fogCv.width = fogCv.height = S * d; x.setTransform(d, 0, 0, d, 0, 0); };
-  fit(); new ResizeObserver(fit).observe(fogCv);
-  const R = rng(31);
-  const blobs = Array.from({ length: 14 }, () => ({ a: R() * 6.28, d: 0.1 + R() * 0.32, r: 0.16 + R() * 0.26, s: (R() - 0.5) * 0.00018, al: 0.05 + R() * 0.07, ph: R() * 6 }));
-  const specks = Array.from({ length: 16 }, () => ({ x: R(), y: R(), r: 0.6 + R() * 2.4, v: 0.00004 + R() * 0.00008, ph: R() * 6 }));
-  const draw = (t) => {
-    if (heroVisible && S) {
-      x.clearRect(0, 0, S, S);
-      x.save(); x.beginPath(); x.arc(S / 2, S / 2, S / 2, 0, 7); x.clip();
-      x.globalCompositeOperation = 'lighter';
-      for (const b of blobs) {
-        const a = b.a + t * b.s, d = b.d + Math.sin(t * 0.00025 + b.ph) * 0.05;
-        const px = S / 2 + Math.cos(a) * d * S, py = S / 2 + Math.sin(a) * d * S * 0.8, r = b.r * S;
-        const g = x.createRadialGradient(px, py, 0, px, py, r);
-        g.addColorStop(0, `rgba(205,208,220,${b.al})`); g.addColorStop(0.6, `rgba(120,126,150,${b.al * 0.35})`); g.addColorStop(1, 'rgba(0,0,0,0)');
-        x.fillStyle = g; x.beginPath(); x.arc(px, py, r, 0, 7); x.fill();
-      }
-      x.globalCompositeOperation = 'source-over';
-      for (const p of specks) {
-        const y = (((p.y - t * p.v) % 1) + 1) % 1;
-        x.fillStyle = `rgba(80,115,255,${0.35 + 0.35 * Math.sin(t * 0.001 + p.ph)})`;
-        x.beginPath(); x.arc(p.x * S, y * S, p.r * (S / 400), 0, 7); x.fill();
-      }
-      // kenarlara doğru koyulaşan iç gölge
-      const v = x.createRadialGradient(S / 2, S / 2, S * 0.3, S / 2, S / 2, S / 2);
-      v.addColorStop(0, 'rgba(6,7,12,0)'); v.addColorStop(1, 'rgba(6,7,12,.75)');
-      x.fillStyle = v; x.fillRect(0, 0, S, S);
-      x.restore();
-    }
-    requestAnimationFrame(draw);
-  };
-  requestAnimationFrame(draw);
-})();
-
 /* ---------- manifesto ---------- */
 const words = $$('#manifesto .w');
 
@@ -343,23 +304,18 @@ function initMotion() {
     if (el) { e.preventDefault(); lenis.scrollTo(el, { offset: 0 }); }
   }));
 
-  /* açılış: logo yerinde parça parça çizilir, tamamlanınca site açılır */
+  /* açılış */
+  const paths = $$('circle,path', loader);
+  paths.forEach((p) => { const L = p.getTotalLength(); p.style.strokeDasharray = L; p.style.strokeDashoffset = L; });
   const count = $('.loader-count', loader); const cobj = { v: 0 };
-  const word = $('.logo-word');
-  gsap.set('.logo-ring', { '--sweep': '0deg' });
-  gsap.set('.logo-swoosh', { '--wipe': '-20%' });
-  gsap.set(word, { opacity: 0, filter: 'blur(10px)', clipPath: 'inset(0 100% 0 0)' });
-  gsap.set('.logo-fog', { opacity: 0 });
-  gsap.timeline({ delay: 0.15, onComplete: () => { hideLoader(); setTimeout(() => brandSmoke.burst(20), 300); } })
-    .to(cobj, { v: 100, duration: 2.5, ease: 'power1.inOut', onUpdate: () => { count.textContent = String(Math.round(cobj.v)).padStart(3, '0'); } }, 0)
-    .to('.logo-ring', { '--sweep': '360deg', duration: 1.3, ease: 'power2.inOut' }, 0)
-    .to('.logo-fog', { opacity: 1, duration: 1.4, ease: 'power1.out' }, 0.6)
-    .to(word, { opacity: 1, filter: 'blur(0px)', clipPath: 'inset(0 0% 0 0)', duration: 1, ease: 'power2.out', onStart: () => fx.along(word, { duration: 0.9, count: 44 }) }, 1.05)
-    .to('.logo-swoosh', { '--wipe': '130%', duration: 0.8, ease: 'power2.inOut' }, 1.6)
-    .to(count, { opacity: 0, duration: 0.3 }, 2.45)
-    .to(loader, { opacity: 0, duration: 0.9, ease: 'power2.inOut' }, 2.55)
-    .from('.hero-copy', { y: 24, opacity: 0, duration: 0.9, ease: 'power3.out', immediateRender: false }, 2.9)
-    .add(() => document.documentElement.classList.remove('loading'), 3.0);
+  gsap.set(loader, { clipPath: 'circle(75% at 50% 50%)' });
+  gsap.timeline({ onComplete: () => { hideLoader(); setTimeout(() => brandSmoke.burst(20), 400); } })
+    .to(paths, { strokeDashoffset: 0, duration: 1.2, ease: 'power2.inOut', stagger: 0.1 }, 0)
+    .to(cobj, { v: 100, duration: 1.5, ease: 'power1.inOut', onUpdate: () => { count.textContent = String(Math.round(cobj.v)).padStart(3, '0'); } }, 0)
+    .to('.loader-word', { opacity: 1, letterSpacing: '.32em', duration: 0.6, ease: 'power2.out', onStart: () => fx.along($('.loader-word'), { duration: 0.7, count: 36 }) }, 0.9)
+    .to(loader, { clipPath: 'circle(0% at 50% 50%)', duration: 0.9, ease: 'power3.inOut' }, 1.7)
+    .from('.logo img', { scale: 0.6, filter: 'blur(18px)', opacity: 0, duration: 1.4, ease: 'expo.out' }, 1.9)
+    .from('.hero-copy', { y: 24, opacity: 0, duration: 0.9, ease: 'power3.out' }, 2.2);
 
   /* hero: logo kaydırınca solar */
   gsap.timeline({ scrollTrigger: { trigger: '.hero', start: 'top top', end: '+=100%', scrub: true, pin: true, onUpdate: (s) => { heroProgress = s.progress; } } })

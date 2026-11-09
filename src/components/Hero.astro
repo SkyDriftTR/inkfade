@@ -1,19 +1,11 @@
 ---
-import ring from '../assets/logo-ring.webp';
-import swoosh from '../assets/logo-swoosh.webp';
-// Logo katmanları aynı 1024px'lik çizim düzleminden gelir: halka, kavis ve yazı birebir üst üste oturur.
-// Yükleme ekranı bu logoyu yerinde parça parça çizer; geçişte logo hiç yer değiştirmez.
+import logo from '../assets/logo.webp';
 ---
 <header class="hero" id="top">
   <canvas id="smoke" aria-hidden="true"></canvas>
   <div class="hero-vignette"></div>
   <div class="hero-inner">
-    <div class="logo" role="img" aria-label="Inkfade logosu">
-      <canvas class="logo-fog" aria-hidden="true"></canvas>
-      <img class="logo-ring" src={ring.src} width="800" height="800" alt="" />
-      <img class="logo-swoosh" src={swoosh.src} width="800" height="800" alt="" />
-      <svg class="logo-word" viewBox="0 0 682 230" aria-hidden="true"><use href="#inkfade-wordmark" width="682" height="230"></use></svg>
-    </div>
+    <div class="logo"><img src={logo.src} width="560" height="560" alt="Ink Fade logosu" /></div>
     <div class="hero-copy">
       <p class="mono">Black &amp; Grey Realism · Piercing · Sinop</p>
       <h1 class="hero-tag">Tattoo <em>&amp; Piercing</em></h1>
