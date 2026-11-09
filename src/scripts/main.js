@@ -8,8 +8,8 @@ const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
 const loader = $('.loader');
-const hideLoader = () => { if (loader) loader.style.display = 'none'; };
-setTimeout(hideLoader, 4500); // güvenlik: ne olursa olsun kapanır
+const hideLoader = () => { if (loader) loader.style.display = 'none'; document.documentElement.classList.remove('loading'); };
+setTimeout(hideLoader, 6500); // güvenlik: ne olursa olsun kapanır
 
 let lenis = null;
 
@@ -32,7 +32,7 @@ function size() {
   const D = Math.min(devicePixelRatio || 1, 1.5);
   W = cv.clientWidth; H = cv.clientHeight; cv.width = W * D; cv.height = H * D; ctx.setTransform(D, 0, 0, D, 0, 0);
 }
-size(); addEventListener('resize', size);
+size(); new ResizeObserver(size).observe(cv); addEventListener('resize', size);
 const R0 = rng(7);
 const puffs = Array.from({ length: 22 }, () => ({ x: R0(), y: R0(), r: 0.18 + R0() * 0.32, a: 0.035 + R0() * 0.06, s: (R0() - 0.5) * 0.00012, ph: R0() * 6 }));
 const drops = Array.from({ length: matchMedia('(max-width:720px)').matches ? 45 : 90 }, () => ({ x: R0(), y: R0(), z: R0(), r: 1 + R0() * R0() * 7, v: 0.00008 + R0() * 0.00025 }));
@@ -226,6 +226,100 @@ const brandSmoke = (() => {
 // dokunmatik ekranda: dokununca kısa bir duman
 brand?.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse') brandSmoke.burst(20); });
 
+/* ---------- duman motoru: büyük başlıklar ve yükleme ekranı için ---------- */
+// Parçacıklar bir öğeye bağlıdır; sayfa kayarken dumanla birlikte hareket ederler.
+const fx = (() => {
+  const c = $('.fx-smoke');
+  if (!c || reduce) return { along() {} };
+  const x = c.getContext('2d');
+  let parts = [], running = false, last = 0, W = 0, H = 0;
+  const fit = () => { const d = Math.min(devicePixelRatio || 1, 2); W = innerWidth; H = innerHeight; c.width = W * d; c.height = H * d; x.setTransform(d, 0, 0, d, 0, 0); };
+  fit(); addEventListener('resize', fit);
+  const spawnOn = (el, r, n, from = 0, to = 1) => {
+    const k = Math.max(0.6, Math.min(2.4, r.height / 48));
+    for (let i = 0; i < n && parts.length < 180; i++) {
+      parts.push({
+        el, lx: r.width * (from + Math.random() * (to - from)), ly: r.height * (0.2 + Math.random() * 0.7),
+        dx: 0, dy: 0, vx: (Math.random() - 0.35) * 0.5 * k, vy: -(0.25 + Math.random() * 0.5) * k,
+        r: (3 + Math.random() * 5) * k, g: (0.12 + Math.random() * 0.2) * k,
+        life: 0, max: 80 + Math.random() * 90, a: 0.1 + Math.random() * 0.14,
+        c: Math.random() < 0.3 ? '90,125,255' : '205,208,220', ph: Math.random() * 6.28,
+      });
+    }
+  };
+  const tick = (t) => {
+    const dt = Math.min(2.5, last ? (t - last) / 16.7 : 1); last = t;
+    x.clearRect(0, 0, W, H);
+    parts = parts.filter((p) => (p.life += dt) < p.max);
+    const rects = new Map();
+    for (const p of parts) {
+      let r = rects.get(p.el); if (!r) { r = p.el.getBoundingClientRect(); rects.set(p.el, r); }
+      const k = p.life / p.max, curl = Math.sin(p.life * 0.05 + p.ph);
+      p.dx += (p.vx + curl * 0.3) * dt; p.dy += p.vy * dt; p.r += p.g * dt;
+      const px = r.left + p.lx + p.dx, py = r.top + p.ly + p.dy;
+      if (py < -150 || py > H + 150) continue;
+      const alpha = p.a * Math.sin(Math.PI * Math.min(1, k * 1.25)) * (1 - k * 0.35);
+      x.save(); x.translate(px, py); x.rotate(Math.atan2(p.vy, p.vx + curl * 0.3)); x.scale(1.8, 0.8);
+      const g = x.createRadialGradient(0, 0, 0, 0, 0, p.r);
+      g.addColorStop(0, `rgba(${p.c},${alpha})`); g.addColorStop(0.5, `rgba(${p.c},${alpha * 0.4})`); g.addColorStop(1, `rgba(${p.c},0)`);
+      x.fillStyle = g; x.beginPath(); x.arc(0, 0, p.r, 0, 7); x.fill(); x.restore();
+    }
+    if (parts.length) requestAnimationFrame(tick); else { running = false; last = 0; x.clearRect(0, 0, W, H); }
+  };
+  return {
+    // öğe boyunca soldan sağa süpürerek duman bırakır
+    along(el, { duration = 0.8, count = 40 } = {}) {
+      const steps = 8, per = Math.ceil(count / steps);
+      for (let i = 0; i < steps; i++) {
+        setTimeout(() => {
+          const r = el.getBoundingClientRect(); if (!r.width) return;
+          spawnOn(el, r, per, i / steps, (i + 1.6) / steps);
+          if (!running) { running = true; requestAnimationFrame(tick); }
+        }, (duration * 1000 * i) / steps);
+      }
+    },
+  };
+})();
+
+/* ---------- logonun içindeki duman ---------- */
+const fogCv = $('.logo-fog');
+const logoFog = (() => {
+  if (!fogCv) return;
+  const x = fogCv.getContext('2d'); let S = 0;
+  const fit = () => { const d = Math.min(devicePixelRatio || 1, 2); S = fogCv.clientWidth; fogCv.width = fogCv.height = S * d; x.setTransform(d, 0, 0, d, 0, 0); };
+  fit(); new ResizeObserver(fit).observe(fogCv);
+  const R = rng(31);
+  const blobs = Array.from({ length: 14 }, () => ({ a: R() * 6.28, d: 0.1 + R() * 0.32, r: 0.16 + R() * 0.26, s: (R() - 0.5) * 0.00018, al: 0.05 + R() * 0.07, ph: R() * 6 }));
+  const specks = Array.from({ length: 16 }, () => ({ x: R(), y: R(), r: 0.6 + R() * 2.4, v: 0.00004 + R() * 0.00008, ph: R() * 6 }));
+  const draw = (t) => {
+    if (heroVisible && S) {
+      x.clearRect(0, 0, S, S);
+      x.save(); x.beginPath(); x.arc(S / 2, S / 2, S / 2, 0, 7); x.clip();
+      x.globalCompositeOperation = 'lighter';
+      for (const b of blobs) {
+        const a = b.a + t * b.s, d = b.d + Math.sin(t * 0.00025 + b.ph) * 0.05;
+        const px = S / 2 + Math.cos(a) * d * S, py = S / 2 + Math.sin(a) * d * S * 0.8, r = b.r * S;
+        const g = x.createRadialGradient(px, py, 0, px, py, r);
+        g.addColorStop(0, `rgba(205,208,220,${b.al})`); g.addColorStop(0.6, `rgba(120,126,150,${b.al * 0.35})`); g.addColorStop(1, 'rgba(0,0,0,0)');
+        x.fillStyle = g; x.beginPath(); x.arc(px, py, r, 0, 7); x.fill();
+      }
+      x.globalCompositeOperation = 'source-over';
+      for (const p of specks) {
+        const y = (((p.y - t * p.v) % 1) + 1) % 1;
+        x.fillStyle = `rgba(80,115,255,${0.35 + 0.35 * Math.sin(t * 0.001 + p.ph)})`;
+        x.beginPath(); x.arc(p.x * S, y * S, p.r * (S / 400), 0, 7); x.fill();
+      }
+      // kenarlara doğru koyulaşan iç gölge
+      const v = x.createRadialGradient(S / 2, S / 2, S * 0.3, S / 2, S / 2, S / 2);
+      v.addColorStop(0, 'rgba(6,7,12,0)'); v.addColorStop(1, 'rgba(6,7,12,.75)');
+      x.fillStyle = v; x.fillRect(0, 0, S, S);
+      x.restore();
+    }
+    requestAnimationFrame(draw);
+  };
+  requestAnimationFrame(draw);
+})();
+
 /* ---------- manifesto ---------- */
 const words = $$('#manifesto .w');
 
@@ -249,18 +343,23 @@ function initMotion() {
     if (el) { e.preventDefault(); lenis.scrollTo(el, { offset: 0 }); }
   }));
 
-  /* açılış */
-  const paths = $$('circle,path', loader);
-  paths.forEach((p) => { const L = p.getTotalLength(); p.style.strokeDasharray = L; p.style.strokeDashoffset = L; });
+  /* açılış: logo yerinde parça parça çizilir, tamamlanınca site açılır */
   const count = $('.loader-count', loader); const cobj = { v: 0 };
-  gsap.set(loader, { clipPath: 'circle(75% at 50% 50%)' });
-  gsap.timeline({ onComplete: () => { hideLoader(); setTimeout(() => brandSmoke.burst(20), 400); } })
-    .to(paths, { strokeDashoffset: 0, duration: 1.2, ease: 'power2.inOut', stagger: 0.1 }, 0)
-    .to(cobj, { v: 100, duration: 1.5, ease: 'power1.inOut', onUpdate: () => { count.textContent = String(Math.round(cobj.v)).padStart(3, '0'); } }, 0)
-    .to('.loader-word', { opacity: 1, letterSpacing: '.32em', duration: 0.6, ease: 'power2.out' }, 0.9)
-    .to(loader, { clipPath: 'circle(0% at 50% 50%)', duration: 0.9, ease: 'power3.inOut' }, 1.7)
-    .from('.logo img', { scale: 0.6, filter: 'blur(18px)', opacity: 0, duration: 1.4, ease: 'expo.out' }, 1.9)
-    .from('.hero-copy', { y: 24, opacity: 0, duration: 0.9, ease: 'power3.out' }, 2.2);
+  const word = $('.logo-word');
+  gsap.set('.logo-ring', { '--sweep': '0deg' });
+  gsap.set('.logo-swoosh', { '--wipe': '-20%' });
+  gsap.set(word, { opacity: 0, filter: 'blur(10px)', clipPath: 'inset(0 100% 0 0)' });
+  gsap.set('.logo-fog', { opacity: 0 });
+  gsap.timeline({ delay: 0.15, onComplete: () => { hideLoader(); setTimeout(() => brandSmoke.burst(20), 300); } })
+    .to(cobj, { v: 100, duration: 2.5, ease: 'power1.inOut', onUpdate: () => { count.textContent = String(Math.round(cobj.v)).padStart(3, '0'); } }, 0)
+    .to('.logo-ring', { '--sweep': '360deg', duration: 1.3, ease: 'power2.inOut' }, 0)
+    .to('.logo-fog', { opacity: 1, duration: 1.4, ease: 'power1.out' }, 0.6)
+    .to(word, { opacity: 1, filter: 'blur(0px)', clipPath: 'inset(0 0% 0 0)', duration: 1, ease: 'power2.out', onStart: () => fx.along(word, { duration: 0.9, count: 44 }) }, 1.05)
+    .to('.logo-swoosh', { '--wipe': '130%', duration: 0.8, ease: 'power2.inOut' }, 1.6)
+    .to(count, { opacity: 0, duration: 0.3 }, 2.45)
+    .to(loader, { opacity: 0, duration: 0.9, ease: 'power2.inOut' }, 2.55)
+    .from('.hero-copy', { y: 24, opacity: 0, duration: 0.9, ease: 'power3.out', immediateRender: false }, 2.9)
+    .add(() => document.documentElement.classList.remove('loading'), 3.0);
 
   /* hero: logo kaydırınca solar */
   gsap.timeline({ scrollTrigger: { trigger: '.hero', start: 'top top', end: '+=100%', scrub: true, pin: true, onUpdate: (s) => { heroProgress = s.progress; } } })
@@ -295,7 +394,7 @@ function initMotion() {
   /* hakkımda */
   gsap.fromTo('.about-photo', { y: 50 }, { y: -50, ease: 'none', scrollTrigger: { trigger: '.about', start: 'top bottom', end: 'bottom top', scrub: true } });
   gsap.fromTo('.about-ring', { rotate: -30 }, { rotate: 40, ease: 'none', scrollTrigger: { trigger: '.about', start: 'top bottom', end: 'bottom top', scrub: true } });
-  gsap.from('.about-text > *', { y: 30, opacity: 0, stagger: 0.07, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: '.about-text', start: 'top 80%' } });
+  gsap.from('.about-text > *:not(.about-name)', { y: 30, opacity: 0, stagger: 0.07, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: '.about-text', start: 'top 80%' } });
 
   $$('mark.hl').forEach((h) => ScrollTrigger.create({
     trigger: h, start: 'top 78%',
@@ -312,6 +411,18 @@ function initMotion() {
   /* randevu: mürekkep yayılır */
   gsap.fromTo('.book', { clipPath: 'circle(18% at 50% 50%)' }, { clipPath: 'circle(150% at 50% 50%)', ease: 'none', scrollTrigger: { trigger: '.book', start: 'top bottom', end: 'top 20%', scrub: true } });
   gsap.from('.ring-btn svg circle', { strokeDashoffset: 600, duration: 1.6, ease: 'power2.out', stagger: 0.15, scrollTrigger: { trigger: '.ring-btn', start: 'top 85%' } });
+
+  /* büyük başlıklar dumanla belirir */
+  $$('.about-name, .styles-head h2, .pf-head h2, .piercing h2, .process h2, .faq-side h2, .book h2').forEach((h) => {
+    gsap.set(h, { opacity: 0, filter: 'blur(14px)', y: 26 });
+    ScrollTrigger.create({
+      trigger: h, start: 'top 85%', once: true,
+      onEnter: () => {
+        gsap.to(h, { opacity: 1, filter: 'blur(0px)', y: 0, duration: 1.2, ease: 'power3.out', clearProps: 'filter' });
+        fx.along(h, { duration: 0.8, count: Math.round(Math.min(60, 20 + h.offsetWidth / 12)) });
+      },
+    });
+  });
 
   addEventListener('load', () => ScrollTrigger.refresh());
 }

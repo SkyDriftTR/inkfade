@@ -19,6 +19,7 @@ const { title = 'Ink Fade', description = 'Inkfade Tattoo & Piercing, Sinop Merk
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Grenze:ital,wght@0,400;0,500;0,600;1,400&family=Grenze+Gotisch:wght@400..800&family=Pirata+One&family=UnifrakturCook:wght@700&family=UnifrakturMaguntia&family=Instrument+Sans:wght@400;500;600&display=swap" />
     <script is:inline>
       document.documentElement.classList.add('js');
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('loading');
       try { var f = localStorage.getItem('inkfade-font'); if (f) document.documentElement.dataset.font = f; } catch (e) {}
     </script>
   </head>
