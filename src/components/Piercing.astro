@@ -3,18 +3,24 @@ import { groups } from '../data/piercing.js';
 ---
 <section class="piercing" id="piercing">
   <div class="wrap pc-grid">
-    <div class="pc-art"><canvas id="pcCanvas" data-mode="ring" data-seed="808"></canvas><p class="mono" id="pcLabel">Helix · halka</p></div>
-    <div>
+    <div class="pc-side">
       <p class="mono">Piercing</p>
       <h2>Piercing</h2>
       <p class="lede">Kulaktan buruna, steril iğneyle ve vücuduna uygun takıyla. Yerleşimi anatomine göre birlikte seçeriz.</p>
-
+      <div class="pc-notes">
+        <div><p class="mono">Takı</p><p>İlk takılar 316L cerrahi çelik.</p></div>
+        <div><p class="mono">Uygulama</p><p>Tek kullanımlık steril iğne. Tabanca kullanılmaz.</p></div>
+        <div><p class="mono">Bakım</p><p>Bakım rehberi verilir, iyileşme sürecinde ücretsiz kontrol.</p></div>
+      </div>
+      <a class="pc-cta" href="#randevu">Piercing randevusu →</a>
+    </div>
+    <div class="pc-lists">
       {groups.map((g) => (
         <div class="pc-group">
           <p class="mono"><span>{g.name}</span><span>Ort. iyileşme</span></p>
           <ul class="pc-list">
             {g.items.map((it) => (
-              <li data-jewel={it.jewel} data-label={it.label}>
+              <li>
                 <span class="nm">{it.name}{it.note && <small>{it.note}</small>}</span>
                 <span class="t">{it.time}</span>
               </li>
@@ -22,13 +28,6 @@ import { groups } from '../data/piercing.js';
           </ul>
         </div>
       ))}
-
-      <div class="pc-notes">
-        <div><p class="mono">Takı</p><p>İlk takılar implant sınıfı titanyum. Alerji riskini en aza indirir.</p></div>
-        <div><p class="mono">Uygulama</p><p>Tek kullanımlık steril iğne. Tabanca kullanılmaz.</p></div>
-        <div><p class="mono">Bakım</p><p>Bakım rehberi verilir, iyileşme sürecinde ücretsiz kontrol.</p></div>
-      </div>
-      <a class="pc-cta" href="#randevu">Piercing randevusu →</a>
     </div>
   </div>
 </section>

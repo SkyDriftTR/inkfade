@@ -6,7 +6,7 @@ export const faq = [
   },
   {
     q: 'Randevu nasıl alırım?',
-    a: 'Instagram üzerinden mesaj atman yeterli. Fikrini, yerleşimi, yaklaşık boyutu ve varsa referans görsellerini gönder; uygun tarihlerle dönüş yapalım.',
+    a: 'Randevu talebinizi WhatsApp veya Instagram üzerinden iletebilir, sayfadaki “Randevu al” butonuyla doğrudan WhatsApp’a yönlenebilirsiniz. Talebinizde düşündüğünüz tasarımı, yerleşim bölgesini, yaklaşık boyutu ve varsa referans görsellerini paylaşmanız; size en uygun tarih ve fiyat bilgisini hızlıca sunmamızı sağlar.',
   },
   {
     q: 'Fiyatlar nasıl belirleniyor?',
@@ -42,7 +42,7 @@ export const faq = [
   },
   {
     q: 'Piercing için tabanca kullanıyor musunuz?',
-    a: 'Hayır. Tüm piercing işlemleri tek kullanımlık steril iğneyle yapılır ve ilk takılar implant sınıfı titanyumdur.',
+    a: 'Hayır. Tüm piercing işlemleri tek kullanımlık steril iğneyle yapılır ve ilk takılar 316L cerrahi çeliktir.',
   },
   {
     q: 'Rötuş ücretli mi?',

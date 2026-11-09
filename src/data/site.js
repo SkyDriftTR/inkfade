@@ -1,8 +1,12 @@
-// Stüdyo bilgileri. Yer tutucuları gerçek bilgilerle değiştir.
+// Stüdyo iletişim bilgileri. Sitedeki tüm linkler buradan beslenir.
+const phoneDigits = '905437349849';
+
 export const site = {
-  name: 'Ink Fade',
-  instagram: 'inkfade',
-  instagramUrl: 'https://www.instagram.com/',
-  phone: '+90 5XX XXX XX XX',
-  isPlaceholder: true, // gerçek bilgiler girilince false yap, "yer tutucu" notu kaybolur
+  name: 'Inkfade Tattoo & Piercing',
+  instagram: 'inkfade.sinop',
+  instagramUrl: 'https://www.instagram.com/inkfade.sinop/',
+  phone: '+90 543 734 98 49',
+  phoneUrl: `tel:+${phoneDigits}`,
+  whatsappUrl: `https://wa.me/${phoneDigits}?text=${encodeURIComponent('Merhaba, randevu almak istiyorum.')}`,
+  location: 'Sinop Merkez',
 };

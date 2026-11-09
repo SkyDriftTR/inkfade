@@ -1,12 +1,11 @@
 // Hakkımda bölümü. **çift yıldız** arasındaki ifadeler sayfa kaydırıldıkça maviye döner.
-// Fotoğraf eklemek için: görseli src/assets/ulas.jpg olarak koy, aşağıdaki satırın yorumunu kaldır
-// ve photo: ulas yap.
-// import ulas from '../assets/ulas.jpg';
+// Fotoğraf: src/assets/ulas.webp (kare kırpılmış, sitede daire olarak gösterilir).
+import ulas from '../assets/ulas.webp';
 
 export const about = {
   name: 'Ulaş Hakan',
   role: 'Dövme sanatçısı · Inkfade kurucusu',
-  photo: null,
+  photo: ulas,
   intro: 'Ben **Ulaş Hakan Uysal**. Yaklaşık **6 yıldır** dövme sanatının içindeyim.',
   paragraphs: [
     'Hibrit bir sanatçı olarak farklı stillerle çalışmayı sevsem de kendimi özellikle **Black & Grey Realism** alanında geliştirmeye ve üretmeye odaklıyorum.',

@@ -14,7 +14,7 @@ setTimeout(hideLoader, 4500); // güvenlik: ne olursa olsun kapanır
 let lenis = null;
 
 /* ---------- yer tutucu çizimler ---------- */
-const eager = $$('.float canvas, .panel canvas, .about-photo canvas, #pcCanvas');
+const eager = $$('.float canvas, .panel canvas, .about-photo canvas');
 const drawn = new Set();
 const paint = (c) => { drawArt(c); drawn.add(c); };
 eager.forEach(paint);
@@ -137,13 +137,6 @@ addEventListener('keydown', (e) => {
   if (e.key === 'ArrowLeft') lbStep(-1);
 });
 
-/* ---------- piercing takı önizlemesi ---------- */
-const pc = $('#pcCanvas'), pcLabel = $('#pcLabel');
-$$('.pc-list li').forEach((li, i) => li.addEventListener('pointerenter', () => {
-  $$('.pc-list li.on').forEach((x) => x.classList.remove('on')); li.classList.add('on');
-  pc.dataset.mode = li.dataset.jewel; pc.dataset.seed = 900 + i * 13; drawArt(pc); pcLabel.textContent = li.dataset.label;
-  if (!reduce) gsap.fromTo(pc, { scale: 0.94, rotate: -8 }, { scale: 1, rotate: 0, duration: 0.7, ease: 'expo.out' });
-}));
 
 /* ---------- mobil menü ---------- */
 const root = document.documentElement;
@@ -242,6 +235,8 @@ function initMotion() {
   gsap.to('.progress i', { scaleX: 1, ease: 'none', scrollTrigger: { trigger: '.styles', start: 'top top', end: () => '+=' + dist(), scrub: true } });
   $$('.panel .art img').forEach((c) => gsap.fromTo(c, { scale: 1.25 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '.styles', start: 'top top', end: () => '+=' + dist(), scrub: true } }));
 
+  /* hakkımda: fotoğraf görünür olunca renklenir */
+  ScrollTrigger.create({ trigger: '.about-photo', start: 'top 65%', end: 'bottom 20%', toggleClass: 'lit' });
   /* hakkımda */
   gsap.fromTo('.about-photo', { y: 50 }, { y: -50, ease: 'none', scrollTrigger: { trigger: '.about', start: 'top bottom', end: 'bottom top', scrub: true } });
   gsap.fromTo('.about-ring', { rotate: -30 }, { rotate: 40, ease: 'none', scrollTrigger: { trigger: '.about', start: 'top bottom', end: 'bottom top', scrub: true } });
@@ -254,7 +249,6 @@ function initMotion() {
 
   /* portfolyo ve piercing */
   $$('.pf-row').forEach((r) => gsap.from($$('.pf-item', r), { y: 60, opacity: 0.2, stagger: 0.06, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: r, start: 'top 85%' } }));
-  gsap.fromTo('.pc-art', { rotate: -20 }, { rotate: 20, ease: 'none', scrollTrigger: { trigger: '.piercing', start: 'top bottom', end: 'bottom top', scrub: true } });
 
   /* süreç çizgisi */
   gsap.to('.steps .rail i', { scaleY: 1, ease: 'none', scrollTrigger: { trigger: '.steps', start: 'top 70%', end: 'bottom 60%', scrub: true } });

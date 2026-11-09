@@ -29,14 +29,6 @@ export const categories = [
     name: 'Fine line & Minimal',
     works: ['lale', 'gul', 'denizanasi'],
   },
-  {
-    slug: 'piercing',
-    name: 'Piercing',
-    works: [],
-    placeholder: ['ring', 'stud'],
-    count: 8,
-    tags: ['Helix', 'Tragus', 'Conch', 'Septum', 'Burun', 'Lob', 'Rook', 'Göbek'],
-  },
 ];
 
 // Her kategori için gösterilecek öğe listesini üretir.

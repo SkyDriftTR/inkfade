@@ -17,7 +17,7 @@ const rich = (s) => esc(s).replace(/\*\*(.+?)\*\*/g, '<mark class="hl">$1</mark>
       </svg>
       <figure class="about-photo">
         {about.photo
-          ? <img src={about.photo.src} alt={about.name} loading="lazy" />
+          ? <img src={about.photo.src} width={about.photo.width} height={about.photo.height} alt="Ulaş Hakan Uysal stüdyoda dövme yaparken" loading="lazy" decoding="async" />
           : <><canvas data-mode="smoke" data-seed="1984"></canvas><figcaption>Fotoğraf eklenecek</figcaption></>}
       </figure>
     </div>

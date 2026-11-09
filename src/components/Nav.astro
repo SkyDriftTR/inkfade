@@ -33,7 +33,7 @@ const links = [
     {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
   </ol>
   <div class="menu-foot">
-    <span>Instagram <b>@{site.instagram}</b></span>
-    <span>{site.phone}</span>
+    <a href={site.whatsappUrl} target="_blank" rel="noopener">WhatsApp <b>{site.phone}</b></a>
+    <a href={site.instagramUrl} target="_blank" rel="noopener">Instagram <b>@{site.instagram}</b></a>
   </div>
 </div>
