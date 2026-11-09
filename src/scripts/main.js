@@ -314,17 +314,17 @@ function initMotion() {
     .to(cobj, { v: 100, duration: 1.5, ease: 'power1.inOut', onUpdate: () => { count.textContent = String(Math.round(cobj.v)).padStart(3, '0'); } }, 0)
     .to('.loader-word', { opacity: 1, letterSpacing: '.32em', duration: 0.6, ease: 'power2.out', onStart: () => fx.along($('.loader-word'), { duration: 0.7, count: 36 }) }, 0.9)
     .to(loader, { clipPath: 'circle(0% at 50% 50%)', duration: 0.9, ease: 'power3.inOut' }, 1.7)
-    .from('.logo img', { scale: 0.6, filter: 'blur(18px)', opacity: 0, duration: 1.4, ease: 'expo.out', clearProps: 'all' }, 1.9)
+    .fromTo('.logo-inner', { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 1.4, ease: 'expo.out', force3D: true }, 1.9)
+    .fromTo('.logo-intro', { opacity: 1 }, { opacity: 0, duration: 1.2, ease: 'power2.out' }, 1.9)
     .from('.hero-copy', { y: 24, opacity: 0, duration: 0.9, ease: 'power3.out' }, 2.2);
 
   /* hero: logo kaydırınca solar */
   gsap.timeline({ scrollTrigger: { trigger: '.hero', start: 'top top', end: '+=100%', scrub: true, pin: true, onUpdate: (s) => { heroProgress = s.progress; } } })
-    // logo sabitleme bitmeden (%85'te) tamamen kaybolur ve gizlenir; sabitlemenin bırakıldığı kareyle çakışmaz
-    .to('.logo', { scale: 1.9, opacity: 0, ease: 'none', duration: 0.85 }, 0)
-    .to('.hero-tag', { y: -80, opacity: 0, ease: 'none', duration: 0.8 }, 0)
-    .to('.hero-copy p', { y: -120, opacity: 0, ease: 'none', duration: 0.8 }, 0)
-    .to('.scroll-hint', { opacity: 0, ease: 'none', duration: 0.2 }, 0)
-    .to({}, { duration: 1 }, 0); // zaman çizelgesini sabitlemenin tamamına yayar
+    .to('.logo', { scale: 1.9, opacity: 0, ease: 'none', force3D: true }, 0)
+    .to('.logo-soft', { opacity: 1, ease: 'none', duration: 0.3 }, 0)
+    .to('.hero-tag', { y: -80, opacity: 0, ease: 'none' }, 0)
+    .to('.hero-copy p', { y: -120, opacity: 0, ease: 'none' }, 0)
+    .to('.scroll-hint', { opacity: 0, ease: 'none', duration: 0.2 }, 0);
 
   /* manifesto kelime kelime */
   ScrollTrigger.create({

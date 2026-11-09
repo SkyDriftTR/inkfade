@@ -73,11 +73,14 @@ h2{font-family:var(--f-head);font-weight:var(--head-w);letter-spacing:0}
 .hero > canvas{position:absolute;inset:0;width:100%;height:100%}
 .hero-vignette{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,transparent 30%,var(--ink) 82%);pointer-events:none}
 .hero-inner{position:relative;z-index:2;display:grid;justify-items:center;gap:22px;text-align:center;padding-left:var(--gut-l);padding-right:var(--gut-r)}
-/* Logo tek bir düz görsel: kenar yumuşatması görselin kendi saydamlığında (CSS maskesi yok),
-   kaydırırken yalnızca boyut ve saydamlık değişir. Maske ve filtre gibi katman efektleri Chrome'da
-   solmanın sonunda bir karelik görünme hatasına yol açıyordu. */
-.logo{width:min(64vw,400px);aspect-ratio:1;max-width:100%}
-.logo img{width:100%;height:100%;display:block}
+/* Logo: kenar yumuşatması görselin kendisinde (maske yok), bulanıklık önceden işlenmiş ikinci görsele
+   geçişle (filtre yok). .logo ve .logo-inner baştan sona aynı ekran kartı katmanında kalır; katman
+   değişimi Chrome'da solmanın sonunda logonun bir kare tam görünmesine yol açıyordu. */
+.logo{position:relative;width:min(64vw,400px);aspect-ratio:1;max-width:100%;will-change:transform,opacity;transform:translateZ(0)}
+.logo-inner{position:absolute;inset:0;will-change:transform,opacity;transform:translateZ(0)}
+.logo img{position:absolute;display:block}
+.logo-sharp{inset:0;width:100%;height:100%}
+.logo-soft,.logo-intro{left:-6.25%;top:-6.25%;width:112.5%;height:112.5%;opacity:0}
 .hero-copy{display:grid;justify-items:center;gap:14px}
 .hero-tag{font-family:var(--f-display);font-style:italic;font-weight:400;font-size:clamp(1.3rem,3vw,1.9rem);letter-spacing:.02em}
 .hero-tag em{font-style:normal;color:var(--blue-glow)}
