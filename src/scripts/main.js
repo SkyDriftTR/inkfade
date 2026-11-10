@@ -67,16 +67,9 @@ function frame(t) {
     mx += (tmx - mx) * 0.05; my += (tmy - my) * 0.05;
     ctx.clearRect(0, 0, W, H);
     ctx.globalCompositeOperation = 'lighter';
-    for (const p of puffs) {
-      const px = (p.x + Math.sin(t * 0.00007 + p.ph) * 0.05 + ((p.s * t) % 1)) * W - mx * 20;
-      const py = (p.y + Math.cos(t * 0.00006 + p.ph) * 0.04) * H - my * 14 - heroProgress * H * 0.15;
-      const r = p.r * Math.max(W, H); const g = ctx.createRadialGradient(px, py, 0, px, py, r);
-      g.addColorStop(0, `rgba(200,204,216,${p.a})`); g.addColorStop(0.6, `rgba(120,126,150,${p.a * 0.4})`); g.addColorStop(1, 'rgba(0,0,0,0)');
-      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(px, py, r, 0, 7); ctx.fill();
-    }
     const M = Math.min(W, H) || 1;
-    const cr = cv.getBoundingClientRect();
-    const qx = hpx - cr.left, qy = hpy - cr.top, R = Math.max(150, M * 0.24);
+    const cr = hpOn ? cv.getBoundingClientRect() : null;
+    const qx = cr ? hpx - cr.left : -9999, qy = cr ? hpy - cr.top : -9999, R = Math.max(150, M * 0.24);
     // imleç yakınındaysa dışarı itilir ve incelir, sonra yavaşça yerine döner
     const push = (w, px, py) => {
       let tx = 0, ty = 0, tf = 0;
@@ -99,6 +92,14 @@ function frame(t) {
     if (oc.width !== ow || oc.height !== oh) { oc.width = ow; oc.height = oh; }
     ox2.setTransform(1, 0, 0, 1, 0, 0); ox2.clearRect(0, 0, ow, oh);
     ox2.globalCompositeOperation = 'lighter'; ox2.setTransform(SC, 0, 0, SC, 0, 0);
+    // geniş arka plan bulutları da burada: tam çözünürlükte çizmek kaydırırken kasmaya yol açıyordu
+    for (const p of puffs) {
+      const px = (p.x + Math.sin(t * 0.00007 + p.ph) * 0.05 + ((p.s * t) % 1)) * W - mx * 20;
+      const py = (p.y + Math.cos(t * 0.00006 + p.ph) * 0.04) * H - my * 14 - heroProgress * H * 0.15;
+      const r = p.r * Math.max(W, H); const g = ox2.createRadialGradient(px, py, 0, px, py, r);
+      g.addColorStop(0, `rgba(200,204,216,${p.a})`); g.addColorStop(0.6, `rgba(120,126,150,${p.a * 0.4})`); g.addColorStop(1, 'rgba(0,0,0,0)');
+      ox2.fillStyle = g; ox2.beginPath(); ox2.arc(px, py, r, 0, 7); ox2.fill();
+    }
     const vsegs = smallHero ? 5 : 7;
     for (const w of veils) {
       const depth = 0.5 + w.z;
