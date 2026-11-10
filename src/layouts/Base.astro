@@ -2,7 +2,15 @@
 import '../styles/global.css';
 import Wordmark from '../components/Wordmark.astro';
 const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : import.meta.env.BASE_URL + '/';
-const { title = 'Ink Fade', description = 'Inkfade Tattoo & Piercing, Sinop Merkez. Ulaş Hakan Uysal ile Black & Grey Realism, sleeve, fine line dövme ve piercing.' } = Astro.props;
+const { home = true, title = 'Ink Fade', description = 'Inkfade Tattoo & Piercing, Sinop Merkez. Ulaş Hakan Uysal ile Black & Grey Realism, sleeve, fine line dövme ve piercing.' } = Astro.props;
+// Fontlar sitenin içinden yüklenir: ziyaretçinin IP'si Google'a gitmez (KVKK), çerez yok.
+const f = (n) => `${base}fonts/${n}.woff`;
+const fontCss = [
+  ['Pirata One', 'pirata-one', 'normal', '400'],
+  ['Grenze', 'grenze', 'normal', '400 600'],
+  ['Grenze', 'grenze-italic', 'italic', '400'],
+  ['Instrument Sans', 'instrument-sans', 'normal', '400 600'],
+].map(([fam, file, style, w]) => `@font-face{font-family:"${fam}";src:url(${f(file)}) format("woff");font-style:${style};font-weight:${w};font-display:swap}`).join('');
 ---
 <!doctype html>
 <html lang="tr">
@@ -18,9 +26,8 @@ const { title = 'Ink Fade', description = 'Inkfade Tattoo & Piercing, Sinop Merk
     <link rel="apple-touch-icon" href={`${base}apple-touch-icon.png`} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Grenze:ital,wght@0,400;0,500;0,600;1,400&family=Pirata+One&family=Instrument+Sans:wght@400;500;600&display=swap" />
+    <link rel="preload" href={`${base}fonts/pirata-one.woff`} as="font" type="font/woff" crossorigin />
+    <style is:inline set:html={fontCss}></style>
     <script is:inline>
       document.documentElement.classList.add('js');
     </script>
@@ -28,11 +35,11 @@ const { title = 'Ink Fade', description = 'Inkfade Tattoo & Piercing, Sinop Merk
   <body>
     <Wordmark />
     <div class="grain" aria-hidden="true"></div>
-    <div class="cursor" aria-hidden="true"></div>
+    {home && <div class="cursor" aria-hidden="true"></div>}
     <slot />
-    <a class="fab" href="#randevu"><i></i>Randevu</a>
-    <script>
+    {home && <a class="fab" href="#randevu"><i></i>Randevu</a>}
+    {home && <script>
       import '../scripts/main.js';
-    </script>
+    </script>}
   </body>
 </html>

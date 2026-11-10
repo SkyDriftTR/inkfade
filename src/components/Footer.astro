@@ -1,0 +1,32 @@
+---
+import { site } from '../data/site.js';
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : import.meta.env.BASE_URL + '/';
+const year = new Date().getFullYear();
+---
+<footer class="site-foot">
+  <div class="wrap foot-top">
+    <a class="foot-mark" href={base} aria-label="Inkfade ana sayfa">
+      <svg viewBox="0 0 682 230" role="img" aria-hidden="true"><use href="#inkfade-wordmark" width="682" height="230"></use></svg>
+      <span class="mono">Tattoo &amp; Piercing · Sinop</span>
+    </a>
+    <div class="foot-col">
+      <p class="mono foot-label">Stüdyo</p>
+      <address>{site.address}</address>
+    </div>
+    <div class="foot-col">
+      <p class="mono foot-label">İletişim</p>
+      <a href={site.whatsappUrl} target="_blank" rel="noopener">WhatsApp</a>
+      <a href={site.phoneUrl}>{site.phone}</a>
+      <a href={site.instagramUrl} target="_blank" rel="noopener">@{site.instagram}</a>
+    </div>
+  </div>
+  <div class="wrap foot-bottom mono">
+    <span>© {year} {site.name}. Tüm hakları saklıdır.</span>
+    <a href={`${base}gizlilik/`}>Gizlilik &amp; KVKK</a>
+    {site.credit && (
+      <a class="foot-credit" href={site.credit.url} target="_blank" rel="noopener">
+        {site.credit.label} <b>{site.credit.name}</b>
+      </a>
+    )}
+  </div>
+</footer>
