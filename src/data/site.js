@@ -15,4 +15,6 @@ export const site = {
   lng: 35.1463521,
   mapsUrl: 'https://www.google.com/maps/place/INKFADE+TATTOO%26PIERCING/@42.0261229,35.1463521,17z/data=!3m1!4b1!4m6!3m5!1s0x408f134744eade3d:0x5f6bbfc2611a51db!8m2!3d42.0261229!4d35.1463521!16s%2Fg%2F11y6qzvr7s',
   directionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=42.0261229,35.1463521',
+  // Footer'daki imza. Ad/link değişince sadece burayı düzenle; null yaparsan gizlenir.
+  credit: null,
 };

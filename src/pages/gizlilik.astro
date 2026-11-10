@@ -1,0 +1,47 @@
+---
+import Base from '../layouts/Base.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../data/site.js';
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : import.meta.env.BASE_URL + '/';
+const updated = '10 Kasım 2026';
+---
+<Base home={false} title="Gizlilik ve KVKK Aydınlatma Metni · Inkfade" description="Inkfade Tattoo & Piercing gizlilik politikası, KVKK aydınlatma metni ve çerez bilgilendirmesi.">
+  <header class="legal-nav wrap">
+    <a href={base} aria-label="Ana sayfaya dön"><svg viewBox="0 0 682 230" aria-hidden="true"><use href="#inkfade-wordmark" width="682" height="230"></use></svg></a>
+    <a class="mono" href={base}>← Ana sayfa</a>
+  </header>
+  <main class="legal wrap">
+    <p class="mono">Son güncelleme: {updated}</p>
+    <h1>Gizlilik ve KVKK Aydınlatma Metni</h1>
+    <p class="lead">Bu sitede çerez kullanmıyoruz, ziyaretçi takibi ya da reklam aracı çalıştırmıyoruz. Aşağıda hangi verinin, neden ve nasıl işlendiğini 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) kapsamında açıklıyoruz.</p>
+
+    <h2>1. Veri sorumlusu</h2>
+    <p>{site.name} adına Ulaş Hakan Uysal<br />{site.address}<br />Telefon / WhatsApp: <a href={site.phoneUrl}>{site.phone}</a></p>
+
+    <h2>2. Bu sitede toplanan veriler</h2>
+    <p>Sitede form, üyelik ya da yorum alanı yoktur; senden doğrudan bir bilgi istemiyoruz. Yalnızca şu teknik veriler, sitenin çalışabilmesi için hizmet sağlayıcılar tarafından kısa süreli işlenir:</p>
+    <ul>
+      <li><b>Barındırma kayıtları:</b> Siteyi sunan altyapı sağlayıcısı (GitHub Pages), güvenlik ve hizmetin sürekliliği için IP adresi, tarayıcı bilgisi ve ziyaret zamanı gibi sunucu kayıtlarını tutabilir.</li>
+      <li><b>Harita:</b> "Bizi bul" bölümündeki harita açıldığında, harita görselleri OpenFreeMap sunucularından yüklenir; bu sırada IP adresin bu sunuculara iletilir.</li>
+    </ul>
+    <p>Yazı tipleri sitenin kendi sunucusundan yüklenir; Google Fonts gibi üçüncü taraflara bağlantı kurulmaz.</p>
+
+    <h2>3. Çerezler</h2>
+    <p>Bu site çerez (cookie), yerel depolama ya da benzeri izleme teknolojisi kullanmaz. Bu yüzden çerez onayı istemiyoruz. İleride ziyaretçi istatistiği gibi bir araç eklenirse bu metin güncellenir ve gerekiyorsa onayın alınır.</p>
+
+    <h2>4. Bizimle iletişime geçtiğinde</h2>
+    <p>Randevu için WhatsApp, telefon ya da Instagram üzerinden yazdığında; adın, telefon numaran, mesajların ve paylaştığın referans görseller randevunu planlamak, tasarımını hazırlamak ve seninle iletişim kurmak amacıyla işlenir. Bu işleme KVKK md. 5/2-c (sözleşmenin kurulması ve ifası) ve md. 5/2-f (meşru menfaat) hukuki sebeplerine dayanır.</p>
+    <p>Bu mesajlaşmalar WhatsApp ve Instagram'ın sahibi Meta Platforms altyapısında gerçekleşir ve Meta'nın kendi gizlilik politikalarına da tabidir.</p>
+    <p>Stüdyoda dövme veya piercing öncesinde imzalanan onam formları ve bu formlarda yer alan sağlıkla ilgili bilgiler hakkında ayrıca, yazılı olarak bilgilendirilirsin.</p>
+
+    <h2>5. Verilerin aktarılması</h2>
+    <p>Kişisel verilerin satılmaz ve reklam amacıyla kimseyle paylaşılmaz. Yukarıda anılan hizmet sağlayıcıların (GitHub, OpenFreeMap, Meta) sunucuları yurt dışında bulunabilir; bu sağlayıcıları kullandığında verilerin, KVKK md. 9 çerçevesinde yurt dışına aktarılmış olur. Kanunen yetkili kurumların talebi hâlinde, mevzuatın gerektirdiği ölçüde paylaşım yapılabilir.</p>
+
+    <h2>6. Saklama süresi</h2>
+    <p>İletişim ve randevu yazışmaları, işin tamamlanması ve olası rötuş/kontrol süreci boyunca; yasal bir saklama yükümlülüğü varsa o süre boyunca saklanır, sonrasında silinir.</p>
+
+    <h2>7. Hakların</h2>
+    <p>KVKK md. 11 uyarınca; verilerinin işlenip işlenmediğini öğrenme, bilgi talep etme, düzeltilmesini ya da silinmesini isteme, aktarıldığı kişileri öğrenme ve itiraz etme haklarına sahipsin. Taleplerini yukarıdaki adrese yazılı olarak ya da <a href={site.whatsappUrl} target="_blank" rel="noopener">WhatsApp</a> üzerinden iletebilirsin; en geç 30 gün içinde yanıtlanır.</p>
+  </main>
+  <Footer />
+</Base>
