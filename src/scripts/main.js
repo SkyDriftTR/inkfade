@@ -33,7 +33,7 @@ let W = 0, H = 0, mx = 0, my = 0, tmx = 0, tmy = 0, heroProgress = 0, heroVisibl
 let needSize = true;
 function size() {
   needSize = false;
-  const D = Math.min(devicePixelRatio || 1, 1.5);
+  const D = Math.min(devicePixelRatio || 1, 1);
   const w = Math.round(cv.clientWidth), h = Math.round(cv.clientHeight);
   if (w === W && h === H && cv.width === Math.round(w * D)) return;
   W = w; H = h; cv.width = Math.round(W * D); cv.height = Math.round(H * D); ctx.setTransform(D, 0, 0, D, 0, 0);
@@ -56,7 +56,9 @@ const veils = Array.from({ length: smallHero ? 26 : 46 }, () => ({
   ph: R0() * 6.28, sw: 0.03 + R0() * 0.07, a: 0.032 + R0() * 0.042,
   ox: 0, oy: 0, fade: 0,
 }));
+// Yumuşak duman ayrı, düşük çözünürlüklü bir tuvalde: tarayıcı onu ekran kartıyla büyütür, ana tuval sadece ince mavi şeritleri çizer.
 const SC = 0.25, oc = document.createElement('canvas'), ox2 = oc.getContext('2d');
+oc.setAttribute('aria-hidden', 'true'); cv.before(oc);
 // Duman parçaları bir kez hazırlanan küçük görsellerden (sprite) çizilir; her karede gradyan üretmek pahalıydı.
 const sprite = (stops) => {
   const c = document.createElement('canvas'); c.width = c.height = 128;
@@ -126,8 +128,6 @@ function frame(t) {
       }
     }
     ox2.globalAlpha = 1;
-    ctx.globalAlpha = 1; ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
-    ctx.drawImage(oc, 0, 0, W, H);
 
     // 2) ince mavi şeritler
     const segs = smallHero ? 2 : 3;
