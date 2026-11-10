@@ -53,7 +53,7 @@ const wisps = Array.from({ length: smallHero ? 14 : 26 }, () => ({
 // yumuşak gri-beyaz duman: düşük çözünürlüklü ayrı tuvalde çizilip büyütülür, böylece kenarları pamuk gibi dağılır
 const veils = Array.from({ length: smallHero ? 26 : 46 }, () => ({
   x: R0(), y: R0(), z: R0(), r: 0.05 + R0() * 0.07, v: 0.000014 + R0() * 0.00003,
-  ph: R0() * 6.28, sw: 0.03 + R0() * 0.07, a: 0.06 + R0() * 0.07,
+  ph: R0() * 6.28, sw: 0.03 + R0() * 0.07, a: 0.032 + R0() * 0.042,
   ox: 0, oy: 0, fade: 0,
 }));
 const SC = 0.25, oc = document.createElement('canvas'), ox2 = oc.getContext('2d');
