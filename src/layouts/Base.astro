@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import Wordmark from '../components/Wordmark.astro';
 const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : import.meta.env.BASE_URL + '/';
-const { home = true, title = 'Ink Fade', description = 'Inkfade Tattoo & Piercing, Sinop Merkez. Ulaş Hakan Uysal ile Black & Grey Realism, sleeve, fine line dövme ve piercing.' } = Astro.props;
+const { home = true, title = 'Ink Fade', description = 'Inkfade Tattoo & Piercing, Sinop Merkez. Ulaş Hakan ile Black & Grey Realism, sleeve, fine line dövme ve piercing.' } = Astro.props;
 // Fontlar sitenin içinden yüklenir: ziyaretçinin IP'si Google'a gitmez (KVKK), çerez yok.
 const f = (n) => `${base}fonts/${n}.woff`;
 const fontCss = [

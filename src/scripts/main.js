@@ -123,7 +123,7 @@ const lb = $('#lb'), lbC = $('#lbCanvas'), lbImg = $('#lbImg');
 let lbItems = [], lbI = 0, lbName = '', lastFocus = null;
 function lbShow() {
   const it = lbItems[lbI]; const img = $('img', it), c = $('canvas', it);
-  $('#lbTitle').textContent = `${it.dataset.title} · ${it.dataset.tag}`;
+  $('#lbTitle').textContent = it.dataset.label;
   $('#lbCount').textContent = `${String(lbI + 1).padStart(2, '0')} / ${String(lbItems.length).padStart(2, '0')}`;
   if (img) { lbImg.src = img.dataset.full || img.currentSrc || img.src; lbImg.alt = img.alt; lbImg.hidden = false; lbC.hidden = true; }
   else { lbImg.hidden = true; lbC.hidden = false; lbC.dataset.mode = c.dataset.mode; lbC.dataset.seed = c.dataset.seed; requestAnimationFrame(() => drawArt(lbC)); }
@@ -183,7 +183,7 @@ $$('.faq-q').forEach((q) => q.addEventListener('click', () => {
 /* ---------- logo: üzerine gelince arkasından duman ---------- */
 const brand = $('.brand'), smokeCv = $('.brand-smoke');
 const brandSmoke = (() => {
-  if (!brand || !smokeCv || reduce) return { burst() {} };
+  if (!brand || !smokeCv || reduce) return { burst() {}, setAlways() {} };
   const sx = smokeCv.getContext('2d');
   let parts = [], emitting = false, running = false, W = 0, H = 0, mark = null, last = 0, acc = 0;
   const fit = () => {
@@ -228,8 +228,18 @@ const brandSmoke = (() => {
   brand.addEventListener('pointerenter', (e) => { if (e.pointerType !== 'mouse') return; fit(); emitting = true; brand.classList.add('smoking'); start(); });
   brand.addEventListener('pointerleave', () => { emitting = false; });
   brand.addEventListener('focus', () => { fit(); spawn(14); brand.classList.add('smoking'); start(); });
+  // küçük ekranda hover yok: duman sürekli tüter
+  let always = false;
+  const setAlways = (on) => {
+    always = on; emitting = on || brand.matches(':hover');
+    if (on) { fit(); brand.classList.add('smoking'); start(); }
+  };
+  brand.addEventListener('pointerleave', () => { if (always) emitting = true; });
+  addEventListener('resize', () => { if (running) fit(); });
+  document.addEventListener('visibilitychange', () => { if (always) { emitting = !document.hidden; if (!document.hidden) start(); } });
   return {
     burst(n = 18) { fit(); spawn(n); brand.classList.add('smoking'); start(); },
+    setAlways,
   };
 })();
 // dokunmatik ekranda: dokununca kısa bir duman
@@ -331,7 +341,7 @@ function initMotion() {
   paths.forEach((p) => { const L = p.getTotalLength(); p.style.strokeDasharray = L; p.style.strokeDashoffset = L; });
   const count = $('.loader-count', loader); const cobj = { v: 0 };
   gsap.set(loader, { clipPath: 'circle(75% at 50% 50%)' });
-  gsap.timeline({ onComplete: () => { hideLoader(); setTimeout(() => brandSmoke.burst(20), 400); } })
+  gsap.timeline({ onComplete: () => { hideLoader(); setTimeout(() => { brandSmoke.burst(20); const mq = matchMedia('(max-width:720px)'); brandSmoke.setAlways(mq.matches); mq.addEventListener('change', (e) => brandSmoke.setAlways(e.matches)); }, 400); } })
     .to(paths, { strokeDashoffset: 0, duration: 1.2, ease: 'power2.inOut', stagger: 0.1 }, 0)
     .to(cobj, { v: 100, duration: 1.5, ease: 'power1.inOut', onUpdate: () => { count.textContent = String(Math.round(cobj.v)).padStart(3, '0'); } }, 0)
     .to('.loader-word', { opacity: 1, letterSpacing: '.32em', duration: 0.6, ease: 'power2.out', onStart: () => fx.along($('.loader-word'), { duration: 0.7, count: 36 }) }, 0.9)
@@ -411,6 +421,23 @@ function initMotion() {
       },
     });
   });
+
+  /* footer imzası: dumanla beyaz gelir, slogan sonra laciverte döner */
+  const credit = $('.foot-credit');
+  if (credit) {
+    const tag = $('.fc-tag', credit);
+    gsap.set(credit, { opacity: 0, filter: 'blur(10px)', y: 14 });
+    gsap.set(tag, { color: '#ffffff' });
+    ScrollTrigger.create({
+      trigger: credit, start: 'top 98%', once: true,
+      onEnter: () => {
+        fx.along(credit, { duration: 0.9, count: 34 });
+        gsap.timeline()
+          .to(credit, { opacity: 1, filter: 'blur(0px)', y: 0, duration: 1.3, ease: 'power3.out', clearProps: 'filter' })
+          .to(tag, { color: '#6f8dff', duration: 1.4, ease: 'power2.inOut', clearProps: 'color' }, 1.4);
+      },
+    });
+  }
 
   addEventListener('load', () => ScrollTrigger.refresh());
 }

@@ -24,8 +24,8 @@ floats.forEach((f) => { if (!f.hideSm) f.side = n++ % 2 ? 'sm-r' : 'sm-l'; });
   </div>
   {floats.map((f) => (
     <figure class:list={['float', { 'hide-sm': f.hideSm }, f.side]} style={`left:${f.left}%;top:${f.top}%`} data-speed={f.speed}>
-      <img src={f.w.sm} alt={`${f.w.title} dövmesi, ${f.w.place}`} loading="lazy" decoding="async" style={`object-position:${f.w.pos}`} />
-      <figcaption><span>{f.w.title}</span><span>{f.w.place}</span></figcaption>
+      <img src={f.w.sm} alt={`Dövme, ${f.w.place}`} loading="lazy" decoding="async" style={`object-position:${f.w.pos}`} />
+      <figcaption>{f.w.place}</figcaption>
     </figure>
   ))}
 </section>
