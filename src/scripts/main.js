@@ -453,14 +453,22 @@ function initMotion() {
   const dist = () => Math.max(0, track.scrollWidth - innerWidth);
   const mm = gsap.matchMedia();
   // sabitlenen bölüm tek ekrana sığmalı: daire boyutu ekran yüksekliğinden hesaplanır (alçak laptop ekranları)
+  // Alçak ekranlarda (laptoplar) yazı dairenin yanına geçer, daire büyük kalır.
   const fitStyles = () => {
     if (stylesSec.classList.contains('swipe')) return;
+    const row = innerHeight < 1000;
+    stylesSec.classList.toggle('row', row);
     const head = $('.styles-head').offsetHeight, pad = parseFloat(getComputedStyle(track).paddingBottom) || 0;
+    if (row) {
+      const art = Math.round(Math.max(240, Math.min(520, innerHeight - head - pad - 16, innerWidth * 0.42)));
+      stylesSec.style.setProperty('--art', art + 'px'); stylesSec.style.removeProperty('--panel-w');
+      return;
+    }
     const p0 = $('.panel'), gap = parseFloat(getComputedStyle(p0).rowGap) || 18;
     for (let i = 0; i < 2; i++) {
       const textH = p0.offsetHeight - $('.art', p0).offsetHeight - gap;
       const avail = innerHeight - head - textH - gap - pad - 12;
-      stylesSec.style.setProperty('--panel-w', Math.round(Math.max(220, Math.min(520, avail))) + 'px');
+      stylesSec.style.setProperty('--panel-w', Math.round(Math.max(300, Math.min(520, avail))) + 'px');
     }
   };
   mm.add('(min-width: 721px)', () => {
@@ -469,7 +477,7 @@ function initMotion() {
     gsap.to(track, { x: () => -dist(), ease: 'none', scrollTrigger: { trigger: '.styles', start: 'top top', end: () => '+=' + dist(), scrub: true, pin: true, invalidateOnRefresh: true, anticipatePin: 1 } });
     gsap.to('.progress i', { scaleX: 1, ease: 'none', scrollTrigger: { trigger: '.styles', start: 'top top', end: () => '+=' + dist(), scrub: true } });
     $$('.panel .art img').forEach((c) => gsap.fromTo(c, { scale: 1.25 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '.styles', start: 'top top', end: () => '+=' + dist(), scrub: true } }));
-    return () => { ScrollTrigger.removeEventListener('refreshInit', fitStyles); stylesSec.style.removeProperty('--panel-w'); };
+    return () => { ScrollTrigger.removeEventListener('refreshInit', fitStyles); stylesSec.classList.remove('row'); stylesSec.style.removeProperty('--panel-w'); stylesSec.style.removeProperty('--art'); };
   });
   mm.add('(max-width: 720px)', () => {
     stylesSec.classList.add('swipe');
