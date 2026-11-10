@@ -43,7 +43,11 @@ const markSize = () => { needSize = true; };
 new ResizeObserver(markSize).observe(cv); addEventListener('resize', markSize);
 const R0 = rng(7);
 const puffs = Array.from({ length: 22 }, () => ({ x: R0(), y: R0(), r: 0.18 + R0() * 0.32, a: 0.035 + R0() * 0.06, s: (R0() - 0.5) * 0.00012, ph: R0() * 6 }));
-const drops = Array.from({ length: matchMedia('(max-width:720px)').matches ? 45 : 90 }, () => ({ x: R0(), y: R0(), z: R0(), r: 1 + R0() * R0() * 7, v: 0.00008 + R0() * 0.00025 }));
+// aşağıdan yukarı süzülen ince duman şeritleri (eski mavi damlaların yerine)
+const wisps = Array.from({ length: matchMedia('(max-width:720px)').matches ? 24 : 44 }, () => ({
+  x: R0(), y: R0(), z: R0(), r: 0.025 + R0() * 0.05, v: 0.000018 + R0() * 0.00004,
+  ph: R0() * 6.28, sw: 0.02 + R0() * 0.05, a: 0.05 + R0() * 0.07, blue: R0() < 0.28,
+}));
 function frame(t) {
   if (needSize) size();
   if (heroVisible) {
@@ -57,17 +61,25 @@ function frame(t) {
       g.addColorStop(0, `rgba(200,204,216,${p.a})`); g.addColorStop(0.6, `rgba(120,126,150,${p.a * 0.4})`); g.addColorStop(1, 'rgba(0,0,0,0)');
       ctx.fillStyle = g; ctx.beginPath(); ctx.arc(px, py, r, 0, 7); ctx.fill();
     }
-    ctx.globalCompositeOperation = 'source-over';
-    for (const d of drops) {
-      const depth = 0.3 + d.z * 1.7;
-      const y = (((d.y - t * d.v * (reduce ? 0 : 1)) % 1) + 1) % 1;
-      const px = d.x * W - mx * 40 * depth;
-      const py = (((y * H - my * 30 * depth - heroProgress * H * 0.6 * depth) % H) + H) % H;
-      const r = d.r * depth * 0.7, blur = Math.abs(d.z - 0.55) * 1.4;
-      ctx.fillStyle = `rgba(58,99,255,${0.25 + 0.5 * (1 - blur * 0.6)})`;
-      ctx.beginPath(); ctx.arc(px, py, r, 0, 7); ctx.fill();
-      if (r > 3) { ctx.fillStyle = 'rgba(140,165,255,.35)'; ctx.beginPath(); ctx.arc(px - r * 0.3, py - r * 0.3, r * 0.3, 0, 7); ctx.fill(); }
+    const M = Math.min(W, H) || 1;
+    for (const w of wisps) {
+      const depth = 0.5 + w.z;
+      // 0 → altta doğar, 1 → yukarıda dağılır
+      const k = (((w.y + t * w.v * (reduce ? 0 : 1)) % 1) + 1) % 1;
+      const curl = Math.sin(t * 0.0004 + w.ph + k * 5) * w.sw;
+      const px = (w.x + curl) * W - mx * 30 * depth;
+      const py = (1.1 - k * 1.25) * H - my * 22 * depth - heroProgress * H * 0.35 * depth;
+      const r = w.r * M * depth * (0.6 + k * 1.6);
+      const alpha = w.a * Math.sin(Math.PI * k) * (1 - heroProgress * 0.6);
+      if (alpha <= 0.002) continue;
+      const ang = -Math.PI / 2 + Math.cos(t * 0.0004 + w.ph + k * 5) * 0.5;
+      const col = w.blue ? '111,141,255' : '214,217,228';
+      ctx.save(); ctx.translate(px, py); ctx.rotate(ang); ctx.scale(2.2, 0.7);
+      const g = ctx.createRadialGradient(0, 0, 0, 0, 0, r);
+      g.addColorStop(0, `rgba(${col},${alpha})`); g.addColorStop(0.5, `rgba(${col},${alpha * 0.4})`); g.addColorStop(1, `rgba(${col},0)`);
+      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, r, 0, 7); ctx.fill(); ctx.restore();
     }
+    ctx.globalCompositeOperation = 'source-over';
   }
   requestAnimationFrame(frame);
 }
@@ -93,9 +105,11 @@ if (matchMedia('(pointer:fine)').matches && !reduce) {
 }
 
 /* ---------- sabit randevu butonu ---------- */
-const fab = $('.fab'); let inBook = false;
-const syncFab = () => fab.classList.toggle('show', scrollY > innerHeight * 0.8 && !inBook);
+const fab = $('.fab'); let inBook = false, inFoot = false;
+const syncFab = () => fab.classList.toggle('show', scrollY > innerHeight * 0.8 && !inBook && !inFoot);
 new IntersectionObserver((es) => { inBook = es[0].isIntersecting; syncFab(); }, { threshold: 0.15 }).observe($('#randevu'));
+// sayfa sonunda footer'daki imzanın üstüne binmesin
+new IntersectionObserver((es) => { inFoot = es[0].isIntersecting; syncFab(); }).observe($('.foot-bottom'));
 addEventListener('scroll', syncFab, { passive: true });
 
 /* ---------- portfolyo şeritleri ---------- */

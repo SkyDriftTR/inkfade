@@ -21,14 +21,10 @@ const year = new Date().getFullYear();
     </div>
   </div>
   <div class="wrap foot-bottom mono">
-    <span>© {year} {site.name}. Tüm hakları saklıdır.</span>
+    <span>© {year} {site.credit?.brand ?? site.name}. Tüm hakları saklıdır.</span>
     <a href={`${base}gizlilik/`}>Gizlilik &amp; KVKK</a>
     {site.credit && (
-      <a class="foot-credit" href={site.credit.url} target="_blank" rel="noopener" aria-label={`Made by ${site.credit.name}, Instagram: @${site.credit.instagram}`}>
-        <span class="fc-made">Made by <b>{site.credit.name}</b></span>
-        <span class="fc-tag">{site.credit.tagline}</span>
-        <span class="fc-ig">@{site.credit.instagram}</span>
-      </a>
+      <a class="foot-credit" href={site.credit.url} target="_blank" rel="noopener"><span class="fc-tag">{site.credit.tagline}</span></a>
     )}
   </div>
 </footer>
