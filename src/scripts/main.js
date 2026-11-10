@@ -57,6 +57,16 @@ const veils = Array.from({ length: smallHero ? 26 : 46 }, () => ({
   ox: 0, oy: 0, fade: 0,
 }));
 const SC = 0.25, oc = document.createElement('canvas'), ox2 = oc.getContext('2d');
+// Duman parçaları bir kez hazırlanan küçük görsellerden (sprite) çizilir; her karede gradyan üretmek pahalıydı.
+const sprite = (stops) => {
+  const c = document.createElement('canvas'); c.width = c.height = 128;
+  const x = c.getContext('2d'), g = x.createRadialGradient(64, 64, 0, 64, 64, 64);
+  stops.forEach(([o, col]) => g.addColorStop(o, col)); x.fillStyle = g; x.fillRect(0, 0, 128, 128);
+  return c;
+};
+const SP_PUFF = sprite([[0, 'rgba(200,204,216,1)'], [0.6, 'rgba(120,126,150,.4)'], [1, 'rgba(0,0,0,0)']]);
+const SP_VEIL = sprite([[0, 'rgba(222,225,236,1)'], [0.35, 'rgba(200,205,222,.6)'], [0.7, 'rgba(170,178,205,.18)'], [1, 'rgba(160,170,200,0)']]);
+const SP_BLUE = sprite([[0, 'rgba(111,141,255,1)'], [0.45, 'rgba(111,141,255,.45)'], [1, 'rgba(111,141,255,0)']]);
 // imlecin ekrandaki yeri: dumanı oradan dağıtır
 let hpx = -9999, hpy = -9999, hpOn = false;
 addEventListener('pointermove', (e) => { hpx = e.clientX; hpy = e.clientY; hpOn = true; }, { passive: true });
@@ -96,9 +106,8 @@ function frame(t) {
     for (const p of puffs) {
       const px = (p.x + Math.sin(t * 0.00007 + p.ph) * 0.05 + ((p.s * t) % 1)) * W - mx * 20;
       const py = (p.y + Math.cos(t * 0.00006 + p.ph) * 0.04) * H - my * 14 - heroProgress * H * 0.15;
-      const r = p.r * Math.max(W, H); const g = ox2.createRadialGradient(px, py, 0, px, py, r);
-      g.addColorStop(0, `rgba(200,204,216,${p.a})`); g.addColorStop(0.6, `rgba(120,126,150,${p.a * 0.4})`); g.addColorStop(1, 'rgba(0,0,0,0)');
-      ox2.fillStyle = g; ox2.beginPath(); ox2.arc(px, py, r, 0, 7); ox2.fill();
+      const r = p.r * Math.max(W, H);
+      ox2.globalAlpha = p.a; ox2.drawImage(SP_PUFF, px - r, py - r, r * 2, r * 2);
     }
     const vsegs = smallHero ? 5 : 7;
     for (const w of veils) {
@@ -113,13 +122,11 @@ function frame(t) {
         const alpha = w.a * Math.sin(Math.PI * k) * dim * (1 - w.fade * 0.8) * (0.55 + keep * 0.45);
         if (alpha <= 0.002) continue;
         ox2.save(); ox2.translate(px, py); ox2.rotate(-Math.PI / 2 + Math.cos(t * 0.0004 + w.ph + k * 5) * 0.35); ox2.scale(1.7, 1);
-        const g = ox2.createRadialGradient(0, 0, 0, 0, 0, r);
-        g.addColorStop(0, `rgba(222,225,236,${alpha})`); g.addColorStop(0.35, `rgba(200,205,222,${alpha * 0.6})`);
-        g.addColorStop(0.7, `rgba(170,178,205,${alpha * 0.18})`); g.addColorStop(1, 'rgba(160,170,200,0)');
-        ox2.fillStyle = g; ox2.beginPath(); ox2.arc(0, 0, r, 0, 7); ox2.fill(); ox2.restore();
+        ox2.globalAlpha = Math.min(1, alpha); ox2.drawImage(SP_VEIL, -r, -r, r * 2, r * 2); ox2.restore();
       }
     }
-    ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
+    ox2.globalAlpha = 1;
+    ctx.globalAlpha = 1; ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
     ctx.drawImage(oc, 0, 0, W, H);
 
     // 2) ince mavi şeritler
@@ -136,12 +143,10 @@ function frame(t) {
         if (alpha <= 0.002) continue;
         const ang = -Math.PI / 2 + Math.cos(t * 0.0004 + w.ph + k * 5) * 0.5;
         ctx.save(); ctx.translate(px, py); ctx.rotate(ang); ctx.scale(3.2, 0.62 + w.fade * 0.4);
-        const g = ctx.createRadialGradient(0, 0, 0, 0, 0, r);
-        g.addColorStop(0, `rgba(111,141,255,${alpha})`); g.addColorStop(0.45, `rgba(111,141,255,${alpha * 0.45})`); g.addColorStop(1, 'rgba(111,141,255,0)');
-        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, r, 0, 7); ctx.fill(); ctx.restore();
+        ctx.globalAlpha = Math.min(1, alpha); ctx.drawImage(SP_BLUE, -r, -r, r * 2, r * 2); ctx.restore();
       }
     }
-    ctx.globalCompositeOperation = 'source-over';
+    ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
   }
   requestAnimationFrame(frame);
 }
