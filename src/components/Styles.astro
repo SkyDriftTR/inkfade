@@ -17,7 +17,7 @@ const styles = [
   <div class="track">
     {styles.map((s) => (
       <article class="panel">
-        <div class="art"><img src={s.w.sm} alt={`${s.name} örneği: ${s.w.title}`} loading="lazy" decoding="async" style={`object-position:${s.w.pos}`} /></div>
+        <div class="art"><img src={s.w.sm} alt={`${s.name} dövme örneği, ${s.w.place}`} loading="lazy" decoding="async" style={`object-position:${s.w.pos}`} /></div>
         <h3>{s.name} <span class="mono">{s.tag}</span></h3>
         <p>{s.text}</p>
       </article>

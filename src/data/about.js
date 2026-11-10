@@ -6,7 +6,7 @@ export const about = {
   name: 'Ulaş Hakan',
   role: 'Tattoo Artist & Kurucu',
   photo: ulas,
-  intro: 'Ben **Ulaş Hakan Uysal**. Yaklaşık **6 yıldır** dövme sanatının içindeyim.',
+  intro: 'Ben **Ulaş Hakan**. Yaklaşık **6 yıldır** dövme sanatının içindeyim.',
   paragraphs: [
     'Hibrit bir sanatçı olarak farklı stillerle çalışmayı sevsem de kendimi özellikle **Black & Grey Realism** alanında geliştirmeye ve üretmeye odaklıyorum.',
     'Benim için dövme, yaşadığımız dönemde yalnızca bir beden süslemesi değil; **başlı başına bir sanat** ve aynı zamanda **güçlü bir estetik ifade biçimi**. Çalışmalarımda **detaylara, kompozisyona ve bütünlüğe** önem veriyorum. Özellikle **büyük ölçekli**, kendini alan içerisinde güçlü bir şekilde ifade eden işler üretmekten keyif alıyorum.',
