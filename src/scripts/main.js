@@ -487,7 +487,7 @@ function initMotion() {
   /* hakkımda: fotoğraf görünür olunca renklenir */
   ScrollTrigger.create({ trigger: '.about-photo', start: 'top 65%', end: 'bottom 20%', toggleClass: 'lit' });
   /* hakkımda */
-  gsap.fromTo('.about-photo', { y: 50 }, { y: -50, ease: 'none', scrollTrigger: { trigger: '.about', start: 'top bottom', end: 'bottom top', scrub: true } });
+  // fotoğraf sabit durur; sadece çevresindeki halka döner
   gsap.fromTo('.about-ring', { rotate: -30 }, { rotate: 40, ease: 'none', scrollTrigger: { trigger: '.about', start: 'top bottom', end: 'bottom top', scrub: true } });
   gsap.from('.about-text > *:not(.about-name)', { y: 30, opacity: 0, stagger: 0.07, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: '.about-text', start: 'top 80%' } });
 
