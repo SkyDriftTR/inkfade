@@ -17,9 +17,8 @@ export const site = {
   directionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=42.0261229,35.1463521',
   // Footer'daki imza. Ad/link değişince sadece burayı düzenle; null yaparsan gizlenir.
   credit: {
-    name: 'Semih Yıldırım',
+    brand: 'CSCN',
     tagline: 'Creative solutions for Creative needs',
-    instagram: 'semihyildie',
     url: 'https://www.instagram.com/semihyildie/',
   },
 };

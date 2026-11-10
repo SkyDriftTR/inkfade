@@ -50,8 +50,9 @@ h2{font-family:var(--f-head);font-weight:var(--head-w);letter-spacing:0}
 .nav{position:fixed;top:0;left:0;right:0;z-index:50;padding-top:calc(18px + env(safe-area-inset-top,0px));padding-bottom:28px}
 .nav .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px}
 .brand{font-family:var(--f-display);letter-spacing:.32em;font-size:.95rem;text-decoration:none}
-.nav ul{display:flex;gap:28px;list-style:none;margin:0;padding:0}
-.nav ul a{text-decoration:none;font-family:var(--f-mono);font-size:0.96rem;letter-spacing:.02em;text-transform:none}
+.nav ul{display:flex;gap:34px;list-style:none;margin:0;padding:0}
+.nav ul a{text-decoration:none;font-family:var(--f-mono);font-size:1.16rem;letter-spacing:.02em;text-transform:none;color:#bdbbb6;transition:color .3s,text-shadow .3s}
+.nav ul a:hover,.nav ul a:focus-visible{color:#fff;text-shadow:0 0 14px rgba(255,255,255,.35)}
 .burger{display:none;appearance:none;background:none;border:0;width:44px;height:44px;margin-right:-10px;position:relative;cursor:pointer;color:var(--bone)}
 .burger span{position:absolute;left:10px;right:10px;height:1.5px;background:currentColor;transition:transform .4s cubic-bezier(.2,.7,.2,1),top .4s}
 .burger span:first-child{top:17px}.burger span:last-child{top:26px}
@@ -231,15 +232,11 @@ h2{font-family:var(--f-head);font-weight:var(--head-w);letter-spacing:0}
 .foot-bottom{display:flex;flex-wrap:wrap;gap:10px 28px;align-items:center;margin-top:clamp(48px,7vw,80px);padding-top:22px;border-top:1px solid var(--line);font-size:.86rem}
 .foot-bottom a{text-decoration:none;color:var(--smoke);transition:color .3s}
 .foot-bottom a:hover{color:var(--bone)}
-.foot-credit{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:2px;text-align:right}
-.foot-bottom a.foot-credit{color:#fff}
-.fc-made{font-family:var(--f-head);font-size:clamp(1.25rem,2vw,1.55rem);color:#fff;letter-spacing:.01em;line-height:1.2}
-.fc-made b{font-weight:400;color:#fff}
-.fc-tag{font-size:.92rem;color:var(--blue-glow)}
-.fc-ig{font-size:.84rem;color:var(--smoke);transition:color .3s}
-.foot-credit:hover .fc-ig{color:#fff}
+.foot-credit{margin-left:auto}
+.fc-tag{font-size:1rem;color:var(--blue-glow);transition:color .3s,text-shadow .3s}
+.foot-credit:hover .fc-tag{color:#fff;text-shadow:0 0 14px rgba(111,141,255,.6)}
 @media (max-width:820px){.foot-top{grid-template-columns:1fr 1fr}.foot-mark{grid-column:1/-1}}
-@media (max-width:520px){.foot-top{grid-template-columns:1fr}.foot-credit{margin-left:0;align-items:flex-start;text-align:left;margin-top:18px}}
+@media (max-width:520px){.foot-top{grid-template-columns:1fr}.foot-credit{margin-left:0}}
 /* gizlilik sayfası */
 .legal-nav{display:flex;justify-content:space-between;align-items:center;padding-block:calc(24px + env(safe-area-inset-top,0px)) 24px}
 .legal-nav svg{width:150px;height:auto;aspect-ratio:682/230;color:var(--bone);display:block}
