@@ -93,9 +93,11 @@ if (matchMedia('(pointer:fine)').matches && !reduce) {
 }
 
 /* ---------- sabit randevu butonu ---------- */
-const fab = $('.fab'); let inBook = false;
-const syncFab = () => fab.classList.toggle('show', scrollY > innerHeight * 0.8 && !inBook);
+const fab = $('.fab'); let inBook = false, inFoot = false;
+const syncFab = () => fab.classList.toggle('show', scrollY > innerHeight * 0.8 && !inBook && !inFoot);
 new IntersectionObserver((es) => { inBook = es[0].isIntersecting; syncFab(); }, { threshold: 0.15 }).observe($('#randevu'));
+// sayfa sonunda footer'daki imzanın üstüne binmesin
+new IntersectionObserver((es) => { inFoot = es[0].isIntersecting; syncFab(); }).observe($('.foot-bottom'));
 addEventListener('scroll', syncFab, { passive: true });
 
 /* ---------- portfolyo şeritleri ---------- */
