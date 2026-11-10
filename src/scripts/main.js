@@ -45,11 +45,18 @@ const R0 = rng(7);
 const puffs = Array.from({ length: 22 }, () => ({ x: R0(), y: R0(), r: 0.18 + R0() * 0.32, a: 0.035 + R0() * 0.06, s: (R0() - 0.5) * 0.00012, ph: R0() * 6 }));
 // aşağıdan yukarı süzülen ince duman şeritleri (eski mavi damlaların yerine)
 const smallHero = matchMedia('(max-width:720px)').matches;
-const wisps = Array.from({ length: smallHero ? 40 : 78 }, () => ({
-  x: R0(), y: R0(), z: R0(), r: 0.03 + R0() * 0.055, v: 0.000018 + R0() * 0.00004,
-  ph: R0() * 6.28, sw: 0.02 + R0() * 0.06, a: 0.08 + R0() * 0.1, blue: R0() < 0.28,
+const wisps = Array.from({ length: smallHero ? 14 : 26 }, () => ({
+  x: R0(), y: R0(), z: R0(), r: 0.03 + R0() * 0.05, v: 0.000018 + R0() * 0.00004,
+  ph: R0() * 6.28, sw: 0.02 + R0() * 0.06, a: 0.09 + R0() * 0.1, blue: true,
   ox: 0, oy: 0, fade: 0,
 }));
+// yumuşak gri-beyaz duman: düşük çözünürlüklü ayrı tuvalde çizilip büyütülür, böylece kenarları pamuk gibi dağılır
+const veils = Array.from({ length: smallHero ? 26 : 46 }, () => ({
+  x: R0(), y: R0(), z: R0(), r: 0.05 + R0() * 0.07, v: 0.000014 + R0() * 0.00003,
+  ph: R0() * 6.28, sw: 0.03 + R0() * 0.07, a: 0.06 + R0() * 0.07,
+  ox: 0, oy: 0, fade: 0,
+}));
+const SC = 0.25, oc = document.createElement('canvas'), ox2 = oc.getContext('2d');
 // imlecin ekrandaki yeri: dumanı oradan dağıtır
 let hpx = -9999, hpy = -9999, hpOn = false;
 addEventListener('pointermove', (e) => { hpx = e.clientX; hpy = e.clientY; hpOn = true; }, { passive: true });
@@ -70,34 +77,66 @@ function frame(t) {
     const M = Math.min(W, H) || 1;
     const cr = cv.getBoundingClientRect();
     const qx = hpx - cr.left, qy = hpy - cr.top, R = Math.max(150, M * 0.24);
+    // imleç yakınındaysa dışarı itilir ve incelir, sonra yavaşça yerine döner
+    const push = (w, px, py) => {
+      let tx = 0, ty = 0, tf = 0;
+      if (hpOn && !reduce) {
+        const dx = px - qx, dy = py - qy, d = Math.hypot(dx, dy);
+        if (d < R) { const f = (1 - d / R) ** 2; tx = (dx / (d || 1)) * f * R; ty = (dy / (d || 1)) * f * R; tf = f; }
+      }
+      w.ox += (tx - w.ox) * (tx ? 0.1 : 0.025); w.oy += (ty - w.oy) * (ty ? 0.1 : 0.025);
+      w.fade += (tf - w.fade) * (tf ? 0.12 : 0.035);
+    };
+    const pos = (w, k, depth) => {
+      const curl = Math.sin(t * 0.0004 + w.ph + k * 5) * w.sw;
+      return [(w.x + curl) * W - mx * 30 * depth, (1.1 - k * 1.25) * H - my * 22 * depth - heroProgress * H * 0.35 * depth];
+    };
+    const life = (w, sgi, gap) => (((w.y + t * w.v * (reduce ? 0 : 1) - sgi * gap) % 1) + 1) % 1;
+    const dim = 1 - heroProgress * 0.6;
+
+    // 1) yumuşak duman perdesi (düşük çözünürlük)
+    const ow = Math.max(2, Math.round(W * SC)), oh = Math.max(2, Math.round(H * SC));
+    if (oc.width !== ow || oc.height !== oh) { oc.width = ow; oc.height = oh; }
+    ox2.setTransform(1, 0, 0, 1, 0, 0); ox2.clearRect(0, 0, ow, oh);
+    ox2.globalCompositeOperation = 'lighter'; ox2.setTransform(SC, 0, 0, SC, 0, 0);
+    const vsegs = smallHero ? 5 : 7;
+    for (const w of veils) {
+      const depth = 0.5 + w.z;
+      for (let sgi = 0; sgi < vsegs; sgi++) {
+        const k = life(w, sgi, 0.03);
+        let [px, py] = pos(w, k, depth);
+        if (sgi === 0) push(w, px, py);
+        const keep = 1 - sgi / (vsegs + 1);
+        px += w.ox * keep; py += w.oy * keep;
+        const r = w.r * M * depth * (0.7 + k * 1.6);
+        const alpha = w.a * Math.sin(Math.PI * k) * dim * (1 - w.fade * 0.8) * (0.55 + keep * 0.45);
+        if (alpha <= 0.002) continue;
+        ox2.save(); ox2.translate(px, py); ox2.rotate(-Math.PI / 2 + Math.cos(t * 0.0004 + w.ph + k * 5) * 0.35); ox2.scale(1.7, 1);
+        const g = ox2.createRadialGradient(0, 0, 0, 0, 0, r);
+        g.addColorStop(0, `rgba(222,225,236,${alpha})`); g.addColorStop(0.35, `rgba(200,205,222,${alpha * 0.6})`);
+        g.addColorStop(0.7, `rgba(170,178,205,${alpha * 0.18})`); g.addColorStop(1, 'rgba(160,170,200,0)');
+        ox2.fillStyle = g; ox2.beginPath(); ox2.arc(0, 0, r, 0, 7); ox2.fill(); ox2.restore();
+      }
+    }
+    ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(oc, 0, 0, W, H);
+
+    // 2) ince mavi şeritler
     const segs = smallHero ? 2 : 3;
     for (const w of wisps) {
       const depth = 0.5 + w.z;
       for (let sgi = 0; sgi < segs; sgi++) {
-        // 0 → altta doğar, 1 → yukarıda dağılır; arkadaki parçalar şeridi uzatır
-        const k = (((w.y + t * w.v * (reduce ? 0 : 1) - sgi * 0.045) % 1) + 1) % 1;
-        const curl = Math.sin(t * 0.0004 + w.ph + k * 5) * w.sw;
-        let px = (w.x + curl) * W - mx * 30 * depth;
-        let py = (1.1 - k * 1.25) * H - my * 22 * depth - heroProgress * H * 0.35 * depth;
-        if (sgi === 0) {
-          // imleç yakınındaysa dışarı itilir ve incelir, sonra yavaşça yerine döner
-          let tx = 0, ty = 0, tf = 0;
-          if (hpOn && !reduce) {
-            const dx = px - qx, dy = py - qy, d = Math.hypot(dx, dy);
-            if (d < R) { const f = (1 - d / R) ** 2; tx = (dx / (d || 1)) * f * R * 0.9; ty = (dy / (d || 1)) * f * R * 0.9; tf = f; }
-          }
-          w.ox += (tx - w.ox) * (tx ? 0.12 : 0.03); w.oy += (ty - w.oy) * (ty ? 0.12 : 0.03);
-          w.fade += (tf - w.fade) * (tf ? 0.15 : 0.04);
-        }
+        const k = life(w, sgi, 0.045);
+        let [px, py] = pos(w, k, depth);
+        if (sgi === 0) push(w, px, py);
         px += w.ox * (1 - sgi * 0.25); py += w.oy * (1 - sgi * 0.25);
         const r = w.r * M * depth * (0.6 + k * 1.8) * (1 - sgi * 0.18);
-        const alpha = w.a * Math.sin(Math.PI * k) * (1 - heroProgress * 0.6) * (1 - w.fade * 0.75) * (1 - sgi * 0.28);
+        const alpha = w.a * Math.sin(Math.PI * k) * dim * (1 - w.fade * 0.75) * (1 - sgi * 0.28);
         if (alpha <= 0.002) continue;
-        const ang = -Math.PI / 2 + Math.cos(t * 0.0004 + w.ph + k * 5) * 0.5 + Math.atan2(w.ox, -w.oy - 1) * 0.15;
-        const col = w.blue ? '111,141,255' : '220,223,234';
+        const ang = -Math.PI / 2 + Math.cos(t * 0.0004 + w.ph + k * 5) * 0.5;
         ctx.save(); ctx.translate(px, py); ctx.rotate(ang); ctx.scale(3.2, 0.62 + w.fade * 0.4);
         const g = ctx.createRadialGradient(0, 0, 0, 0, 0, r);
-        g.addColorStop(0, `rgba(${col},${alpha})`); g.addColorStop(0.45, `rgba(${col},${alpha * 0.45})`); g.addColorStop(1, `rgba(${col},0)`);
+        g.addColorStop(0, `rgba(111,141,255,${alpha})`); g.addColorStop(0.45, `rgba(111,141,255,${alpha * 0.45})`); g.addColorStop(1, 'rgba(111,141,255,0)');
         ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, r, 0, 7); ctx.fill(); ctx.restore();
       }
     }
