@@ -44,10 +44,16 @@ new ResizeObserver(markSize).observe(cv); addEventListener('resize', markSize);
 const R0 = rng(7);
 const puffs = Array.from({ length: 22 }, () => ({ x: R0(), y: R0(), r: 0.18 + R0() * 0.32, a: 0.035 + R0() * 0.06, s: (R0() - 0.5) * 0.00012, ph: R0() * 6 }));
 // aşağıdan yukarı süzülen ince duman şeritleri (eski mavi damlaların yerine)
-const wisps = Array.from({ length: matchMedia('(max-width:720px)').matches ? 24 : 44 }, () => ({
-  x: R0(), y: R0(), z: R0(), r: 0.025 + R0() * 0.05, v: 0.000018 + R0() * 0.00004,
-  ph: R0() * 6.28, sw: 0.02 + R0() * 0.05, a: 0.05 + R0() * 0.07, blue: R0() < 0.28,
+const smallHero = matchMedia('(max-width:720px)').matches;
+const wisps = Array.from({ length: smallHero ? 40 : 78 }, () => ({
+  x: R0(), y: R0(), z: R0(), r: 0.03 + R0() * 0.055, v: 0.000018 + R0() * 0.00004,
+  ph: R0() * 6.28, sw: 0.02 + R0() * 0.06, a: 0.08 + R0() * 0.1, blue: R0() < 0.28,
+  ox: 0, oy: 0, fade: 0,
 }));
+// imlecin ekrandaki yeri: dumanı oradan dağıtır
+let hpx = -9999, hpy = -9999, hpOn = false;
+addEventListener('pointermove', (e) => { hpx = e.clientX; hpy = e.clientY; hpOn = true; }, { passive: true });
+document.addEventListener('pointerleave', () => { hpOn = false; });
 function frame(t) {
   if (needSize) size();
   if (heroVisible) {
@@ -62,22 +68,38 @@ function frame(t) {
       ctx.fillStyle = g; ctx.beginPath(); ctx.arc(px, py, r, 0, 7); ctx.fill();
     }
     const M = Math.min(W, H) || 1;
+    const cr = cv.getBoundingClientRect();
+    const qx = hpx - cr.left, qy = hpy - cr.top, R = Math.max(150, M * 0.24);
+    const segs = smallHero ? 2 : 3;
     for (const w of wisps) {
       const depth = 0.5 + w.z;
-      // 0 → altta doğar, 1 → yukarıda dağılır
-      const k = (((w.y + t * w.v * (reduce ? 0 : 1)) % 1) + 1) % 1;
-      const curl = Math.sin(t * 0.0004 + w.ph + k * 5) * w.sw;
-      const px = (w.x + curl) * W - mx * 30 * depth;
-      const py = (1.1 - k * 1.25) * H - my * 22 * depth - heroProgress * H * 0.35 * depth;
-      const r = w.r * M * depth * (0.6 + k * 1.6);
-      const alpha = w.a * Math.sin(Math.PI * k) * (1 - heroProgress * 0.6);
-      if (alpha <= 0.002) continue;
-      const ang = -Math.PI / 2 + Math.cos(t * 0.0004 + w.ph + k * 5) * 0.5;
-      const col = w.blue ? '111,141,255' : '214,217,228';
-      ctx.save(); ctx.translate(px, py); ctx.rotate(ang); ctx.scale(2.2, 0.7);
-      const g = ctx.createRadialGradient(0, 0, 0, 0, 0, r);
-      g.addColorStop(0, `rgba(${col},${alpha})`); g.addColorStop(0.5, `rgba(${col},${alpha * 0.4})`); g.addColorStop(1, `rgba(${col},0)`);
-      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, r, 0, 7); ctx.fill(); ctx.restore();
+      for (let sgi = 0; sgi < segs; sgi++) {
+        // 0 → altta doğar, 1 → yukarıda dağılır; arkadaki parçalar şeridi uzatır
+        const k = (((w.y + t * w.v * (reduce ? 0 : 1) - sgi * 0.045) % 1) + 1) % 1;
+        const curl = Math.sin(t * 0.0004 + w.ph + k * 5) * w.sw;
+        let px = (w.x + curl) * W - mx * 30 * depth;
+        let py = (1.1 - k * 1.25) * H - my * 22 * depth - heroProgress * H * 0.35 * depth;
+        if (sgi === 0) {
+          // imleç yakınındaysa dışarı itilir ve incelir, sonra yavaşça yerine döner
+          let tx = 0, ty = 0, tf = 0;
+          if (hpOn && !reduce) {
+            const dx = px - qx, dy = py - qy, d = Math.hypot(dx, dy);
+            if (d < R) { const f = (1 - d / R) ** 2; tx = (dx / (d || 1)) * f * R * 0.9; ty = (dy / (d || 1)) * f * R * 0.9; tf = f; }
+          }
+          w.ox += (tx - w.ox) * (tx ? 0.12 : 0.03); w.oy += (ty - w.oy) * (ty ? 0.12 : 0.03);
+          w.fade += (tf - w.fade) * (tf ? 0.15 : 0.04);
+        }
+        px += w.ox * (1 - sgi * 0.25); py += w.oy * (1 - sgi * 0.25);
+        const r = w.r * M * depth * (0.6 + k * 1.8) * (1 - sgi * 0.18);
+        const alpha = w.a * Math.sin(Math.PI * k) * (1 - heroProgress * 0.6) * (1 - w.fade * 0.75) * (1 - sgi * 0.28);
+        if (alpha <= 0.002) continue;
+        const ang = -Math.PI / 2 + Math.cos(t * 0.0004 + w.ph + k * 5) * 0.5 + Math.atan2(w.ox, -w.oy - 1) * 0.15;
+        const col = w.blue ? '111,141,255' : '220,223,234';
+        ctx.save(); ctx.translate(px, py); ctx.rotate(ang); ctx.scale(3.2, 0.62 + w.fade * 0.4);
+        const g = ctx.createRadialGradient(0, 0, 0, 0, 0, r);
+        g.addColorStop(0, `rgba(${col},${alpha})`); g.addColorStop(0.45, `rgba(${col},${alpha * 0.45})`); g.addColorStop(1, `rgba(${col},0)`);
+        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, r, 0, 7); ctx.fill(); ctx.restore();
+      }
     }
     ctx.globalCompositeOperation = 'source-over';
   }
