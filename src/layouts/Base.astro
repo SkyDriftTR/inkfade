@@ -39,7 +39,7 @@ const fontCss = [
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={ogImage} />
-    {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
+    {schema && [].concat(schema).map((sc) => <script type="application/ld+json" set:html={JSON.stringify(sc)} />)}
     <link rel="preload" href={`${base}fonts/pirata-one.woff`} as="font" type="font/woff" crossorigin />
     <style is:inline set:html={fontCss}></style>
     <script is:inline>

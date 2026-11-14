@@ -84,6 +84,7 @@ h2{font-family:var(--f-head);font-weight:var(--head-w);letter-spacing:0}
 .logo-sharp{inset:0;width:100%;height:100%}
 .logo-soft,.logo-intro{left:-6.25%;top:-6.25%;width:112.5%;height:112.5%;opacity:0}
 .hero-copy{display:grid;justify-items:center;gap:14px}
+.hero-kicker{display:block;font-size:clamp(.78rem,1.1vw,.9rem);font-style:normal;letter-spacing:.22em;text-transform:uppercase;color:var(--smoke);margin-bottom:8px;text-align:center}
 .hero-tag{font-family:var(--f-display);font-style:italic;font-weight:400;font-size:clamp(1.3rem,3vw,1.9rem);letter-spacing:.02em}
 .hero-tag em{font-style:normal;color:var(--blue-glow)}
 .scroll-hint{position:absolute;z-index:2;bottom:calc(26px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);display:grid;justify-items:center;gap:10px}

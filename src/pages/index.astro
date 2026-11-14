@@ -16,6 +16,7 @@ import Faq from '../components/Faq.astro';
 import Location from '../components/Location.astro';
 import Footer from '../components/Footer.astro';
 import { site } from '../data/site.js';
+import { faq } from '../data/faq.js';
 const home = Astro.site ? new URL(import.meta.env.BASE_URL, Astro.site).href : undefined;
 // Google'ın haritadaki işletmeyle siteyi eşleştirmesi için yapısal veri
 const schema = {
@@ -32,8 +33,14 @@ const schema = {
   founder: { '@type': 'Person', name: 'Ulaş Hakan', jobTitle: 'Tattoo Artist' },
   makesOffer: ['Dövme', 'Piercing'].map((n) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: n } })),
 };
+// SSS'ler Google'a soru-cevap olarak da bildirilir
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
 ---
-<Base title="Inkfade Tattoo & Piercing · Sinop Dövme ve Piercing" schema={schema}>
+<Base title="Sinop Dövme ve Piercing | Inkfade Tattoo, Dövmeci Ulaş Hakan" description="Sinop Merkez'de dövme ve piercing stüdyosu. Black & grey realism, fine line ve kişiye özel dövme modelleri. Fiyat ve randevu için WhatsApp'tan yazın." schema={[schema, faqSchema]}>
   <Loader />
   <Nav />
   <Hero />
