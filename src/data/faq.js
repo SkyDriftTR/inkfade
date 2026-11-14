@@ -1,16 +1,16 @@
 // Sık sorulan sorular. Cevapları stüdyonun kendi kurallarına göre düzenle.
 export const faq = [
   {
-    q: 'Stüdyo nerede?',
-    a: 'Inkfade Tattoo & Piercing, Sinop Merkez’de. Açık adres ve yol tarifi için Instagram’dan yazabilirsin.',
+    q: 'Sinop’ta dövme stüdyonuz nerede?',
+    a: 'Inkfade Tattoo & Piercing, Sinop Merkez’de: Camikebir, Sakarya Cd. Göçgünoğlu Pasajı D:50/10P. Yol tarifi için sayfadaki haritayı kullanabilirsin.',
   },
   {
     q: 'Randevu nasıl alırım?',
     a: 'Randevu talebinizi WhatsApp veya Instagram üzerinden iletebilir, sayfadaki “Randevu al” butonuyla doğrudan WhatsApp’a yönlenebilirsiniz. Talebinizde düşündüğünüz tasarımı, yerleşim bölgesini, yaklaşık boyutu ve varsa referans görsellerini paylaşmanız; size en uygun tarih ve fiyat bilgisini hızlıca sunmamızı sağlar.',
   },
   {
-    q: 'Fiyatlar nasıl belirleniyor?',
-    a: 'Fiyat tasarımın boyutuna, detayına, yerleşimine ve kaç seans süreceğine göre değişir. Fikrini ve ölçüsünü gönderdiğinde net bir fiyat veririz.',
+    q: 'Sinop’ta dövme fiyatları ne kadar?',
+    a: 'Dövme fiyatı tasarımın boyutuna, detayına, yerleşimine ve kaç seans süreceğine göre değişir; küçük bir fine line ile tam kol bir realism çalışması aynı fiyatta olmaz. Fikrini, ölçüsünü ve varsa referans görselini WhatsApp’tan gönderdiğinde net fiyatı birlikte konuşuruz.',
   },
   {
     q: 'Kapora alıyor musunuz?',
