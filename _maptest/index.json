@@ -1,0 +1,358 @@
+{
+ "https://tiles.openfreemap.org/styles/positron": {
+  "file": "f0.txt",
+  "type": "application/json"
+ },
+ "https://tiles.openfreemap.org/planet": {
+  "file": "f1.txt",
+  "type": "application/json"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2446/1519.pbf": {
+  "file": "f2.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2446/1520.pbf": {
+  "file": "f3.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2446/1521.pbf": {
+  "file": "f4.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2447/1519.pbf": {
+  "file": "f5.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2447/1520.pbf": {
+  "file": "f6.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2447/1521.pbf": {
+  "file": "f7.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2448/1519.pbf": {
+  "file": "f8.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2448/1520.pbf": {
+  "file": "f9.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2448/1521.pbf": {
+  "file": "f10.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/13/4894/3039.pbf": {
+  "file": "f11.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/13/4894/3040.pbf": {
+  "file": "f12.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/13/4894/3041.pbf": {
+  "file": "f13.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/13/4895/3039.pbf": {
+  "file": "f14.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/13/4895/3040.pbf": {
+  "file": "f15.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/13/4895/3041.pbf": {
+  "file": "f16.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/13/4896/3039.pbf": {
+  "file": "f17.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/13/4896/3040.pbf": {
+  "file": "f18.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/13/4896/3041.pbf": {
+  "file": "f19.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/14/9790/6079.pbf": {
+  "file": "f20.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/14/9790/6080.pbf": {
+  "file": "f21.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/14/9790/6081.pbf": {
+  "file": "f22.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/14/9791/6079.pbf": {
+  "file": "f23.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/14/9791/6080.pbf": {
+  "file": "f24.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/14/9791/6081.pbf": {
+  "file": "f25.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/14/9792/6079.pbf": {
+  "file": "f26.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/14/9792/6080.pbf": {
+  "file": "f27.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/14/9792/6081.pbf": {
+  "file": "f28.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/15/19581/12158.pbf": {
+  "file": "f29.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/15/19581/12159.pbf": {
+  "file": "f30.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/15/19581/12160.pbf": {
+  "file": "f31.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/15/19581/12161.pbf": {
+  "file": "f32.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/15/19581/12162.pbf": {
+  "file": "f33.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/15/19582/12158.pbf": {
+  "file": "f34.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/15/19582/12159.pbf": {
+  "file": "f35.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/15/19582/12160.pbf": {
+  "file": "f36.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/15/19582/12161.pbf": {
+  "file": "f37.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/15/19582/12162.pbf": {
+  "file": "f38.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/15/19583/12158.pbf": {
+  "file": "f39.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/15/19583/12159.pbf": {
+  "file": "f40.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/15/19583/12160.pbf": {
+  "file": "f41.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/15/19583/12161.pbf": {
+  "file": "f42.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/15/19583/12162.pbf": {
+  "file": "f43.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/15/19584/12158.pbf": {
+  "file": "f44.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/15/19584/12159.pbf": {
+  "file": "f45.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/15/19584/12160.pbf": {
+  "file": "f46.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/15/19584/12161.pbf": {
+  "file": "f47.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/15/19584/12162.pbf": {
+  "file": "f48.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/15/19585/12158.pbf": {
+  "file": "f49.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/15/19585/12159.pbf": {
+  "file": "f50.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/15/19585/12160.pbf": {
+  "file": "f51.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/15/19585/12161.pbf": {
+  "file": "f52.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/15/19585/12162.pbf": {
+  "file": "f53.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/16/39164/24319.pbf": {
+  "file": "f54.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/16/39164/24320.pbf": {
+  "file": "f55.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/16/39164/24321.pbf": {
+  "file": "f56.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/16/39164/24322.pbf": {
+  "file": "f57.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/16/39164/24323.pbf": {
+  "file": "f58.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/16/39165/24319.pbf": {
+  "file": "f59.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/16/39165/24320.pbf": {
+  "file": "f60.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/16/39165/24321.pbf": {
+  "file": "f61.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/16/39165/24322.pbf": {
+  "file": "f62.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/16/39165/24323.pbf": {
+  "file": "f63.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/16/39166/24319.pbf": {
+  "file": "f64.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/16/39166/24320.pbf": {
+  "file": "f65.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/16/39166/24321.pbf": {
+  "file": "f66.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/16/39166/24322.pbf": {
+  "file": "f67.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/16/39166/24323.pbf": {
+  "file": "f68.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/16/39167/24319.pbf": {
+  "file": "f69.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/16/39167/24320.pbf": {
+  "file": "f70.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/16/39167/24321.pbf": {
+  "file": "f71.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/16/39167/24322.pbf": {
+  "file": "f72.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/16/39167/24323.pbf": {
+  "file": "f73.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/16/39168/24319.pbf": {
+  "file": "f74.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/16/39168/24320.pbf": {
+  "file": "f75.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/16/39168/24321.pbf": {
+  "file": "f76.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/16/39168/24322.pbf": {
+  "file": "f77.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/planet/20261101_080013_pt/16/39168/24323.pbf": {
+  "file": "f78.bin",
+  "type": "application/vnd.mapbox-vector-tile"
+ },
+ "https://tiles.openfreemap.org/sprites/ofm_f384/ofm.json": {
+  "file": "f79.txt",
+  "type": "application/json"
+ },
+ "https://tiles.openfreemap.org/sprites/ofm_f384/ofm.png": {
+  "file": "f80.bin",
+  "type": "image/png"
+ },
+ "https://tiles.openfreemap.org/sprites/ofm_f384/ofm@2x.json": {
+  "file": "f81.txt",
+  "type": "application/json"
+ },
+ "https://tiles.openfreemap.org/sprites/ofm_f384/ofm@2x.png": {
+  "file": "f82.bin",
+  "type": "image/png"
+ },
+ "https://tiles.openfreemap.org/fonts/Noto%20Sans%20Italic/0-255.pbf": {
+  "file": "f83.bin",
+  "type": "application/x-protobuf"
+ },
+ "https://tiles.openfreemap.org/fonts/Noto%20Sans%20Italic/256-511.pbf": {
+  "file": "f84.bin",
+  "type": "application/x-protobuf"
+ },
+ "https://tiles.openfreemap.org/fonts/Noto%20Sans%20Regular/0-255.pbf": {
+  "file": "f85.bin",
+  "type": "application/x-protobuf"
+ },
+ "https://tiles.openfreemap.org/fonts/Noto%20Sans%20Regular/256-511.pbf": {
+  "file": "f86.bin",
+  "type": "application/x-protobuf"
+ },
+ "https://tiles.openfreemap.org/fonts/Noto%20Sans%20Bold/0-255.pbf": {
+  "file": "f87.bin",
+  "type": "application/x-protobuf"
+ },
+ "https://tiles.openfreemap.org/fonts/Noto%20Sans%20Bold/256-511.pbf": {
+  "file": "f88.bin",
+  "type": "application/x-protobuf"
+ }
+}
