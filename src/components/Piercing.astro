@@ -1,12 +1,13 @@
 ---
 import { groups } from '../data/piercing.js';
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : import.meta.env.BASE_URL + '/';
 ---
 <section class="piercing" id="piercing">
   <div class="wrap pc-grid">
     <div class="pc-side">
       <p class="mono">Piercing</p>
       <h2>Piercing</h2>
-      <p class="lede">Kulaktan buruna, steril iğneyle ve vücuduna uygun takıyla. Yerleşimi anatomine göre birlikte seçeriz.</p>
+      <p class="lede"><a class="inline-link" href={`${base}sinop-piercing/`}>Kulaktan buruna</a>, steril iğneyle ve vücuduna uygun takıyla. Yerleşimi anatomine göre birlikte seçeriz.</p>
       <div class="pc-notes">
         <div><p class="mono">Takı</p><p>İlk takılar 316L cerrahi çelik.</p></div>
         <div><p class="mono">Uygulama</p><p>Tek kullanımlık steril iğne. Tabanca kullanılmaz.</p></div>

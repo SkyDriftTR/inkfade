@@ -7,11 +7,12 @@ const styles = [
   { name: 'Sketch & Dotwork', tag: 'Çizgi · nokta', id: 'balance', text: 'Eskiz çizgileri, nokta gölgeleme ve grafik kırılmalarla daha deneysel işler.' },
   { name: 'Fine line', tag: 'İnce çizgi · renk', id: 'lale', text: 'Küçük, zarif parçalar. Tek çizgiler, yumuşak renk geçişleri ve minimal detay.' },
 ].map((s) => ({ ...s, w: works[s.id] }));
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : import.meta.env.BASE_URL + '/';
 ---
 <section class="styles" id="stiller">
   <div class="wrap styles-head">
     <div><p class="mono">Uzmanlık</p><h2>Stiller</h2></div>
-    <p>Farklı stillerde çalışıyoruz; odak noktamız Black & Grey Realism. Hangisinin sana uyduğunu ilk görüşmede birlikte seçeriz.</p>
+    <p><a class="inline-link" href={`${base}dovme-stilleri/`}>Farklı stillerde</a> çalışıyoruz; odak noktamız Black & Grey Realism. Hangisinin sana uyduğunu ilk görüşmede birlikte seçeriz.</p>
   </div>
   <p class="mono swipe-hint" aria-hidden="true">← Kaydırarak gez →</p>
   <div class="track">
