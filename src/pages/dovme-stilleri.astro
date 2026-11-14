@@ -47,6 +47,8 @@ const faq = [
   lead="Inkfade’de farklı stillerde çalışıyoruz; odak noktamız Black & Grey Realism. Aşağıda Sinop’taki stüdyomuzda yapılmış çalışmalardan örneklerle her stilin neye benzediğini ve kime uyduğunu bulabilirsin."
   faq={faq}
 >
+  <p>Sinop’ta dövme yaptırmak istiyorsan doğru stili seçmek, sonucun ne kadar memnun edeceğini belirleyen ilk adım. <a href={base}>Inkfade Tattoo, Sinop dövme stüdyosu</a> olarak her tasarımı kişiye özel hazırlıyoruz; aşağıdaki örneklerin hepsi stüdyomuzda yapıldı.</p>
+
   {styles.map((s) => (
     <section class="guide-style">
       <h2>{s.name}</h2>
@@ -62,5 +64,5 @@ const faq = [
       <p class="guide-fit"><span class="mono">Kime uygun</span> {s.fit}</p>
     </section>
   ))}
-  <p>Daha fazla örnek için <a href={`${base}#portfolyo`}>portfolyoya</a> göz atabilirsin. İlk dövmeni yaptıracaksan <a href={`${base}ilk-dovme-rehberi/`}>ilk dövme rehberimiz</a> işine yarayabilir.</p>
+  <p>Daha fazla örnek için <a href={`${base}#portfolyo`}>Sinop dövmeci Ulaş Hakan’ın portfolyosuna</a> göz atabilirsin. Dövmenin yanında <a href={`${base}sinop-piercing/`}>Sinop piercing</a> hizmetimiz de var. İlk dövmeni yaptıracaksan <a href={`${base}ilk-dovme-rehberi/`}>ilk dövme rehberimiz</a> işine yarayabilir.</p>
 </Guide>
