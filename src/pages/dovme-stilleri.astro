@@ -1,0 +1,66 @@
+---
+import Guide from '../layouts/Guide.astro';
+import { works } from '../data/works.js';
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : import.meta.env.BASE_URL + '/';
+const styles = [
+  {
+    name: 'Black & Grey Realism',
+    ids: ['zeus', 'ozgurluk', 'catrina'],
+    text: 'Stüdyomuzun uzmanlık alanı. Portre, heykel, hayvan ve mitoloji figürleri; siyah ve gri tonların yumuşak geçişleriyle fotoğraf gerçekliğinde işlenir. Ön kol, üst kol, baldır ve sırt gibi geniş, düz alanlarda en iyi sonucu verir.',
+    fit: 'Detaylı, kalıcı ve güçlü bir parça isteyenlere.',
+  },
+  {
+    name: 'Sleeve (tam kol, tam bacak)',
+    ids: ['basmelek', 'melek-kafatasi', 'gotham'],
+    text: 'Kol ya da bacak boyunca tek bir hikâye anlatan büyük kompozisyonlar. Birden fazla seansta, parçalar birbirine akacak şekilde planlanır. Tasarım baştan bütün olarak düşünüldüğü için sonradan eklemelerle oluşan dağınıklık olmaz.',
+    fit: 'Büyük ve bütünlüklü bir proje düşünenlere.',
+  },
+  {
+    name: 'Oriental',
+    ids: ['hannya', 'foo-dog-koi'],
+    text: 'Hannya maskesi, koi, foo dog gibi Uzak Doğu motifleri; güçlü konturlar ve black & grey gölgeyle yeniden yorumlanır. Üst kol ve omuz gibi kavisli bölgelerde akışkan durur.',
+    fit: 'Simgesel anlamı olan, karakterli bir dövme arayanlara.',
+  },
+  {
+    name: 'Sketch & Dotwork',
+    ids: ['kirik-heykel', 'balance', 'spiderman'],
+    text: 'Eskiz çizgileri, nokta gölgeleme ve grafik kırılmalarla daha deneysel işler. Realism’e göre daha hafif bir doku verir; klasik bir figürü modern bir dille anlatmak için idealdir.',
+    fit: 'Sıradışı, sanatsal bir yorum isteyenlere.',
+  },
+  {
+    name: 'Fine line & Minimal',
+    ids: ['lale', 'gul', 'denizanasi'],
+    text: 'İnce çizgiler, küçük boyutlar ve yumuşak renk geçişleri. Bilek, ön kol, köprücük kemiği gibi zarif bölgelere uygun; ilk dövme için de sık tercih edilir.',
+    fit: 'Küçük, zarif ve sade bir parça isteyenlere.',
+  },
+];
+const faq = [
+  { q: 'Sinop’ta dövme modellerini nereden seçebilirim?', a: 'Bu sayfadaki ve ana sayfadaki portfolyo örneklerine bakabilir, Instagram hesabımızdaki güncel işleri inceleyebilirsin. Hazır model yerine fikrini anlatırsan sana özel bir tasarım hazırlarız.' },
+  { q: 'İnternetten bulduğum bir modeli yaptırabilir miyim?', a: 'Referans olarak getirebilirsin; deriye ve yerleşime uygun hâle getirip sana özel düzenleriz. Başka bir sanatçının özgün çalışmasını birebir kopyalamıyoruz.' },
+  { q: 'Dövme fiyatları stile göre değişir mi?', a: 'Evet. Fiyatı stil, boyut, detay ve seans sayısı belirler. Fine line küçük bir parça ile tam kol realism aynı emeği gerektirmez; fikrini gönderdiğinde net fiyat veririz.' },
+];
+---
+<Guide
+  slug="dovme-stilleri"
+  kicker="Sinop · Dövme modelleri"
+  h1="Sinop dövme modelleri ve stilleri"
+  lead="Inkfade’de farklı stillerde çalışıyoruz; odak noktamız Black & Grey Realism. Aşağıda Sinop’taki stüdyomuzda yapılmış çalışmalardan örneklerle her stilin neye benzediğini ve kime uyduğunu bulabilirsin."
+  faq={faq}
+>
+  {styles.map((s) => (
+    <section class="guide-style">
+      <h2>{s.name}</h2>
+      <div class="guide-gallery">
+        {s.ids.map((id) => (
+          <figure>
+            <img src={works[id].sm} alt={`${s.name} dövme, ${works[id].place}`} loading="lazy" decoding="async" style={`object-position:${works[id].pos}`} />
+            <figcaption>{works[id].place}</figcaption>
+          </figure>
+        ))}
+      </div>
+      <p>{s.text}</p>
+      <p class="guide-fit"><span class="mono">Kime uygun</span> {s.fit}</p>
+    </section>
+  ))}
+  <p>Daha fazla örnek için <a href={`${base}#portfolyo`}>portfolyoya</a> göz atabilirsin. İlk dövmeni yaptıracaksan <a href={`${base}ilk-dovme-rehberi/`}>ilk dövme rehberimiz</a> işine yarayabilir.</p>
+</Guide>
