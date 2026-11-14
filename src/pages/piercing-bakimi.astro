@@ -1,0 +1,50 @@
+---
+import Guide from '../layouts/Guide.astro';
+import { groups } from '../data/piercing.js';
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : import.meta.env.BASE_URL + '/';
+const faq = [
+  { q: 'Piercing’imi ne zaman değiştirebilirim?', a: 'Bölge tamamen iyileşmeden takıyı değiştirme. İlk değişimi stüdyoda yapmanı öneririz; doğru ölçü ve malzemeyi birlikte seçeriz.' },
+  { q: 'Piercing’in etrafında şişlik oldu, normal mi?', a: 'İlk günlerde hafif şişlik, kızarıklık ve şeffaf-beyazımsı akıntı normaldir. Şişlik artıyor, iltihaplı akıntı veya ateş varsa doktora başvur ve bize haber ver.' },
+  { q: 'Piercing’le uyuyabilir miyim?', a: 'Evet, ama özellikle kulak piercing’lerinde o tarafın üzerine yatmamaya çalış. Seyahat yastığı kulağa baskıyı azaltır.' },
+];
+---
+<Guide
+  slug="piercing-bakimi"
+  kicker="Rehber · Bakım"
+  h1="Piercing bakımı nasıl yapılır?"
+  lead="Yeni piercing’in sorunsuz iyileşmesi için gereken şey aslında basit: temiz tut, dokunma, sabırlı ol. Aşağıda günlük bakımı, iyileşme sürelerini ve dikkat etmen gerekenleri anlattık."
+  faq={faq}
+>
+  <h2>Günlük bakım</h2>
+  <ol class="guide-steps">
+    <li><b>Ellerini yıka.</b> Piercing’e dokunmadan önce her zaman.</li>
+    <li><b>Serum fizyolojikle temizle.</b> Günde iki kez steril serum fizyolojikle ıslattığın temiz bir gazlı bezle bölgeyi nazikçe sil; kurumuş kabukları yumuşatıp öyle temizle.</li>
+    <li><b>Kurula.</b> Tek kullanımlık kâğıt havluyla bastırarak kurula.</li>
+    <li><b>Takıyla oynama.</b> Çevirmek, döndürmek iyileşmeyi geciktirir ve tahriş eder.</li>
+  </ol>
+  <p>Alkol, oksijenli su ve sert antiseptikler dokuyu kurutur; iyileşmeyi hızlandırmaz, aksine yavaşlatır.</p>
+
+  <h2>Ortalama iyileşme süreleri</h2>
+  <div class="guide-table">
+    {groups.map((g) => (
+      <div>
+        <p class="mono">{g.name}</p>
+        <ul>
+          {g.items.map((it) => (
+            <li><span>{it.name}{it.note && <small> · {it.note}</small>}</span><span>{it.time}</span></li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+  <p>Dış görünüş birkaç haftada iyileşmiş gibi görünse de içerideki kanal daha uzun sürede olgunlaşır. Bu yüzden takı değişimini acele etme.</p>
+
+  <h2>Dikkat etmen gerekenler</h2>
+  <ul>
+    <li>İyileşme süresince havuz, deniz, küvet ve saunadan uzak dur.</li>
+    <li>Kulak piercing’lerinde telefonunu ve yastık kılıfını temiz tut; saçı bölgeden uzak tut.</li>
+    <li>Ağız içi piercing’lerde (dudak) ilk günlerde sigara, alkol ve çok sıcak-acı yiyeceklerden kaçın, yemeklerden sonra ağzını alkolsüz gargarayla çalkala.</li>
+    <li>Göbek piercing’inde bel bandı sıkı kıyafetlerden kaçın.</li>
+  </ul>
+  <p>Hangi piercing’leri yaptığımızı ve nasıl uyguladığımızı <a href={`${base}sinop-piercing/`}>Sinop piercing sayfamızda</a> bulabilirsin.</p>
+</Guide>

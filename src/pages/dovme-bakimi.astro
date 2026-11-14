@@ -1,0 +1,50 @@
+---
+import Guide from '../layouts/Guide.astro';
+const faq = [
+  { q: 'Dövme ne kadar sürede iyileşir?', a: 'Yüzeydeki iyileşme genelde 2–4 hafta sürer. Derinin alt katmanlarının tamamen yenilenmesi 1–2 ayı bulabilir; bu sürede dövme biraz mat görünebilir, sonra netleşir.' },
+  { q: 'Dövmeyle duş alabilir miyim?', a: 'Evet, kısa duşlar sorun değil. Dövmeyi suya uzun süre tutma, sert lif kullanma ve havluyla ovmadan, hafifçe bastırarak kurula.' },
+  { q: 'Ne zaman denize ve havuza girebilirim?', a: 'Dövme tamamen iyileşene kadar, yani en az 2–4 hafta deniz, havuz, sauna ve küvetten uzak dur.' },
+  { q: 'Rötuş gerekir mi?', a: 'Bazen iyileşme sonrası küçük boşluklar oluşabilir. İyileşme tamamlandıktan sonra gereken ilk rötuş stüdyomuzda ücretsizdir.' },
+];
+---
+<Guide
+  slug="dovme-bakimi"
+  kicker="Rehber · Bakım"
+  h1="Dövme sonrası bakım: gün gün iyileşme rehberi"
+  lead="Dövmenin yıllarca net ve canlı kalması, büyük ölçüde ilk haftalardaki bakıma bağlı. Seans sonunda sana yazılı bir bakım rehberi veriyoruz; burada aynı adımları gün gün anlattık."
+  faq={faq}
+>
+  <h2>İlk 24 saat</h2>
+  <ul>
+    <li>Stüdyoda sarılan koruyucu bandı sana söylenen süre boyunca çıkarma.</li>
+    <li>Bandı çıkardıktan sonra ellerini yıka, dövmeyi ılık su ve parfümsüz, nazik bir sabunla parmak uçlarınla yıka.</li>
+    <li>Temiz, tek kullanımlık kâğıt havluyla bastırarak kurula. Bez havlu kullanma.</li>
+    <li>Önerilen kremi çok ince bir tabaka hâlinde sür. Fazla krem dövmenin nefes almasını engeller.</li>
+  </ul>
+
+  <h2>1–2. hafta</h2>
+  <ul>
+    <li>Günde 2–3 kez yıka ve ince krem sür.</li>
+    <li>Kabuklanma ve kaşıntı normaldir. <b>Kabukları koparma, kaşıma.</b> Kaşıntı için hafifçe vurabilirsin.</li>
+    <li>Bölgeyi sürtecek dar kıyafetlerden kaçın.</li>
+    <li>Güneş, deniz, havuz, sauna, solaryum ve yoğun terleten spordan uzak dur.</li>
+  </ul>
+
+  <h2>3–4. hafta ve sonrası</h2>
+  <ul>
+    <li>Kabuklar kendiliğinden döküldükten sonra deri parlak ve hafif mat görünebilir; bu geçicidir.</li>
+    <li>Nemlendirmeye devam et.</li>
+    <li>İyileşme bittikten sonra güneşte her zaman yüksek faktörlü güneş kremi kullan. Güneş, dövmenin solmasının bir numaralı sebebi.</li>
+  </ul>
+
+  <h2>Kaçınman gerekenler</h2>
+  <ul>
+    <li>Kabukları koparmak, kaşımak</li>
+    <li>İyileşme bitmeden güneşe çıkmak, denize ya da havuza girmek</li>
+    <li>Vazelin gibi kalın, gözenek tıkayan ürünleri kalın tabaka hâlinde sürmek</li>
+    <li>Dövmeye kirli elle dokunmak</li>
+  </ul>
+
+  <h2>Ne zaman doktora başvurmalısın?</h2>
+  <p>İlk birkaç gün hafif kızarıklık, şişlik ve hassasiyet normaldir. Ama kızarıklık günler geçtikçe artıyor ve yayılıyorsa, bölgeden sarı-yeşil iltihaplı akıntı geliyorsa, ateşin varsa ya da ağrı giderek şiddetleniyorsa enfeksiyon belirtisi olabilir; vakit kaybetmeden bir doktora başvur ve bize de haber ver.</p>
+</Guide>

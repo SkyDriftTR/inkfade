@@ -1,0 +1,44 @@
+---
+import Guide from '../layouts/Guide.astro';
+import { groups } from '../data/piercing.js';
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : import.meta.env.BASE_URL + '/';
+const faq = [
+  { q: 'Sinop’ta piercing fiyatları ne kadar?', a: 'Fiyat, piercing bölgesine ve seçtiğin takıya göre değişir. Yaptırmak istediğin bölgeyi WhatsApp’tan yazdığında güncel fiyatı ve uygun takı seçeneklerini paylaşırız.' },
+  { q: 'Piercing tabancayla mı yapılıyor?', a: 'Hayır. Tüm piercing işlemleri tek kullanımlık steril iğneyle yapılır. İğne dokuyu daha temiz deler, iyileşme genelde daha sorunsuz olur.' },
+  { q: 'İlk takı hangi malzemeden?', a: 'İlk takılar 316L cerrahi çeliktir. Bölge tam iyileştikten sonra istediğin takıya geçebilirsin.' },
+  { q: 'Piercing çok acıtır mı?', a: 'İğne birkaç saniyede geçer; çoğu kişi kısa bir batma hissi tarif eder. Kıkırdak bölgeler (helix, tragus, conch) lob’a göre biraz daha hassastır.' },
+];
+---
+<Guide
+  slug="sinop-piercing"
+  kicker="Sinop Merkez · Piercing"
+  h1="Sinop Piercing: steril iğne, 316L cerrahi çelik"
+  lead="Inkfade Tattoo & Piercing’de kulaktan buruna tüm piercing işlemleri tek kullanımlık steril iğneyle yapılır. Yerleşimi anatomine göre birlikte seçer, ilk takını 316L cerrahi çelikten takarız."
+  faq={faq}
+>
+  <h2>Hangi piercing’leri yapıyoruz?</h2>
+  <p>Aşağıdaki süreler ortalama iyileşme süreleridir. Kişiden kişiye, bakıma ve bölgeye göre değişebilir.</p>
+  <div class="guide-table">
+    {groups.map((g) => (
+      <div>
+        <p class="mono">{g.name}</p>
+        <ul>
+          {g.items.map((it) => (
+            <li><span>{it.name}{it.note && <small> · {it.note}</small>}</span><span>{it.time}</span></li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+
+  <h2>Nasıl yapılıyor?</h2>
+  <ol class="guide-steps">
+    <li><b>Görüşme ve yerleşim.</b> Kulak ya da yüz anatomine bakar, piercing’in en iyi duracağı ve en rahat iyileşeceği noktayı birlikte belirleriz.</li>
+    <li><b>Hijyen.</b> Bölge temizlenir, işaretlenir. İğne ve takı ambalajı senin önünde açılır.</li>
+    <li><b>Uygulama.</b> Tek kullanımlık steril iğneyle birkaç saniyede yapılır, takı hemen yerleştirilir.</li>
+    <li><b>Bakım rehberi.</b> Evde ne yapman gerektiğini anlatırız; iyileşme sürecinde kontrol ücretsizdir.</li>
+  </ol>
+
+  <h2>Piercing sonrası bakım</h2>
+  <p>Günde iki kez steril serum fizyolojikle temizlemek, takıyla oynamamak ve iyileşme bitmeden takı değiştirmemek en önemli üç kural. Detaylı anlatım için <a href={`${base}piercing-bakimi/`}>piercing bakım rehberimize</a> göz atabilirsin.</p>
+</Guide>

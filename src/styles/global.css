@@ -230,7 +230,7 @@ h2{font-family:var(--f-head);font-weight:var(--head-w);letter-spacing:0}
 
 /* footer */
 .site-foot{border-top:1px solid var(--line);padding-block:clamp(56px,8vw,96px) calc(28px + env(safe-area-inset-bottom,0px));background:linear-gradient(180deg,transparent,rgba(58,99,255,.05))}
-.foot-top{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px 48px;align-items:start}
+.foot-top{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:40px 48px;align-items:start}
 .foot-mark{display:inline-flex;flex-direction:column;gap:10px;text-decoration:none;color:var(--bone)}
 .foot-mark svg{width:clamp(170px,22vw,240px);height:auto;aspect-ratio:682/230;transition:color .4s}
 .foot-mark:hover svg{color:var(--blue-glow)}
@@ -245,7 +245,8 @@ h2{font-family:var(--f-head);font-weight:var(--head-w);letter-spacing:0}
 .foot-credit{margin-left:auto}
 .fc-tag{font-size:1rem;color:var(--blue-glow);transition:color .3s,text-shadow .3s}
 .foot-credit:hover .fc-tag{color:#fff;text-shadow:0 0 14px rgba(111,141,255,.6)}
-@media (max-width:820px){.foot-top{grid-template-columns:1fr 1fr}.foot-mark{grid-column:1/-1}}
+@media (max-width:1020px){.foot-top{grid-template-columns:1fr 1fr 1fr}.foot-mark{grid-column:1/-1}}
+@media (max-width:820px){.foot-top{grid-template-columns:1fr 1fr}}
 @media (max-width:520px){.foot-top{grid-template-columns:1fr}.foot-credit{margin-left:0}}
 /* gizlilik sayfası */
 .legal-nav{display:flex;justify-content:space-between;align-items:center;padding-block:calc(24px + env(safe-area-inset-top,0px)) 24px}
@@ -259,6 +260,50 @@ h2{font-family:var(--f-head);font-weight:var(--head-w);letter-spacing:0}
 .legal ul{padding-left:1.2em;display:grid;gap:8px}
 .legal b{color:var(--bone);font-weight:600}
 .legal a{color:var(--blue-glow)}
+/* rehber sayfaları */
+.guide{max-width:820px;padding-block:clamp(28px,6vw,60px) clamp(70px,10vw,120px)}
+.crumbs{display:flex;gap:10px;font-size:.84rem;color:var(--smoke);margin:0 0 28px}
+.crumbs a{color:var(--smoke);text-decoration:none}.crumbs a:hover{color:var(--bone)}
+.guide-kicker{color:var(--blue-glow);margin:0}
+.guide h1{font-family:var(--f-head);font-weight:var(--head-w);font-size:clamp(2.3rem,6.4vw,4rem);line-height:1.04;margin:10px 0 22px;color:#f4f2ee}
+.guide h2{font-size:clamp(1.55rem,3.4vw,2.1rem);margin:56px 0 14px;color:#f4f2ee}
+.guide p,.guide li{color:#c9c7c2;line-height:1.78;font-size:1.04rem}
+.guide .lead{font-size:clamp(1.1rem,1.6vw,1.24rem);color:var(--bone)}
+.guide ul,.guide ol{padding-left:1.2em;display:grid;gap:8px}
+.guide b{color:var(--bone);font-weight:600}
+.guide a{color:var(--blue-glow)}
+.guide-steps{counter-reset:s;list-style:none;padding:0!important;gap:14px!important}
+.guide-steps li{counter-increment:s;position:relative;padding-left:46px}
+.guide-steps li::before{content:counter(s,decimal-leading-zero);position:absolute;left:0;top:2px;font-family:var(--f-mono);color:var(--blue-glow);font-size:.95rem}
+.guide-table{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px 36px;margin:18px 0 8px}
+.guide-table ul{list-style:none;padding:0!important;gap:0!important;margin:8px 0 0}
+.guide-table li{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:.98rem}
+.guide-table li span:last-child{color:var(--smoke);white-space:nowrap}
+.guide-table .mono{color:var(--blue-glow);margin:0}
+.guide-style{margin-top:8px}
+.guide-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0 18px}
+.guide-gallery figure{margin:0;position:relative;aspect-ratio:4/5;overflow:hidden;border-radius:4px;background:#0c0e16}
+.guide-gallery img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(.1)}
+.guide-gallery figcaption{position:absolute;left:0;right:0;bottom:10px;text-align:center;font-family:var(--f-mono);color:#fff;font-size:.95rem;text-shadow:0 1px 10px rgba(0,0,0,.8)}
+.guide-gallery figure:only-child,.guide-gallery figure:first-child:nth-last-child(2),.guide-gallery figure:first-child:nth-last-child(2)~figure{grid-column:span 1}
+.guide-fit{border-left:2px solid var(--blue);padding-left:14px}
+.guide-fit .mono{display:block;color:var(--blue-glow);font-size:.82rem}
+.guide-faq details{border-bottom:1px solid var(--line);padding:16px 0}
+.guide-faq summary{cursor:pointer;color:var(--bone);font-size:1.08rem;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.guide-faq summary::-webkit-details-marker{display:none}
+.guide-faq summary::after{content:"+";color:var(--blue-glow);font-size:1.3rem;line-height:1}
+.guide-faq details[open] summary::after{content:"−"}
+.guide-faq details p{margin:12px 0 0}
+.guide-cta{margin-top:64px;padding:clamp(24px,4vw,40px);border:1px solid var(--line);border-radius:6px;background:linear-gradient(135deg,rgba(58,99,255,.12),rgba(58,99,255,.02))}
+.guide-cta .mono{color:var(--blue-glow);margin:0}
+.guide-cta-t{font-family:var(--f-head);font-size:clamp(1.6rem,3.4vw,2.2rem)!important;color:#f4f2ee!important;margin:6px 0 8px;line-height:1.15}
+.guide-cta-a{display:flex;flex-wrap:wrap;gap:14px 26px;align-items:center;margin-top:16px}
+.guide-cta .btn{display:inline-block;background:var(--blue);color:#fff;text-decoration:none;padding:12px 22px;border-radius:999px;transition:background .3s}
+.guide-cta .btn:hover{background:var(--blue-glow)}
+.guide-more{margin-top:48px}
+.guide-more .mono{color:var(--smoke);margin:0 0 8px}
+.guide-more ul{list-style:none;padding:0!important;display:flex!important;flex-wrap:wrap;gap:8px 22px!important}
+@media (max-width:520px){.guide-gallery{grid-template-columns:1fr 1fr}.guide-gallery figure:nth-child(3){display:none}}
 
 /* sticky book */
 .fab{position:fixed;z-index:52;right:calc(var(--gut-r) + 4px);bottom:calc(20px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:10px;padding:12px 18px;border-radius:999px;background:var(--blue);color:#fff;text-decoration:none;font-family:var(--f-mono);font-size:0.96rem;letter-spacing:.02em;text-transform:none;box-shadow:0 10px 40px -8px rgba(58,99,255,.7);transform:translateY(140%);transition:transform .5s cubic-bezier(.2,.7,.2,1)}

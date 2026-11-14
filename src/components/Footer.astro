@@ -1,5 +1,6 @@
 ---
 import { site } from '../data/site.js';
+import { guides } from '../data/guides.js';
 const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : import.meta.env.BASE_URL + '/';
 const year = new Date().getFullYear();
 ---
@@ -12,6 +13,10 @@ const year = new Date().getFullYear();
     <div class="foot-col">
       <p class="mono foot-label">Stüdyo</p>
       <address>{site.address}</address>
+    </div>
+    <div class="foot-col">
+      <p class="mono foot-label">Rehber</p>
+      {guides.map((g) => <a href={`${base}${g.slug}/`}>{g.label}</a>)}
     </div>
     <div class="foot-col">
       <p class="mono foot-label">İletişim</p>
