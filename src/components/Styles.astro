@@ -1,5 +1,7 @@
 ---
 import { works } from '../data/works.js';
+import { base } from '../lib/url.js';
+
 const styles = [
   { name: 'Black & Grey Realism', tag: 'Uzmanlık alanı', id: 'zeus', text: 'Portreler, heykeller, hayvanlar. Gölgeleri yavaş yavaş kurup fotoğraftaki derinliği deriye taşımaya çalışıyoruz.' },
   { name: 'Sleeve', tag: 'Tam kol · tam bacak', id: 'basmelek', text: 'Bütün kolu ya da bacağı tek bir hikâye gibi düşünüyoruz. Parçalar birbirine bağlansın diye işi en baştan bütün olarak planlıyoruz.' },
@@ -7,7 +9,6 @@ const styles = [
   { name: 'Sketch & Dotwork', tag: 'Çizgi · nokta', id: 'balance', text: 'Eskiz çizgileri, noktayla verilen gölgeler, yer yer bilerek bırakılmış kırılmalar. Biraz daha deneysel işler.' },
   { name: 'Fine line', tag: 'İnce çizgi · renk', id: 'lale', text: 'Küçük, ince, sade parçalar. İlk dövmesini yaptıracak olanlar çoğu zaman buradan başlıyor.' },
 ].map((s) => ({ ...s, w: works[s.id] }));
-const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : import.meta.env.BASE_URL + '/';
 ---
 <section class="styles" id="stiller">
   <div class="wrap styles-head">

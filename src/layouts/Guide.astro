@@ -1,15 +1,16 @@
 ---
-// Rehber sayfaları için ortak şablon: ana sayfanın tasarım dilinde sade bir okuma sayfası.
 import Base from './Base.astro';
 import Footer from '../components/Footer.astro';
 import { site } from '../data/site.js';
 import { guides } from '../data/guides.js';
+import { base, absolute } from '../lib/url.js';
+
+// Rehber sayfaları için ortak şablon: ana sayfanın tasarım dilinde sade bir okuma sayfası.
 
 const { slug, kicker, h1, lead, faq = [] } = Astro.props;
 const g = guides.find((x) => x.slug === slug);
-const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : import.meta.env.BASE_URL + '/';
-const home = Astro.site ? new URL(base, Astro.site).href : base;
-const url = new URL(`${slug}/`, Astro.site ? home : 'https://example.com/').href;
+const home = absolute('', Astro.site);
+const url = absolute(`${slug}/`, Astro.site);
 const updated = '2026-11-14';
 
 const schema = [

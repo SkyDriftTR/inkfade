@@ -1,11 +1,12 @@
 ---
 import '../styles/global.css';
 import Wordmark from '../components/Wordmark.astro';
-const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : import.meta.env.BASE_URL + '/';
+import { base, absolute } from '../lib/url.js';
+
 const { schema = null, home = true, title = 'Ink Fade', description = 'Inkfade Tattoo & Piercing, Sinop Merkez. Ulaş Hakan ile Black & Grey Realism, sleeve, fine line dövme ve piercing.' } = Astro.props;
 // Adresler: SITE/BASE GitHub Pages ayarından gelir; özel domain eklenince kendiliğinden https://inkfadetattoo.com olur.
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : null;
-const ogImage = Astro.site ? new URL(`${base}og.jpg`, Astro.site).href : `${base}og.jpg`;
+const ogImage = absolute('og.jpg', Astro.site);
 // Fontlar sitenin içinden yüklenir: ziyaretçinin IP'si Google'a gitmez (KVKK), çerez yok.
 const f = (n) => `${base}fonts/${n}.woff`;
 const fontCss = [

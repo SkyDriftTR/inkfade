@@ -1,7 +1,7 @@
 ---
 import { categories, itemsOf } from '../data/portfolio.js';
-const rows = categories.map((cat, ci) => ({ cat, ci, items: itemsOf(cat, ci) }));
-const isPlaceholder = (row) => !row.cat.works.length;
+
+const rows = categories.map((cat) => ({ cat, items: itemsOf(cat) }));
 ---
 <section class="portfolio" id="portfolyo">
   <div class="wrap pf-head">
@@ -21,7 +21,7 @@ const isPlaceholder = (row) => !row.cat.works.length;
       <div class="wrap pf-row-head">
         <div>
           <h3>{row.cat.name}</h3>
-          <span class="mono">{row.items.length} iş{isPlaceholder(row) ? ' · örnek görseller' : ''}</span>
+          <span class="mono">{row.items.length} iş</span>
         </div>
         <div class="pf-ctrl">
           <button type="button" data-dir="-1" aria-label={`${row.cat.name}: önceki`}><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5"></path></svg></button>
@@ -30,11 +30,9 @@ const isPlaceholder = (row) => !row.cat.works.length;
       </div>
       <div class="pf-track">
         {row.items.map((it, i) => (
-          <button class="pf-item" type="button" data-i={i} data-label={it.src ? it.tag : it.title} aria-label={`${row.cat.name} dövme, ${it.src ? it.tag : it.title}. Büyüt`}>
-            {it.src
-              ? <img src={it.src} data-full={it.full} alt={`${row.cat.name} dövme, ${it.tag}`} loading="lazy" decoding="async" style={`object-position:${it.pos}`} />
-              : <canvas data-mode={it.mode} data-seed={it.seed} data-lazy></canvas>}
-            <span>{it.src ? it.tag : it.title}</span>
+          <button class="pf-item" type="button" data-i={i} data-label={it.tag} aria-label={`${row.cat.name} dövme, ${it.tag}. Büyüt`}>
+            <img src={it.src} data-full={it.full} alt={`${row.cat.name} dövme, ${it.tag}`} loading="lazy" decoding="async" style={`object-position:${it.pos}`} />
+            <span>{it.tag}</span>
           </button>
         ))}
       </div>
