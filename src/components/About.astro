@@ -1,5 +1,6 @@
 ---
 import { about } from '../data/about.js';
+
 const [first, ...rest] = about.name.split(' ');
 const last = rest.pop();
 const middle = rest.join(' ');
@@ -16,9 +17,7 @@ const rich = (s) => esc(s).replace(/\*\*(.+?)\*\*/g, '<mark class="hl">$1</mark>
         <circle cx="99" cy="101" r="82" stroke-width="2.2" stroke-dasharray="260 280"></circle>
       </svg>
       <figure class="about-photo">
-        {about.photo
-          ? <img src={about.photo.src} width={about.photo.width} height={about.photo.height} alt="Ulaş Hakan Uysal stüdyoda dövme yaparken" loading="lazy" decoding="async" />
-          : <><canvas data-mode="smoke" data-seed="1984"></canvas><figcaption>Fotoğraf eklenecek</figcaption></>}
+        <img src={about.photo.src} width={about.photo.width} height={about.photo.height} alt="Ulaş Hakan stüdyoda dövme yaparken" loading="lazy" decoding="async" />
       </figure>
     </div>
     <div class="about-text">

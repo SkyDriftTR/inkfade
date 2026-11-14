@@ -17,14 +17,16 @@ import Location from '../components/Location.astro';
 import Footer from '../components/Footer.astro';
 import { site } from '../data/site.js';
 import { faq } from '../data/faq.js';
-const home = Astro.site ? new URL(import.meta.env.BASE_URL, Astro.site).href : undefined;
+import { absolute } from '../lib/url.js';
+
+const home = Astro.site ? absolute('', Astro.site) : undefined;
 // Google'ın haritadaki işletmeyle siteyi eşleştirmesi için yapısal veri
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'TattooParlor',
   name: site.name,
   url: home,
-  image: home ? new URL('og.jpg', home).href : undefined,
+  image: Astro.site ? absolute('og.jpg', Astro.site) : undefined,
   telephone: site.phone.replace(/\s/g, ''),
   address: { '@type': 'PostalAddress', streetAddress: 'Camikebir, Sakarya Cd. Göçgünoğlu Pasajı D:50/10P', postalCode: '57000', addressLocality: 'Sinop Merkez', addressRegion: 'Sinop', addressCountry: 'TR' },
   geo: { '@type': 'GeoCoordinates', latitude: site.lat, longitude: site.lng },

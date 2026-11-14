@@ -1,7 +1,8 @@
 ---
 import Guide from '../layouts/Guide.astro';
 import { groups } from '../data/piercing.js';
-const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : import.meta.env.BASE_URL + '/';
+import { base } from '../lib/url.js';
+
 const faq = [
   { q: 'Piercing’imi ne zaman değiştirebilirim?', a: 'Bölge tamamen iyileşmeden takıyı değiştirme. İlk değişimi stüdyoda yapmanı öneririz; doğru ölçü ve malzemeyi birlikte seçeriz.' },
   { q: 'Piercing’in etrafında şişlik oldu, normal mi?', a: 'İlk günlerde hafif şişlik, kızarıklık ve şeffaf-beyazımsı akıntı normaldir. Şişlik artıyor, iltihaplı akıntı veya ateş varsa doktora başvur ve bize haber ver.' },

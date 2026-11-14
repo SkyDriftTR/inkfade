@@ -1,7 +1,6 @@
 import { works } from './works.js';
 
 // Portfolyo şeritleri. "works" listesine works.js'teki adları yaz; sıralama buradaki gibi olur.
-// "works" boş olan kategoriler "count" kadar kodla çizilmiş yer tutucu gösterir (şimdilik Piercing).
 
 export const categories = [
   {
@@ -31,19 +30,11 @@ export const categories = [
   },
 ];
 
-// Her kategori için gösterilecek öğe listesini üretir.
-export function itemsOf(cat, ci) {
-  if (cat.works.length) {
-    return cat.works.map((id) => {
-      const w = works[id];
-      if (!w) throw new Error(`portfolio.js: "${id}" works.js içinde yok`);
-      return { src: w.sm, full: w.lg, pos: w.pos, title: w.title, tag: w.place };
-    });
-  }
-  return Array.from({ length: cat.count }, (_, i) => ({
-    mode: cat.placeholder[i % cat.placeholder.length],
-    seed: ci * 100 + i * 7 + 1,
-    title: cat.tags[i % cat.tags.length],
-    tag: 'örnek',
-  }));
+/** Kategorideki işleri portfolyo kartı verisine çevirir. */
+export function itemsOf(cat) {
+  return cat.works.map((id) => {
+    const w = works[id];
+    if (!w) throw new Error(`portfolio.js: "${id}" works.js içinde yok`);
+    return { src: w.sm, full: w.lg, pos: w.pos, tag: w.place };
+  });
 }

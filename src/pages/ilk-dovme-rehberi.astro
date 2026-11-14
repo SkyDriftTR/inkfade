@@ -1,6 +1,7 @@
 ---
 import Guide from '../layouts/Guide.astro';
-const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : import.meta.env.BASE_URL + '/';
+import { base } from '../lib/url.js';
+
 const faq = [
   { q: 'Sinop’ta dövme fiyatları ne kadar?', a: 'Dövme fiyatı boyuta, detaya, yerleşime ve seans sayısına göre değişir. Fikrini, yaklaşık ölçüsünü ve referans görselini WhatsApp’tan gönderdiğinde net fiyatı paylaşırız.' },
   { q: 'Kaç yaşında dövme yaptırabilirim?', a: '18 yaşını doldurmuş olman gerekir. Randevu günü kimliğini yanında getir.' },

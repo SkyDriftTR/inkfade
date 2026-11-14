@@ -1,6 +1,7 @@
 ---
 import Guide from '../layouts/Guide.astro';
-const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : import.meta.env.BASE_URL + '/';
+import { base } from '../lib/url.js';
+
 const faq = [
   { q: 'Dövme ne kadar sürede iyileşir?', a: 'Yüzeydeki iyileşme genelde 2–4 hafta sürer. Derinin alt katmanlarının tamamen yenilenmesi 1–2 ayı bulabilir; bu sürede dövme biraz mat görünebilir, sonra netleşir.' },
   { q: 'Dövmeyle duş alabilir miyim?', a: 'Evet, kısa duşlar sorun değil. Dövmeyi suya uzun süre tutma, sert lif kullanma ve havluyla ovmadan, hafifçe bastırarak kurula.' },
