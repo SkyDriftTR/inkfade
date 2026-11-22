@@ -26,6 +26,12 @@ export const guides = [
     description: 'Yeni dövmen nasıl iyileşir? İlk 24 saat, ilk hafta ve sonrası için adım adım bakım, kaçınman gerekenler ve ne zaman doktora başvurmalı.',
   },
   {
+    slug: 'dovme-sonrasi-dus',
+    label: 'Dövmeden Sonra Duş',
+    title: 'Dövmeden Sonra Duş Ne Zaman Alınır? Adım Adım Rehber | Inkfade',
+    description: 'Yeni dövmeyle ilk duş ne zaman alınır, su ne sıcaklıkta olmalı, sabun ve kurulama nasıl yapılır? Sinop Inkfade’den dövme sonrası duş rehberi.',
+  },
+  {
     slug: 'piercing-bakimi',
     label: 'Piercing Bakımı',
     title: 'Piercing Bakımı Nasıl Yapılır? İyileşme Rehberi | Inkfade',

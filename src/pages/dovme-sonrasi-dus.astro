@@ -1,0 +1,60 @@
+---
+import Guide from '../layouts/Guide.astro';
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : import.meta.env.BASE_URL + '/';
+
+const faq = [
+  { q: 'Dövmeden sonra kaç saat duş alınmaz?', a: 'Bu, dövmeni nasıl sardığımıza bağlı. Klasik streç film ya da bantla sarıldıysa onu sana söylenen sürede çıkarırsın, ilk yıkamayı da o zaman yaparsın; genelde aynı günün akşamı ya da ertesi sabah. İnce, şeffaf bir koruyucu film (second skin) yapıştırıldıysa film üzerindeyken kısa duş alabilirsin. Emin değilsen bize yaz.' },
+  { q: 'Dövmeyle sıcak suyla duş alabilir miyim?', a: 'İlk iki hafta ılık su kullan. Sıcak su gözenekleri açar, bölgeyi kızartır ve iyileşen deriyi kurutur; buhar da kabukları erken yumuşatır.' },
+  { q: 'Duşta dövmem ıslandı, sorun olur mu?', a: 'Kısa süre ıslanmasında sorun yok, zaten yıkamamız gerekiyor. Sorun olan, dövmeyi uzun süre suyun altında tutmak ya da suda bekletmek. Duştan sonra hafifçe bastırarak kurula ve ince bir kat krem sür.' },
+  { q: 'Banyoya, küvete ya da havuza ne zaman girebilirim?', a: 'Dövme tamamen iyileşene kadar, yani en az 2–4 hafta küvet, jakuzi, havuz, deniz ve saunadan uzak dur. Bu süre bölgeye ve dövmenin büyüklüğüne göre uzayabilir.' },
+];
+---
+<Guide
+  slug="dovme-sonrasi-dus"
+  kicker="Rehber · Bakım"
+  h1="Dövmeden sonra duş: ne zaman ve nasıl?"
+  lead="Yeni dövmesini yaptıranların ilk sorduğu şeylerden biri: “Ne zaman duş alabilirim?” Cevap basit ama birkaç küçük ayrıntı, dövmenin nasıl iyileşeceğini doğrudan etkiliyor. Stüdyoda anlattıklarımızı buraya toparladık."
+  faq={faq}
+>
+  <p>Bu rehberi <a href={base}>Sinop dövme</a> stüdyomuz Inkfade’de seans sonunda en sık sorulan soruların üzerinden hazırladık. Dövmeni bizde yaptırdıysan bakım notların zaten elinde; burası onların biraz daha ayrıntılı hâli.</p>
+
+  <h2>İlk duş ne zaman?</h2>
+  <p>İlk duşun zamanını, seans sonunda dövmeni nasıl sardığımız belirliyor:</p>
+  <ul>
+    <li><b>Klasik streç film ya da bant:</b> Sana söylediğimiz süre dolunca çıkar, ilk yıkamayı da o zaman yap. Bu genelde aynı günün akşamı ya da ertesi sabaha denk geliyor.</li>
+    <li><b>Şeffaf koruyucu film (second skin):</b> Film üzerindeyken kısa, ılık bir duş alabilirsin. Filmi söylenen gün sayısı dolunca duş altında, ılık suyla yavaşça soy.</li>
+  </ul>
+  <p>Hangisinin sende olduğundan emin değilsen dövmenin fotoğrafını çekip WhatsApp’tan sor, hemen söyleriz.</p>
+
+  <h2>Duşta adım adım</h2>
+  <ol class="guide-steps">
+    <li><b>Ellerini yıka.</b> Dövmeye dokunmadan önce mutlaka.</li>
+    <li><b>Ilık su, kısa duş.</b> 5–10 dakikayı geçmesin. Sıcak su ve buhar iyileşen deriyi yorar.</li>
+    <li><b>Suyu doğrudan tutma.</b> Duş başlığını dövmeye çevirmek yerine suyun bölgeden akıp geçmesine izin ver.</li>
+    <li><b>Parfümsüz, nazik bir sabun.</b> Avucunda köpürtüp parmak uçlarınla, ovmadan yıka. Lif, kese ya da sünger kullanma.</li>
+    <li><b>Sabunu iyice durula.</b> Üzerinde sabun kalıntısı kalmasın.</li>
+    <li><b>Bastırarak kurula.</b> Temiz kâğıt havluyla hafifçe bastır. Bez havlu bakteri taşıyabilir ve kabuklara takılır.</li>
+    <li><b>Birkaç dakika havalandır, sonra ince krem.</b> Deri kuruduktan sonra çok ince bir kat sür; parlamıyorsa doğru miktardır.</li>
+  </ol>
+
+  <h2>Kaçınman gerekenler</h2>
+  <ul>
+    <li>Küvette yatmak, jakuzi, hamam ve sauna (iyileşme bitene kadar)</li>
+    <li>Havuz ve deniz: klor ve tuz iyileşen deriyi tahriş eder</li>
+    <li>Duşta uzun süre beklemek, dövmeyi suda bekletmek</li>
+    <li>Kabuklar yumuşadığında onları ovmak ya da soymak</li>
+    <li>Şampuan ve saç kremi köpüğünün dövmenin üzerinde kalması; boyun, sırt ya da omuz dövmelerinde saçını yıkarken başını öne eğ</li>
+    <li>İyileşme bitene kadar dövmenin üzerinden tıraş olmak</li>
+  </ul>
+
+  <h2>Spor ve terleme</h2>
+  <p>Yoğun terlediğin bir antrenmandan sonra dövmeni aynı şekilde ılık suyla yıka. İlk birkaç gün çok terleten sporu ve dövmeye sürtünen kıyafetleri ertelemek iyileşmeyi kolaylaştırır.</p>
+
+  <p>Duştan sonraki günlük bakım ve iyileşme süreci için <a href={`${base}dovme-bakimi/`}>dövme sonrası bakım rehberimize</a> bakabilirsin. <a href={`${base}sinop-piercing/`}>Sinop piercing</a> yaptırdıysan piercing’in için de <a href={`${base}piercing-bakimi/`}>piercing bakım rehberimiz</a> var.</p>
+
+  <aside class="guide-note">
+    <p><b>Kızarıklık artıyor mu?</b> İlk birkaç gün hafif kızarıklık ve hassasiyet normal. Ama kızarıklık yayılıyor, iltihaplı akıntı oluyor ya da ateşin çıkıyorsa vakit kaybetmeden bir doktora başvur ve bize de haber ver.</p>
+  </aside>
+
+  <p>Yeni bir dövme ya da rötuş için <a href={`${base}#randevu`}>tattoo Sinop randevunu buradan alabilirsin</a>; fikrini yazman yeterli.</p>
+</Guide>

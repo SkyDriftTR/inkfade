@@ -1,0 +1,25 @@
+---
+// Google'daki 5 yıldızlı yorumlardan bir seçki. Veri: src/data/reviews.js (boşsa bölüm gösterilmez).
+import { reviews } from '../data/reviews.js';
+import { site } from '../data/site.js';
+---
+{reviews.length > 0 && (
+  <section class="reviews" id="yorumlar" aria-labelledby="yorumlar-baslik">
+    <div class="wrap reviews-head">
+      <div>
+        <p class="mono">Google yorumları</p>
+        <h2 id="yorumlar-baslik">Gelenler ne diyor</h2>
+      </div>
+      <a class="reviews-all" href={site.mapsUrl} target="_blank" rel="noopener">Tüm yorumları Google'da gör →</a>
+    </div>
+    <ul class="wrap reviews-list">
+      {reviews.map((r) => (
+        <li class="review">
+          <p class="review-stars" aria-label="5 üzerinden 5 yıldız">★★★★★</p>
+          <blockquote><p>{r.text}</p></blockquote>
+          <p class="review-by mono">{r.name}{r.date && <span> · {r.date}</span>}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}

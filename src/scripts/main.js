@@ -514,7 +514,7 @@ function initMotion() {
   gsap.from('.ring-btn svg circle', { strokeDashoffset: 600, duration: 1.6, ease: 'power2.out', stagger: 0.15, scrollTrigger: { trigger: '.ring-btn', start: 'top 85%' } });
 
   /* büyük başlıklar dumanla belirir */
-  $$('.about-name, .styles-head h2, .pf-head h2, .piercing h2, .process h2, .faq-side h2, .book h2, .loc-head h2, .pillars h3').forEach((h) => {
+  $$('.about-name, .styles-head h2, .pf-head h2, .piercing h2, .process h2, .faq-side h2, .book h2, .loc-head h2, .pillars h3, .reviews h2').forEach((h) => {
     gsap.set(h, { opacity: 0, filter: 'blur(14px)', y: 26 });
     ScrollTrigger.create({
       trigger: h, start: 'top 85%', once: true,
