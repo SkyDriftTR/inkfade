@@ -1,17 +1,22 @@
 ---
-// Google'daki 5 yıldızlı yorumlardan bir seçki. Veri: src/data/reviews.js (boşsa bölüm gösterilmez).
+// Google'daki 5 yıldızlı yorumlar: randevu bölümünün hemen üstünde, kendiliğinden kayan kompakt bir şerit.
+// Veri: src/data/reviews.js (boşsa bölüm gösterilmez). Kaydırma: src/scripts/main.js → "yorum şeridi".
 import { reviews, reviewsUrl } from '../data/reviews.js';
 ---
 {reviews.length > 0 && (
   <section class="reviews" id="yorumlar" aria-labelledby="yorumlar-baslik">
     <div class="wrap reviews-head">
       <div>
-        <p class="mono">Google yorumları</p>
+        <p class="mono"><span class="reviews-stars" aria-hidden="true">★★★★★</span> Google yorumları</p>
         <h2 id="yorumlar-baslik">Gelenler ne diyor</h2>
       </div>
-      <a class="reviews-all" href={reviewsUrl} target="_blank" rel="noopener">Tüm yorumları Google'da gör →</a>
+      <div class="reviews-ctrl">
+        <a class="reviews-all" href={reviewsUrl} target="_blank" rel="noopener">Tümünü gör →</a>
+        <button type="button" data-dir="-1" aria-label="Önceki yorum">←</button>
+        <button type="button" data-dir="1" aria-label="Sonraki yorum">→</button>
+      </div>
     </div>
-    <ul class="wrap reviews-list">
+    <ul class="reviews-track" aria-label="Müşteri yorumları">
       {reviews.map((r) => (
         <li class="review">
           <p class="review-stars" aria-label="5 üzerinden 5 yıldız">★★★★★</p>

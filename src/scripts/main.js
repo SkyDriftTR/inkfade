@@ -179,6 +179,32 @@ new IntersectionObserver((es) => { inBook = es[0].isIntersecting; syncFab(); }, 
 new IntersectionObserver((es) => { inFoot = es[0].isIntersecting; syncFab(); }).observe($('.foot-bottom'));
 addEventListener('scroll', syncFab, { passive: true });
 
+/* ---------- yorum şeridi: kendiliğinden yavaşça kayar, üzerine gelince ya da dokununca durur ---------- */
+(function initReviews() {
+  const track = $('.reviews-track');
+  if (!track) return;
+  const step = () => ($('.review', track)?.offsetWidth || 300) + parseFloat(getComputedStyle(track).columnGap || 16);
+  const atEnd = () => track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+  const go = (dir) => {
+    if (dir > 0 && atEnd()) track.scrollTo({ left: 0 });
+    else if (dir < 0 && track.scrollLeft <= 4) track.scrollTo({ left: track.scrollWidth });
+    else track.scrollBy({ left: dir * step() });
+  };
+  let timer = null, paused = false, visible = false;
+  const restart = () => {
+    clearInterval(timer);
+    if (!reduce) timer = setInterval(() => { if (!paused && visible && !document.hidden) go(1); }, 5000);
+  };
+  $$('.reviews-ctrl button').forEach((b) => b.addEventListener('click', () => { go(+b.dataset.dir); restart(); }));
+  if (reduce) return; // animasyon istemeyenlerde otomatik kaydırma yok, oklar çalışır
+  ['pointerenter', 'focusin', 'touchstart'].forEach((ev) => track.addEventListener(ev, () => { paused = true; }, { passive: true }));
+  track.addEventListener('pointerleave', () => { paused = false; });
+  track.addEventListener('focusout', () => { paused = false; });
+  track.addEventListener('touchend', () => setTimeout(() => { paused = false; }, 4000), { passive: true }); // parmak çekilince bir süre sonra devam
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; }, { threshold: 0.4 }).observe(track);
+  restart();
+})();
+
 /* ---------- portfolyo şeritleri ---------- */
 $$('.pf-row').forEach((row) => {
   const tr = $('.pf-track', row);
