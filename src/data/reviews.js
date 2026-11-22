@@ -32,10 +32,6 @@ export const reviews = [
     name: 'Berkay Sezer',
     text: 'profesyonel dövme sanatçısı Ulaş Hakan’a sonsuz teşekkürler, bu şaheseri hayatımın sonuna kadar taşıyacağım için çok mutluyum, ayrıca stüdyo hijyeni üst düzeyiydi ben çok memnun kaldım, tekrardan her şey için teşekkür ederim.',
   },
-  {
-    name: 'Ozcan Korkmaz',
-    text: 'Hijyen ve müşterilere olan tutumu harika, gönül rahatlığı ile işlem yaptırabilirsiniz.',
-  },
 ];
 
 
