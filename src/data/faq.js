@@ -30,7 +30,7 @@ export const faq = [
   },
   {
     q: 'Seanstan önce nelere dikkat etmeliyim?',
-    a: 'Bir gece önce iyi uyu, karnını doyurup gel, bol su iç. Son 24 saatte alkol ve kan sulandırıcı ilaç alma. Bölgeyi rahatça açabileceğin bir şeyler giy.',
+    a: 'Bir gece önce iyi uyu, karnını doyurup gel, bol su iç. Son 24 saatte alkol alma; düzenli kan sulandırıcı ilaç kullanıyorsan önce doktoruna danış ve bize haber ver. Bölgeyi rahatça açabileceğin bir şeyler giy.',
   },
   {
     q: 'Dövme sonrası bakım nasıl olmalı?',

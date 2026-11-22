@@ -2,51 +2,52 @@
 import Guide from '../layouts/Guide.astro';
 const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : import.meta.env.BASE_URL + '/';
 const faq = [
-  { q: 'Sinop’ta dövme fiyatları ne kadar?', a: 'Dövme fiyatı boyuta, detaya, yerleşime ve seans sayısına göre değişir. Fikrini, yaklaşık ölçüsünü ve referans görselini WhatsApp’tan gönderdiğinde net fiyatı paylaşırız.' },
-  { q: 'Kaç yaşında dövme yaptırabilirim?', a: '18 yaşını doldurmuş olman gerekir. Randevu günü kimliğini yanında getir.' },
-  { q: 'Kapora alıyor musunuz?', a: 'Randevuyu kesinleştirmek için kapora alınır ve dövme ücretinden düşülür. Değişiklik için en az 48 saat önce haber vermeni rica ederiz.' },
-  { q: 'Dövme ne kadar sürer?', a: 'Küçük bir fine line parça genelde tek seansta ve kısa sürede biter. Büyük realism çalışmaları ve sleeve’ler birkaç seansa bölünür.' },
+  { q: 'Sinop’ta dövme fiyatları ne kadardır?', a: 'Dövme fiyatı boyut, detay, yerleşim ve seans sayısına göre belirlenir. Fikrinizi, yaklaşık ölçüyü ve varsa referans görselinizi WhatsApp üzerinden ilettiğinizde size net fiyatı bildiririz.' },
+  { q: 'Kaç yaşında dövme yaptırabilirim?', a: 'Dövme için 18 yaşını doldurmuş olmanız gerekmektedir. Randevu günü kimliğinizi yanınızda getirmenizi rica ederiz.' },
+  { q: 'Kapora alıyor musunuz?', a: 'Randevunuzu kesinleştirmek için kapora alınır ve bu tutar dövme ücretinden düşülür. Değişiklik yapmanız gerekirse en az 48 saat önceden bilgi vermenizi rica ederiz.' },
+  { q: 'Dövme ne kadar sürer?', a: 'Küçük bir fine line çalışması genellikle tek seansta ve kısa sürede tamamlanır. Büyük realism çalışmaları ve sleeve’ler ise birkaç seansa bölünür.' },
 ];
 ---
 <Guide
   slug="ilk-dovme-rehberi"
   kicker="Rehber · İlk dövme"
   h1="İlk dövme rehberi: fiyat, acı ve hazırlık"
-  lead="İlk dövmesini yaptıracak hemen herkes aynı şeyleri soruyor: Kaça olur, çok acıtır mı, nereye yaptırayım, öncesinde ne yapayım? Stüdyoda en sık duyduklarımızı buraya yazdık."
+  lead="İlk dövmesini yaptıracak misafirlerimizin sorduğu sorular çoğunlukla benzer: Fiyatı nasıl belirlenir, ne kadar acıtır, hangi bölgeye yaptırılmalı, öncesinde neler yapılmalı? Stüdyomuzda en sık karşılaştığımız soruları bu rehberde bir araya getirdik."
   faq={faq}
 >
-  <p>Bu rehberi <a href={base}>Sinop dövmeci</a> Ulaş Hakan’ın stüdyosu Inkfade’de en sık duyduğumuz sorulardan hazırladık. Hangi tarzın sana uyduğuna karar vermek için önce <a href={`${base}dovme-stilleri/`}>Sinop dövme modelleri ve stilleri</a> sayfamıza da bakabilirsin.</p>
+  <p>Bu rehberi, <a href={base}>Sinop dövmeci</a> Ulaş Hakan’ın stüdyosu Inkfade’de en sık sorulan sorulardan yola çıkarak hazırladık. Size hangi stilin uygun olduğuna karar vermek için <a href={`${base}dovme-stilleri/`}>Sinop dövme modelleri ve stilleri</a> sayfamızı da inceleyebilirsiniz.</p>
 
   <h2>Dövme fiyatları neye göre değişir?</h2>
-  <p>Dövmede sabit bir fiyat listesi yok, çünkü her tasarımın emeği farklı. Fiyatı şu dört şey belirliyor:</p>
+  <p>Her tasarımın gerektirdiği emek farklı olduğu için dövmede sabit bir fiyat listesi bulunmaz. Fiyatı belirleyen başlıca dört etken vardır:</p>
   <ul>
-    <li><b>Boyut:</b> Kaplanan alan büyüdükçe süre ve emek artar.</li>
-    <li><b>Detay:</b> İnce gölgeler, portre ve realism çalışmaları sade çizgilere göre çok daha uzun sürer.</li>
-    <li><b>Yerleşim:</b> Kaburga, diz arkası gibi zor bölgeler daha dikkatli ve yavaş çalışmayı gerektirir.</li>
-    <li><b>Seans sayısı:</b> Büyük işler birden fazla seansa bölünür.</li>
+    <li><b>Boyut:</b> Kaplanan alan büyüdükçe çalışma süresi ve emek artar.</li>
+    <li><b>Detay:</b> İnce gölgelendirme, portre ve realism çalışmaları sade çizgilere göre çok daha uzun sürer.</li>
+    <li><b>Yerleşim:</b> Kaburga ve diz arkası gibi zor bölgeler daha dikkatli ve yavaş çalışmayı gerektirir.</li>
+    <li><b>Seans sayısı:</b> Büyük çalışmalar birden fazla seansa bölünür.</li>
   </ul>
-  <p>Net fiyat için fikrini, yaklaşık ölçüsünü, nereye istediğini ve varsa örnek bir görseli gönder. Bir de şunu söyleyelim: dövme ömür boyu seninle kalıyor, sadece fiyata bakarak karar verme.</p>
+  <p>Net bir fiyat için fikrinizi, yaklaşık ölçüyü, düşündüğünüz bölgeyi ve varsa örnek bir görseli bizimle paylaşabilirsiniz. Dövmenin ömür boyu sizinle kalacağını göz önünde bulundurarak kararınızı yalnızca fiyata göre vermemenizi öneririz.</p>
 
   <h2>Dövme acıtır mı?</h2>
-  <p>Acı hissi kişiden kişiye ve bölgeye göre değişir. Genel olarak:</p>
+  <p>Acı hissi kişiden kişiye ve bölgeden bölgeye değişir. Genel olarak:</p>
   <ul>
-    <li><b>Daha az hassas:</b> Dış ön kol, üst kol dışı, baldır, uyluk ön tarafı.</li>
-    <li><b>Orta:</b> Omuz, sırt, iç ön kol.</li>
-    <li><b>Daha hassas:</b> Kaburga, ayak üstü, bilek kemiği, diz ve dirsek çevresi, boyun.</li>
+    <li><b>Daha az hassas bölgeler:</b> Dış ön kol, üst kolun dış kısmı, baldır, uyluğun ön tarafı.</li>
+    <li><b>Orta hassasiyette bölgeler:</b> Omuz, sırt, iç ön kol.</li>
+    <li><b>Daha hassas bölgeler:</b> Kaburga, ayak üstü, bilek kemiği, diz ve dirsek çevresi, boyun.</li>
   </ul>
-  <p>İlk dövmen için daha az hassas bir yer seçersen işin kolaylaşır. Seans sırasında ne zaman istersen mola veririz.</p>
+  <p>İlk dövmeniz için daha az hassas bir bölge tercih etmeniz deneyiminizi kolaylaştıracaktır. Seans süresince dilediğiniz zaman mola verebiliriz.</p>
 
-  <h2>Nereye yaptırmalıyım?</h2>
-  <p>Tasarımın şekli yeri de belirliyor. Uzun, dikey bir çizim ön kola ya da baldıra, yuvarlak bir kompozisyon omza ya da üst kola, küçük bir fine line bileğe veya köprücük kemiğine yakışır. Görünsün mü, kapalı mı kalsın, onu da baştan düşün. Görüşmede çizimi üzerinde deneyip en iyi durduğu yeri birlikte buluruz. Farklı stillere örnek görmek için <a href={`${base}dovme-stilleri/`}>dövme stilleri sayfamıza</a> bakabilirsin.</p>
+  <h2>Hangi bölgeye yaptırmalıyım?</h2>
+  <p>Tasarımın şekli, en uygun bölgeyi de belirler. Uzun ve dikey tasarımlar ön kol ya da baldıra, yuvarlak kompozisyonlar omuz ya da üst kola, küçük fine line çalışmalar ise bilek veya köprücük kemiğine yakışır. Dövmenin görünür olmasını mı yoksa kapalı kalmasını mı istediğinizi de baştan düşünmenizi öneririz. Görüşme sırasında tasarımı üzerinizde deneyerek en iyi duracağı yeri birlikte belirliyoruz. Farklı stillere örnek görmek için <a href={`${base}dovme-stilleri/`}>dövme stilleri sayfamızı</a> inceleyebilirsiniz.</p>
 
   <h2>Seanstan önce</h2>
   <ul>
-    <li>Bir önceki gece iyi uyu ve aç gelme.</li>
-    <li>Seanstan önceki 24 saatte alkolden ve kan sulandırıcı ilaçlardan uzak dur.</li>
-    <li>Bölgeyi güneşte yakma; yanık ya da tahriş varsa haber ver.</li>
-    <li>Bölgeye rahat ulaşılabilecek kıyafetler giy, yanına su ve atıştırmalık al.</li>
+    <li>Bir önceki gece iyi uyumanızı ve seansa aç gelmemenizi öneririz.</li>
+    <li>Seanstan önceki 24 saat içinde alkol tüketmemenizi rica ederiz.</li>
+    <li>Düzenli olarak kan sulandırıcı bir ilaç kullanıyorsanız, ilacınızla ilgili bir değişiklik yapmadan önce mutlaka doktorunuza danışın ve randevu öncesinde bizi bilgilendirin.</li>
+    <li>Dövme yapılacak bölgeyi güneşte yakmamaya özen gösterin; bölgede yanık ya da tahriş varsa lütfen bize haber verin.</li>
+    <li>Bölgeye rahatça ulaşılabilecek kıyafetler giymenizi, yanınıza su ve hafif bir atıştırmalık almanızı öneririz.</li>
   </ul>
 
   <h2>Seanstan sonra</h2>
-  <p>Dövmenin nasıl görüneceği büyük ölçüde ilk haftalardaki bakıma bağlı. Seans bitince bakım notlarını yazılı olarak veriyoruz; detayları <a href={`${base}dovme-bakimi/`}>dövme sonrası bakım rehberimizde</a> de bulabilirsin.</p>
+  <p>Dövmenizin nasıl görüneceği büyük ölçüde ilk haftalardaki bakıma bağlıdır. Seans sonunda bakım talimatlarını yazılı olarak sizinle paylaşıyoruz; ayrıntıları <a href={`${base}dovme-bakimi/`}>dövme sonrası bakım rehberimizde</a> de bulabilirsiniz.</p>
 </Guide>
