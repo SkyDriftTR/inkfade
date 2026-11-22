@@ -44,3 +44,24 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+
+  # Bing ve IndexNow destekleyen diğer arama motorlarına "sayfalar güncellendi" diye haber verir.
+  # Anahtar dosyası: public/e91c74a8e5790533cc7c64be2d671efd.txt. Sadece özel domainde çalışır; hata verirse yayını etkilemez.
+  indexnow:
+    needs: deploy
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Site haritasındaki adresleri IndexNow'a gönder
+        env:
+          KEY: e91c74a8e5790533cc7c64be2d671efd
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          SITE=$(curl -s -H "Authorization: Bearer $GH_TOKEN" https://api.github.com/repos/${{ github.repository }}/pages | jq -r '.cname // empty')
+          if [ -z "$SITE" ]; then echo "Özel domain yok, atlanıyor."; exit 0; fi
+          sleep 30  # yeni sürümün yayına oturmasını bekle
+          URLS=$(curl -s "https://$SITE/sitemap.xml" | grep -o '<loc>[^<]*</loc>' | sed -e 's/<loc>//' -e 's#</loc>##' | jq -R . | jq -s -c .)
+          echo "Gönderilen adresler: $URLS"
+          curl -s -o /dev/null -w "IndexNow yanıtı: %{http_code}\n" -X POST https://api.indexnow.org/indexnow \
+            -H 'Content-Type: application/json; charset=utf-8' \
+            -d "{\"host\":\"$SITE\",\"key\":\"$KEY\",\"keyLocation\":\"https://$SITE/$KEY.txt\",\"urlList\":$URLS}"
