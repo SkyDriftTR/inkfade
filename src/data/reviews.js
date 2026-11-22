@@ -26,7 +26,11 @@ export const reviews = [
   },
   {
     name: 'Rana Kirpitci',
-    text: 'Tüm piercinglerimi burada yaptırıyorum asla acı hissetmiyorum. İlgileri de çok iyi. Dövme konusunda da çok iyiler. Tüm arkadaslarimi buraya öneriyorum…',
+    text: 'Tüm piercinglerimi burada yaptırıyorum asla acı hissetmiyorum. İlgileri de çok iyi. Dövme konusunda da çok iyiler. Tüm arkadaslarimi buraya öneriyorum',
+  },
+  {
+    name: 'Berkay Sezer',
+    text: 'profesyonel dövme sanatçısı Ulaş Hakan’a sonsuz teşekkürler, bu şaheseri hayatımın sonuna kadar taşıyacağım için çok mutluyum, ayrıca stüdyo hijyeni üst düzeyiydi ben çok memnun kaldım, tekrardan her şey için teşekkür ederim.',
   },
   {
     name: 'Ozcan Korkmaz',

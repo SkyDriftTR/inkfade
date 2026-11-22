@@ -424,15 +424,16 @@ svg.loader-word{color:var(--bone);width:min(42vw,220px);height:auto;aspect-ratio
 .reviews-head h2{font-size:clamp(2.2rem,6vw,4.4rem);line-height:1}
 .reviews-all{color:var(--blue-glow);text-decoration:none;font-size:1rem;border-bottom:1px solid rgba(111,141,255,.4);padding-bottom:2px;transition:color .3s,border-color .3s}
 .reviews-all:hover{color:#fff;border-color:#fff}
-.reviews-list{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,2vw,24px);margin-block:0}
-.review{display:flex;flex-direction:column;gap:14px;padding:clamp(20px,2.4vw,30px);border:1px solid var(--line);border-radius:6px;background:linear-gradient(160deg,rgba(58,99,255,.07),rgba(255,255,255,.015))}
+/* yorumlar farklı uzunlukta: ızgara yerine sütun (masonry) düzeni, tek kalan kart boşluk bırakmaz */
+.reviews-list{list-style:none;columns:3;column-gap:clamp(14px,2vw,24px);margin-block:0}
+.review{display:flex;flex-direction:column;gap:14px;break-inside:avoid;margin-bottom:clamp(14px,2vw,24px);padding:clamp(20px,2.4vw,30px);border:1px solid var(--line);border-radius:6px;background:linear-gradient(160deg,rgba(58,99,255,.07),rgba(255,255,255,.015))}
 .review-stars{margin:0;color:var(--blue-glow);letter-spacing:.18em;font-size:1rem}
 .review blockquote{margin:0;flex:1}
 .review blockquote p{margin:0;color:#d6d4cf;line-height:1.7;font-size:1.02rem}
 .review-by{margin:0;color:var(--bone);font-size:.92rem}
 .review-by span{color:var(--smoke)}
-@media (max-width:980px){.reviews-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:640px){.reviews-list{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:6px;scroll-padding-inline:var(--gut-l)}.reviews-list::-webkit-scrollbar{display:none}.review{flex:0 0 84%;scroll-snap-align:start}}
+@media (max-width:980px){.reviews-list{columns:2}}
+@media (max-width:640px){.reviews-list{columns:auto;display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:6px;scroll-padding-inline:var(--gut-l)}.reviews-list::-webkit-scrollbar{display:none}.review{flex:0 0 84%;scroll-snap-align:start;margin-bottom:0}}
 .pillars{padding-block:clamp(56px,8vw,96px);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .pillars-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));text-align:center}
 .pillars-grid > div{display:grid;justify-items:center;align-content:start;gap:14px;padding:8px clamp(16px,3vw,40px)}
