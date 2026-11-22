@@ -10,11 +10,7 @@ import { reviews, reviewsUrl } from '../data/reviews.js';
         <p class="mono"><span class="reviews-stars" aria-hidden="true">★★★★★</span> Google yorumları</p>
         <h2 id="yorumlar-baslik">Gelenler ne diyor</h2>
       </div>
-      <div class="reviews-ctrl">
-        <a class="reviews-all" href={reviewsUrl} target="_blank" rel="noopener">Tümünü gör →</a>
-        <button type="button" data-dir="-1" aria-label="Önceki yorum">←</button>
-        <button type="button" data-dir="1" aria-label="Sonraki yorum">→</button>
-      </div>
+      <a class="reviews-all" href={reviewsUrl} target="_blank" rel="noopener">Tümünü gör →</a>
     </div>
     <ul class="reviews-track" aria-label="Müşteri yorumları">
       {reviews.map((r) => (
@@ -25,5 +21,9 @@ import { reviews, reviewsUrl } from '../data/reviews.js';
         </li>
       ))}
     </ul>
+    <div class="reviews-ctrl">
+      <button type="button" data-dir="-1" aria-label="Önceki yorum">←</button>
+      <button type="button" data-dir="1" aria-label="Sonraki yorum">→</button>
+    </div>
   </section>
 )}

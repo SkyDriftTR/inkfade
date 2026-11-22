@@ -196,6 +196,25 @@ addEventListener('scroll', syncFab, { passive: true });
     if (!reduce) timer = setInterval(() => { if (!paused && visible && !document.hidden) go(1); }, 5000);
   };
   $$('.reviews-ctrl button').forEach((b) => b.addEventListener('click', () => { go(+b.dataset.dir); restart(); }));
+
+  // mouse ile sürükleme (dokunmatik ekranlarda tarayıcının kendi kaydırması kullanılır)
+  let down = false, startX = 0, startLeft = 0;
+  track.addEventListener('pointerdown', (e) => {
+    if (e.pointerType !== 'mouse' || e.button !== 0) return;
+    down = true; startX = e.clientX; startLeft = track.scrollLeft;
+    track.classList.add('dragging'); paused = true;
+    e.preventDefault();
+  });
+  addEventListener('pointermove', (e) => { if (down) track.scrollLeft = startLeft - (e.clientX - startX); });
+  addEventListener('pointerup', () => {
+    if (!down) return;
+    down = false;
+    // bırakınca en yakın karta otursun
+    const s = step(), target = Math.round(track.scrollLeft / s) * s;
+    track.classList.remove('dragging');
+    track.scrollTo({ left: target });
+    paused = track.matches(':hover'); restart();
+  });
   if (reduce) return; // animasyon istemeyenlerde otomatik kaydırma yok, oklar çalışır
   ['pointerenter', 'focusin', 'touchstart'].forEach((ev) => track.addEventListener(ev, () => { paused = true; }, { passive: true }));
   track.addEventListener('pointerleave', () => { paused = false; });
