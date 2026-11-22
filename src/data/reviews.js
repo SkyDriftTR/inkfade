@@ -34,3 +34,6 @@ export const reviews = [
   },
 ];
 
+
+/** "Tüm yorumları Google'da gör" bağlantısı: Google aramasında işletmenin yorum panelini açar. */
+export const reviewsUrl = 'https://www.google.com/search?q=inkfade+tattoo&hl=tr#sv=CAESzQEKuQEStgEKd0FERGJXZVlDcFMySDNabG5WOWFiX0xTS3FKcXdqUE1ISjJKMVNlZXBrR1FZMU9RRnJ1NlFsS0pIa01URjNOLWNOWWZFRDhsTVRra2NRejRQcmRsYWZIU2Utc3dZZHdWLVIwamg4QnZJbFNQSDFyalRfX0FYX3ZzEhdCcmNDYS1Md0NMZW94YzhQazZtbWlRWRoiQUhOMEU3Rjl1SXhoZURabVU5RktUaU5uejRZNFpWVHh3URIEODA1MRoBMyoAMAA4AUAAGAAgsJXqnws6AEoCEAE';
