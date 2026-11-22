@@ -29,7 +29,7 @@ export const guides = [
     slug: 'dovme-sonrasi-dus',
     label: 'Dövmeden Sonra Duş',
     title: 'Dövmeden Sonra Duş Ne Zaman Alınır? Adım Adım Rehber | Inkfade',
-    description: 'Yeni dövmeyle ilk duş ne zaman alınır, su ne sıcaklıkta olmalı, sabun ve kurulama nasıl yapılır? Sinop Inkfade’den dövme sonrası duş rehberi.',
+    description: 'Yeni dövmeyle ilk duş ne zaman alınır, su ne sıcaklıkta olmalı, hangi ürünler kullanılmalı? Sinop Inkfade’den dövme sonrası duş rehberi.',
   },
   {
     slug: 'piercing-bakimi',
