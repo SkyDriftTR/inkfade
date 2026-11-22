@@ -1,51 +1,51 @@
-// Sık sorulan sorular. Cevapları stüdyonun kendi kurallarına göre düzenle.
+// Sık sorulan sorular (ana sayfa). Ziyaretçiye "siz" diliyle hitap edilir.
 export const faq = [
   {
     q: 'Sinop’ta dövme stüdyonuz nerede?',
-    a: 'Sinop Merkez’deyiz: Camikebir, Sakarya Cd. Göçgünoğlu Pasajı D:50/10P. Yol tarifi için sayfadaki haritayı kullanabilirsin.',
+    a: 'Stüdyomuz Sinop Merkez’de: Camikebir, Sakarya Cd. Göçgünoğlu Pasajı D:50/10P. Yol tarifi için sayfadaki haritayı kullanabilirsiniz.',
   },
   {
     q: 'Randevu nasıl alırım?',
-    a: 'En kolayı WhatsApp. Sayfadaki “Randevu al” butonu seni doğrudan oraya götürür, istersen Instagram’dan da yazabilirsin. Ne düşündüğünü, nereye ve yaklaşık ne büyüklükte istediğini yazıp varsa bir iki örnek görsel eklersen sana uygun günü ve fiyatı hızlıca söyleyebiliriz.',
+    a: 'En hızlı yol WhatsApp’tır. Sayfadaki “Randevu al” butonu sizi doğrudan WhatsApp’a yönlendirir; dilerseniz Instagram üzerinden de ulaşabilirsiniz. Düşündüğünüz tasarımı, bölgeyi ve yaklaşık boyutu yazıp varsa bir iki örnek görsel eklerseniz, size uygun tarihi ve fiyatı kısa sürede bildiririz.',
   },
   {
     q: 'Sinop’ta dövme fiyatları ne kadar?',
-    a: 'Tek bir fiyat söylemek zor, çünkü her dövme farklı. Boyut, detay, bölge ve kaç seans süreceği fiyatı belirliyor; küçük bir fine line ile tam kol realism aynı olmuyor. Fikrini ve ölçüsünü WhatsApp’tan gönder, net fiyatı söyleyelim.',
+    a: 'Her dövme farklı olduğu için tek bir fiyat vermek mümkün değildir. Fiyatı boyut, detay, bölge ve seans sayısı belirler; küçük bir fine line çalışması ile tam kol bir realism çalışması aynı emeği gerektirmez. Fikrinizi ve ölçüyü WhatsApp üzerinden ilettiğinizde size net fiyatı bildiririz.',
   },
   {
     q: 'Kapora alıyor musunuz?',
-    a: 'Randevuyu kesinleştirmek için kapora alıyoruz, sonra dövme ücretinden düşüyoruz. Gelemeyeceksen en az 48 saat önce haber vermeni rica ediyoruz.',
+    a: 'Randevunuzu kesinleştirmek için kapora alınır ve bu tutar dövme ücretinden düşülür. Randevunuza gelemeyecekseniz en az 48 saat önceden bilgi vermenizi rica ederiz.',
   },
   {
     q: 'Kendi tasarımımı getirebilir miyim?',
-    a: 'Tabii, getir. Deride ve o bölgede iyi dursun diye gerekirse birlikte üzerinde oynarız. Yalnız başka bir sanatçının özgün çizimini birebir kopyalamıyoruz.',
+    a: 'Elbette. Tasarımın deride ve seçtiğiniz bölgede iyi durması için gerekirse birlikte düzenleriz. Ancak başka bir sanatçının özgün çalışmasını birebir kopyalamıyoruz.',
   },
   {
     q: 'Dövme çok acıtır mı?',
-    a: 'Açık konuşalım, biraz acıtır. Ne kadar acıtacağı kişiye ve bölgeye bağlı; kemiğe yakın, derinin ince olduğu yerler daha hassas. Seans boyunca ne zaman istersen mola veririz.',
+    a: 'Bir miktar acı hissetmeniz doğaldır; ne kadar hissedeceğiniz kişiye ve bölgeye göre değişir. Kemiğe yakın ve derinin ince olduğu bölgeler daha hassastır. Seans süresince dilediğiniz zaman mola verebiliriz.',
   },
   {
     q: 'Kaç yaşında dövme yaptırabilirim?',
-    a: '18 yaşını doldurmuş olman gerekiyor. Randevuya gelirken kimliğini yanına al.',
+    a: 'Dövme için 18 yaşını doldurmuş olmanız gerekmektedir. Randevunuza gelirken kimliğinizi yanınızda getirmenizi rica ederiz.',
   },
   {
     q: 'Seanstan önce nelere dikkat etmeliyim?',
-    a: 'Bir gece önce iyi uyu, karnını doyurup gel, bol su iç. Son 24 saatte alkol alma; düzenli kan sulandırıcı ilaç kullanıyorsan önce doktoruna danış ve bize haber ver. Bölgeyi rahatça açabileceğin bir şeyler giy.',
+    a: 'Bir önceki gece iyi uyumanızı, seansa tok gelmenizi ve bol su içmenizi öneririz. Seanstan önceki 24 saat içinde alkol tüketmeyin; düzenli olarak kan sulandırıcı bir ilaç kullanıyorsanız önce doktorunuza danışın ve bizi bilgilendirin. Dövme yapılacak bölgeye rahatça ulaşılabilecek kıyafetler tercih edin.',
   },
   {
     q: 'Dövme sonrası bakım nasıl olmalı?',
-    a: 'Seans bitince bakım notlarını yazılı olarak veriyoruz. Özetle: temiz tut, kremi ince sür, kabukları koparma, ilk haftalarda güneşe, denize, havuza ve saunaya girme.',
+    a: 'Seans sonunda bakım talimatlarını yazılı olarak sizinle paylaşıyoruz. Kısaca: bölgeyi temiz tutun, kremi ince bir tabaka hâlinde sürün, kabukları koparmayın ve ilk haftalarda güneşten, denizden, havuzdan ve saunadan uzak durun.',
   },
   {
     q: 'Eski dövmemi kapatabilir misiniz?',
-    a: 'Çoğu zaman evet. Eski dövmenin rengine ve ne kadar koyu olduğuna bakıp onu saklayacak yeni bir tasarım çıkarıyoruz. Çok koyu dövmelerde önce birkaç seans lazerle açtırmak gerekebiliyor.',
+    a: 'Çoğu durumda evet. Eski dövmenin rengine ve koyuluğuna bakarak onu kapatacak yeni bir tasarım hazırlıyoruz. Çok koyu dövmelerde öncesinde birkaç seans lazerle açtırmak gerekebilir.',
   },
   {
     q: 'Piercing için tabanca kullanıyor musunuz?',
-    a: 'Hayır, hepsini tek kullanımlık steril iğneyle yapıyoruz. İlk takılar 316L cerrahi çelik.',
+    a: 'Hayır, tüm piercing işlemlerini tek kullanımlık steril iğneyle yapıyoruz. İlk takılarımız 316L cerrahi çeliktir.',
   },
   {
     q: 'Rötuş ücretli mi?',
-    a: 'İyileştikten sonra gereken ilk rötuş bizden. Bakım notlarına uyulmadığı için bozulan dövmelerde bu geçerli değil.',
+    a: 'İyileşme tamamlandıktan sonra ihtiyaç duyulan ilk rötuş ücretsizdir. Bakım talimatlarına uyulmaması nedeniyle bozulan dövmelerde bu geçerli değildir.',
   },
 ];

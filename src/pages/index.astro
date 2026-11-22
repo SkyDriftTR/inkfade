@@ -42,7 +42,7 @@ const faqSchema = {
   mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
 };
 ---
-<Base title="Sinop Dövme ve Piercing | Inkfade Tattoo, Dövmeci Ulaş Hakan" description="Sinop Merkez'de dövme ve piercing stüdyosu. Black & grey realism, fine line ve kişiye özel dövme modelleri. Fiyat ve randevu için WhatsApp'tan yazın." schema={[schema, faqSchema]}>
+<Base title="Sinop Dövme ve Piercing | Inkfade Tattoo · Randevu Alın" description="Sinop Merkez’de dövme ve piercing stüdyosu. Black & Grey Realism, fine line ve size özel dövme tasarımları. Fiyat bilgisi ve randevu için WhatsApp’tan bize ulaşın." schema={[schema, faqSchema]}>
   <Loader />
   <Nav />
   <Hero />

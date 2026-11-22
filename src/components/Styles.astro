@@ -1,20 +1,20 @@
 ---
 import { works } from '../data/works.js';
 const styles = [
-  { name: 'Black & Grey Realism', tag: 'Uzmanlık alanı', id: 'zeus', text: 'Portreler, heykeller, hayvanlar. Gölgeleri yavaş yavaş kurup fotoğraftaki derinliği deriye taşımaya çalışıyoruz.' },
-  { name: 'Sleeve', tag: 'Tam kol · tam bacak', id: 'basmelek', text: 'Bütün kolu ya da bacağı tek bir hikâye gibi düşünüyoruz. Parçalar birbirine bağlansın diye işi en baştan bütün olarak planlıyoruz.' },
-  { name: 'Oriental', tag: 'Hannya · koi', id: 'hannya', text: 'Hannya, koi, foo dog… Uzak Doğu motiflerini kalın kontur ve black & grey gölgeyle kendi tarzımızda yorumluyoruz.' },
-  { name: 'Sketch & Dotwork', tag: 'Çizgi · nokta', id: 'balance', text: 'Eskiz çizgileri, noktayla verilen gölgeler, yer yer bilerek bırakılmış kırılmalar. Biraz daha deneysel işler.' },
-  { name: 'Fine line', tag: 'İnce çizgi · renk', id: 'lale', text: 'Küçük, ince, sade parçalar. İlk dövmesini yaptıracak olanlar çoğu zaman buradan başlıyor.' },
+  { name: 'Black & Grey Realism', tag: 'Uzmanlık alanı', id: 'zeus', text: 'Portre, heykel ve hayvan figürleri. Gölgeleri katman katman kurarak fotoğraftaki derinliği deriye taşıyoruz.' },
+  { name: 'Sleeve', tag: 'Tam kol · tam bacak', id: 'basmelek', text: 'Kolun ya da bacağın tamamını tek bir hikâye olarak kurguluyor, parçaların birbirine bağlanması için tasarımı en baştan bütün olarak planlıyoruz.' },
+  { name: 'Oriental', tag: 'Hannya · koi', id: 'hannya', text: 'Hannya, koi ve foo dog gibi Uzak Doğu motiflerini güçlü konturlar ve black & grey gölgelendirmeyle kendi yorumumuzla çiziyoruz.' },
+  { name: 'Sketch & Dotwork', tag: 'Çizgi · nokta', id: 'balance', text: 'Eskiz çizgileri, nokta gölgelendirme ve bilinçli bırakılan kırılmalarla daha deneysel çalışmalar.' },
+  { name: 'Fine line', tag: 'İnce çizgi · renk', id: 'lale', text: 'Küçük, ince ve sade çalışmalar. İlk dövmesini yaptıracak misafirlerimizin sıklıkla tercih ettiği bir stil.' },
 ].map((s) => ({ ...s, w: works[s.id] }));
 const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : import.meta.env.BASE_URL + '/';
 ---
 <section class="styles" id="stiller">
   <div class="wrap styles-head">
     <div><p class="mono">Uzmanlık</p><h2>Stiller</h2></div>
-    <p><a class="inline-link" href={`${base}dovme-stilleri/`}>Birçok stilde</a> çalışıyoruz ama en çok uğraştığımız iş Black & Grey Realism. Sana hangisinin yakışacağına ilk görüşmede birlikte karar veririz.</p>
+    <p><a class="inline-link" href={`${base}dovme-stilleri/`}>Pek çok stilde</a> çalışıyoruz; uzmanlık alanımız Black & Grey Realism. Size en uygun stile ilk görüşmede birlikte karar veriyoruz.</p>
   </div>
-  <p class="mono swipe-hint" aria-hidden="true">← Kaydırarak gez →</p>
+  <p class="mono swipe-hint" aria-hidden="true">← Kaydırarak gezin →</p>
   <div class="track">
     {styles.map((s) => (
       <article class="panel">
