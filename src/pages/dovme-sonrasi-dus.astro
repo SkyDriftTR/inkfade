@@ -4,7 +4,7 @@ const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL :
 
 const faq = [
   { q: 'Dövmeden sonra kaç saat duş alınmaz?', a: 'Bu, dövmenizin seans sonunda nasıl kapatıldığına bağlıdır. Klasik streç film ya da bant uygulandıysa, size belirtilen sürenin sonunda çıkarıp ilk yıkamayı o zaman yapabilirsiniz; bu genellikle aynı günün akşamına ya da ertesi sabaha denk gelir. İnce ve şeffaf bir koruyucu film (second skin) uygulandıysa, film üzerindeyken kısa bir duş alabilirsiniz. Emin olamadığınız durumlarda bize ulaşmanızı rica ederiz.' },
-  { q: 'Dövmeyle sıcak suyla duş alabilir miyim?', a: 'İlk iki hafta boyunca ılık su kullanmanızı öneririz. Sıcak su bölgede kızarıklığa yol açar ve iyileşen deriyi kurutur; buhar da kabukların erken yumuşamasına neden olur.' },
+  { q: 'Dövmeyle sıcak suyla duş alabilir miyim?', a: 'Hayır. Dövmeye kesinlikle sıcak su değmemelidir; iyileşme süresince yalnızca ılık su kullanın. Sıcak su bölgede kızarıklığa yol açar ve iyileşen deriyi kurutur; buhar da kabukların erken yumuşamasına neden olur.' },
   { q: 'Duşta dövmem ıslandı, sorun olur mu?', a: 'Kısa süreli ıslanma sorun oluşturmaz; dövmenin zaten düzenli olarak yıkanması gerekir. Kaçınılması gereken, dövmeyi uzun süre suyun altında tutmak ya da suda bekletmektir. Duştan sonra hafifçe bastırarak kurulayıp ince bir kat krem sürmeniz yeterlidir.' },
   { q: 'Küvete, jakuziye ya da havuza ne zaman girebilirim?', a: 'Dövmeniz tamamen iyileşene kadar, yani en az 2–4 hafta boyunca küvet, jakuzi, havuz, deniz ve saunadan uzak durmanızı öneririz. Bu süre bölgeye ve dövmenin büyüklüğüne göre uzayabilir.' },
 ];
@@ -29,16 +29,18 @@ const faq = [
   <h2>Duşta adım adım</h2>
   <ol class="guide-steps">
     <li><b>Ellerinizi yıkayın.</b> Dövmeye dokunmadan önce mutlaka.</li>
-    <li><b>Ilık su ve kısa duş tercih edin.</b> Duş süresinin 5–10 dakikayı geçmemesini öneririz. Sıcak su ve buhar iyileşen deriyi yorar.</li>
+    <li><b>Ilık su ve kısa duş tercih edin.</b> Duş süresinin 5–10 dakikayı geçmemesini öneririz. Dövmeye kesinlikle sıcak su değmemelidir.</li>
     <li><b>Suyu doğrudan tutmayın.</b> Duş başlığını dövmeye çevirmek yerine suyun bölgeden akıp geçmesine izin verin.</li>
-    <li><b>Parfümsüz, hassas bir sabun kullanın.</b> Sabunu avucunuzda köpürtüp parmak uçlarınızla, ovmadan yıkayın. Lif, kese ya da sünger kullanmayın.</li>
-    <li><b>Sabunu iyice durulayın.</b> Dövmenin üzerinde sabun kalıntısı kalmamasına dikkat edin.</li>
+    <li><b>Yalnızca önerdiğimiz ürünü kullanın.</b> Dövmeye bizim önerimiz dışında hiçbir sabun, jel ya da kimyasal ürün değmemelidir. Ürünü avucunuzda köpürtüp parmak uçlarınızla, ovmadan yıkayın. Lif, kese ya da sünger kullanmayın.</li>
+    <li><b>İyice durulayın.</b> Dövmenin üzerinde köpük kalıntısı kalmamasına dikkat edin.</li>
     <li><b>Bastırarak kurulayın.</b> Temiz bir kâğıt havluyla hafifçe bastırın. Bez havlular bakteri taşıyabilir ve kabuklara takılabilir.</li>
     <li><b>Kısa bir süre bekleyip ince bir kat krem sürün.</b> Deri kuruduktan sonra çok ince bir tabaka yeterlidir; bölge parlamıyorsa doğru miktarı kullanmışsınız demektir.</li>
   </ol>
 
   <h2>Kaçınmanız gerekenler</h2>
   <ul>
+    <li>Sıcak su: dövmeye kesinlikle sıcak su değmemelidir</li>
+    <li>Önerimiz dışındaki her türlü sabun, duş jeli ve kimyasal ürün</li>
     <li>İyileşme tamamlanana kadar küvet, jakuzi, hamam ve sauna</li>
     <li>Havuz ve deniz: klor ve tuz iyileşen deriyi tahriş eder</li>
     <li>Duşta uzun süre kalmak ya da dövmeyi suda bekletmek</li>
@@ -48,7 +50,7 @@ const faq = [
   </ul>
 
   <h2>Spor ve terleme</h2>
-  <p>Yoğun terlediğiniz bir antrenmanın ardından dövmenizi aynı şekilde ılık suyla yıkamanızı öneririz. İlk birkaç gün çok terleten sporlara ve dövmeye sürtünen kıyafetlere ara vermeniz iyileşme sürecini kolaylaştırır.</p>
+  <p><b>Tavsiyemiz:</b> İlk 1 hafta boyunca yoğun terleten sporlar ve dövmeyi tahriş edebilecek kıyafetler kesinlikle yasaktır. Bu sürenin ardından terlediğiniz antrenmanlardan sonra dövmenizi ılık suyla yıkamanızı öneririz.</p>
 
   <p>Duş sonrasındaki günlük bakım ve iyileşme süreci için <a href={`${base}dovme-bakimi/`}>dövme sonrası bakım rehberimizi</a> inceleyebilirsiniz. <a href={`${base}sinop-piercing/`}>Sinop piercing</a> yaptırdıysanız <a href={`${base}piercing-bakimi/`}>piercing bakım rehberimiz</a> de size yardımcı olacaktır.</p>
 

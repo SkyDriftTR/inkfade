@@ -3,34 +3,46 @@
 // Liste boşken ana sayfadaki "Yorumlar" bölümü hiç gösterilmez.
 //
 // Örnek kayıt:
-//   { name: 'Ayşe K.', text: 'Yorumun tam metni...', date: 'Ekim 2026' },
+//   { name: 'A*** K***', text: 'Yorumun tam metni...', date: 'Ekim 2026' },
 //
-// name: Google'da görünen ad (istersen soyadı baş harfiyle kısalt)
+// name: Gizlilik için sadece baş harfler görünür, diğer harfler * (ör. 'A*** D*****')
 // date: isteğe bağlı, "Ay Yıl" biçiminde
 export const reviews = [
   {
-    name: 'Emirhan Varol',
+    name: 'E****** V****',
     text: 'Karadeniz bölgesindeki en iyi dövmecilerden biri. Müthiş bir titizlik ve profesyonellikle işini en ince ayrıntısına kadar özenle yapan genç bir dövme sanatçısı. Çok da tecrübeli. Şiddetle tavsiye ederim.',
   },
   {
-    name: 'Yusuf can Parlak',
+    name: 'Y**** c** P*****',
     text: 'Uzun zamandır dövmelerimi ve piercinglerimi inkfade de yaptırıyorum yapılan işlemlerden çok ama çok memnunum herkezde gerçekten rahatlıkla tavsiye ederim',
   },
   {
-    name: 'Ruveyda Kabalar',
+    name: 'R****** K******',
     text: 'Ellerinize sağlık! Yazı çok zarif ve ince işlenmiş. Çizgiler temiz, konumu da çok estetik duruyor. Sonuçtan çok memnun kaldım, kesinlikle tavsiye ederim!',
   },
   {
-    name: 'sudem',
+    name: 's****',
     text: 'Stüdyo gerçekten çok şık ve temiz, gönül rahatlığıyla gelip dövmelerinizi ve piercinglerinizi yaptırabilirsiniz. Ulaş Bey de tasarım ve sanatçılığıyla 1 numara. Başarılarınızın devamını dileriz ve emekleriniz için de teşekkür ederiz.',
   },
   {
-    name: 'Rana Kirpitci',
+    name: 'R*** K*******',
     text: 'Tüm piercinglerimi burada yaptırıyorum asla acı hissetmiyorum. İlgileri de çok iyi. Dövme konusunda da çok iyiler. Tüm arkadaslarimi buraya öneriyorum',
   },
   {
-    name: 'Berkay Sezer',
+    name: 'B***** S****',
     text: 'profesyonel dövme sanatçısı Ulaş Hakan’a sonsuz teşekkürler, bu şaheseri hayatımın sonuna kadar taşıyacağım için çok mutluyum, ayrıca stüdyo hijyeni üst düzeyiydi ben çok memnun kaldım, tekrardan her şey için teşekkür ederim.',
+  },
+  {
+    name: 'A*** D*****',
+    text: 'Kişisel ilgisi ve engin tasarım becerisi 2 ayda bir kendimi yanında bulmama sebep olan Ulaş kardeşimin ellerine sağlık diyorum vücudumda yer kalmadığında çok özleceğim her seferi ayrı bir zevk haline gelen dövme seanslarını..',
+  },
+  {
+    name: 'Z***** Y****',
+    text: 'İşini severek ve titizlikle yapan bir arkadaş. Tüm dövmelerimin bitiminde memnuniyetle ayrıldım. Gönül rahatlığıyla tercih edebilirsiniz.',
+  },
+  {
+    name: 'T***** Y*****',
+    text: 'Öncelikle tekrar teşekkür etmek istiyorum sinopta böyle işçilik ve böyle hoş stüdyo bulabileceğimi sanmıyordum ta ki Ulaş beyi tanıyana kadar.',
   },
 ];
 
